@@ -1,0 +1,242 @@
+<!-- TabBar会员 -->
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { onShow } from '@dcloudio/uni-app'
+import { getMemberInfoAPI, rechargeScoreAPI } from '@/services/member'
+import type { RechargeScore, ResultRechargeScore } from '@/types/member'
+import { useMyStore } from '@/stores/modules/my'
+import type { MemberCard } from '@/types/member'
+
+// 获取用户当前信息
+const myInfo = useMyStore()
+
+
+// 
+const memberInfo = ref<MemberCard>()
+// 获取当前会员积分信息
+const getMemberInfoData = async () => {
+  // const user_id = myInfo.profile!.user_id!
+  let user_id = "1234"
+  const res = await getMemberInfoAPI({ user_id })
+  console.log(res)
+  memberInfo.value = res.data
+  // 把返回的结果更新进本地存储
+  // undo
+}
+// 定义充值积分的函数
+const selectScore = ref<RechargeScore>()
+const rechargeScoreData = async () => {
+  const res = await rechargeScoreAPI(selectScore.value!)
+  // 根据返回结果，需要把积分存入个人账户显示
+  // undo
+}
+
+// 页面只要重新显示就加载
+onShow(() => {
+  getMemberInfoData();
+})
+
+// 充值金额
+const rechageNumList = ref([
+  { id: 1, num: 1000, text: "1000元" },
+  { id: 2, num: 2000, text: "2000元" },
+  { id: 3, num: 3000, text: "3000元" },
+  { id: 4, num: 4000, text: "4000元" },
+  { id: 5, num: 5000, text: "5000元" },
+  { id: 6, num: 6000, text: "6000元" },
+  { id: 7, num: 7000, text: "7000元" },
+  { id: 8, num: 8000, text: "其他金额" }, // 注意这个金额未定，暂时放8000
+])
+
+// 选择金额
+function choiceMoney(id: number) {
+  console.log(id)
+}
+</script>
+
+<template>
+  <view>
+    <!-- 会员卡容器 -->
+    <view class="card-container">
+      <!-- 卡片 -->
+      <view class="card">
+        <image src="https://www.1024.art/projects/mbcstyle_mock/static/images/member/card-img-brown.png"
+          mode="scaleToFill" />
+        <!-- 办飞logo -->
+        <view class="logo-container">
+          <image src="https://www.1024.art/projects/mbcstyle_mock/static/images/member/mbc-center-logo.png"
+            mode="scaleToFill" />
+        </view>
+
+      </view>
+    </view>
+
+    <!-- 卡片遮挡 -->
+    <view class="card-cover-container">
+      <!-- 会员权限版块 -->
+      <view class="member-privilege">
+        <view class="privilege-title">会员权限</view>
+        <view class="privilege-body"></view>
+      </view>
+      <!-- 充值版块 -->
+      <view class="recharge-container">
+        <view class="recharge-title">充值金额</view>
+        <view class="recharge-body">
+          <view class="recharge-num" v-for="item in rechageNumList" :key="item.id" @tap="choiceMoney(item.id)">{{
+            item.text }}</view>
+        </view>
+      </view>
+      <!-- 会员须知 -->
+      <view class="member-ruler-container">
+        <view class="ruler-title">会员须知</view>
+        <!-- undo -->
+      </view>
+
+    </view>
+
+    <!-- 积分容器 -->
+    <view class="score-container"></view>
+
+    <!-- 会员协议 -->
+  </view>
+</template>
+
+<style lang="scss">
+// 卡片容器
+.card-container {
+  position: relative;
+  padding-top: 150rpx;
+  width: 750rpx;
+  height: 520rpx;
+  background: url("https://www.1024.art/projects/mbcstyle_mock/static/images/member/card-bg-brown.png");
+  background-size: 100% 100%;
+
+  .card {
+    position: relative;
+    width: 670rpx;
+    height: 215rpx;
+    margin-left: 50%;
+    transform: translateX(-50%);
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
+
+    // 办飞中心logo
+    .logo-container {
+      position: absolute;
+      top: 10rpx;
+      right: 10rpx;
+      width: 178rpx;
+      height: 63rpx;
+
+      image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+// 卡片遮挡
+.card-cover-container {
+  position: relative;
+  margin-top: -400rpx;
+  padding-top: 150rpx;
+  width: 750rpx;
+  height: 900rpx;
+  background: url("https://www.1024.art/projects/mbcstyle_mock/static/images/member/card-cover.png") top center no-repeat;
+  background-size: 100% 100%;
+  z-index: 100;
+
+  // 会员权限版块
+  .member-privilege {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 620rpx;
+    height: 400rpx;
+    border-radius: 30rpx;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .privilege-title {
+      text-align: center;
+      font-size: 30rpx;
+      color: black;
+    }
+
+    .privilege-body {
+      width: 540rpx;
+      height: 320rpx;
+      background: url("https://www.1024.art/projects/mbcstyle_mock/static/images/member/privilege-list.png") top center no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+
+  // 充值金额版块
+  .recharge-container {
+    margin-top: 15rpx;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 620rpx;
+    height: 200rpx;
+    border-radius: 30rpx;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .recharge-title {
+      margin-bottom: 10rpx;
+      text-align: center;
+      font-size: 30rpx;
+      color: black;
+    }
+
+    .recharge-body {
+      width: 550rpx;
+      height: 130rpx;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+
+      .recharge-num {
+        margin: 0 10rpx;
+        width: 110rpx;
+        height: 48rpx;
+        border: solid 1rpx #ddd4cf;
+        border-radius: 20rpx;
+        background-color: #f8f8f8;
+        font-size: 20rpx;
+        line-height: 48rpx;
+        text-align: center;
+      }
+
+    }
+  }
+
+  // 会员须知
+  .member-ruler-container {
+    margin-top: 15rpx;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding-top: 10rpx;
+    width: 620rpx;
+    height: 250rpx;
+    border-radius: 30rpx;
+    background-color: white;
+
+    .ruler-title {
+      text-align: center;
+      font-size: 30rpx;
+      color: black;
+    }
+  }
+}
+</style>

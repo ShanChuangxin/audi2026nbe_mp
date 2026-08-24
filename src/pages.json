@@ -1,0 +1,188 @@
+{
+	// 组件自动引入规则
+	"easycom": {
+		// 是否开启自动扫描
+		"autoscan": true,
+		// 以正则方式自定义组件匹配规则
+		"custom": {
+			// uni-ui 规则如下配置
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue",
+			// 以 Bf 开头的组件，在 components 文件夹中查找引入（需要重启服务器）
+			"^Bf(.*)": "@/components/Bf$1.vue"
+		}
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "场地导览"
+			}
+		},
+		// 以下是办飞的项目
+		{
+			"path": "pages/member/member",
+			"style": {
+				"navigationBarTitleText": "会员"
+			}
+		},
+		{
+			"path": "pages/order_list/order_list",
+			"style": {
+				"navigationBarTitleText": "订单"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		},
+		{
+			"path": "pages/office_list/office_list",
+			"style": {
+				"navigationBarTitleText": "会议室列表"
+			}
+		},
+		{
+			"path": "pages/venue/venue",
+			"style": {
+				"navigationBarTitleText": "场地合作"
+			}
+		},
+		{
+			"path": "pages/building/building",
+			"style": {
+				"navigationBarTitleText": "场地详情"
+			}
+		},
+		{
+			"path": "pages/score_share/score_share",
+			"style": {
+				"navigationBarTitleText": "赠送积分"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/profile/profile",
+			"style": {
+				"navigationBarTitleText": "个人设置"
+			}
+		},
+		{
+			"path": "pages/collect_list/collect_list",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
+			}
+		},
+		{
+			"path": "pages/involve_list/involve_list",
+			"style": {
+				"navigationBarTitleText": "我参与的"
+			}
+		},
+		{
+			"path": "pages/access_ticket/access_ticket",
+			"style": {
+				"navigationBarTitleText": "门禁使用"
+			}
+		},
+		{
+			"path": "pages/contact_staff/contact_staff",
+			"style": {
+				"navigationBarTitleText": "联系客服"
+			}
+		},
+		{
+			"path": "pages/promotion/promotion",
+			"style": {
+				"navigationBarTitleText": "推广"
+			}
+		},
+		{
+			"path": "pages/order_detail/order_detail",
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
+		},
+		{
+			"path": "pages/checkin_data/checkin_data",
+			"style": {
+				"navigationBarTitleText": "签到统计"
+			}
+		},
+		{
+			"path": "pages/promotion_reward/promotion_reward",
+			"style": {
+				"navigationBarTitleText": "推广收益"
+			}
+		},
+		{
+			"path": "pages/agreement/login_agreement", // 用户登录界面的隐私条款
+			"style": {
+				"navigationBarTitleText": "隐私条款"
+			}
+		},
+		{
+			"path": "pages/agreement/member_agreement", // 会员充值的协议
+			"style": {
+				"navigationBarTitleText": "折扣权益协议"
+			}
+		},
+		{
+			"path": "pages/agreement/order_agreement", // 预订会议室的协议
+			"style": {
+				"navigationBarTitleText": "场地使用须知"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+	// 设置 TabBar
+	// "tabBar": {
+	// 	"color": "#333",
+	// 	"selectedColor": "#4f75fe",
+	// 	"backgroundColor": "#fff",
+	// 	"borderStyle": "white",
+	// 	"list": [
+	// 		{
+	// 			"text": "首页",
+	// 			"pagePath": "pages/index/index",
+	// 			"iconPath": "static/tabs/home_default.png",
+	// 			"selectedIconPath": "static/tabs/home_selected.png"
+	// 		},
+	// 		{
+	// 			"text": "会员",
+	// 			"pagePath": "pages/member/member",
+	// 			"iconPath": "static/tabs/member_default.png",
+	// 			"selectedIconPath": "static/tabs/member_selected.png"
+	// 		},
+	// 		{
+	// 			"text": "订单",
+	// 			"pagePath": "pages/order_list/order_list",
+	// 			"iconPath": "static/tabs/order_default.png",
+	// 			"selectedIconPath": "static/tabs/order_selected.png"
+	// 		},
+	// 		{
+	// 			"text": "我的",
+	// 			"pagePath": "pages/my/my",
+	// 			"iconPath": "static/tabs/my_default.png",
+	// 			"selectedIconPath": "static/tabs/my_selected.png"
+	// 		}
+	// 	]
+	// }
+}
