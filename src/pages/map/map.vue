@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { onLoad, onShow } from '@dcloudio/uni-app'
 import { useMeetingRoomList } from '@/composables'
 import { useMyStore, useSystemStore } from '@/stores'
@@ -8,7 +8,7 @@ import { getOpenIdAPI, getUserInfoAPI } from '@/services/login'
 
 //@ts-ignore
 import UQRCode from "uqrcodejs"; // ts忽略了类型校验
-// 加载二维码
+// 生成二维码
 function loadQrCode(codeValue: string) {
   if (!codeValue) {
     console.log("没有获取到用户的id，返回到登录页面");
@@ -29,7 +29,32 @@ function loadQrCode(codeValue: string) {
   qr.canvasContext = canvasContext;
   // 调用绘制方法将二维码图案绘制到canvas上
   qr.drawCanvas();
+  // 等待Canvas绘制完成，然后转成图片
+  setTimeout(() => {
+    uni.canvasToTempFilePath({
+      canvasId: "qrcode",
+      success: (res) => {
+        console.log("二维码图片生成成功")
+        console.log(res.tempFilePath)
+        qrCodeImage.value = res.tempFilePath
+      },
+      fail: (err) => {
+        console.log("二维码图片生成失败")
+        console.log(err)
+      }
+    })
+  }, 100)
 }
+
+// 页面加载
+onLoad(() => {
+  const openId = myStore.profile?.open_id || ""
+  if (!openId) {
+    console.log("没有获取到 open_id")
+    return
+  }
+  loadQrCode(openId)
+})
 
 // 持久化存储
 const myStore = useMyStore();
@@ -42,17 +67,17 @@ const query = defineProps<{
   scene: string // scene是获取小程序码中官方指定的唯一参数scene，需要解码出需要的参数
 }>();
 
+// 二维码弹窗
 const showQrcode = ref(false);
-const qrCodeLoaded = ref(false);
-function popQrCodeWindow(isPop: boolean) {
-  showQrcode.value = isPop;
-  // 第一次打开时生成二维码
-  if (isPop && !qrCodeLoaded.value) {
-    setTimeout(() => {
-      loadQrCode(myStore.profile?.open_id || "");
-      qrCodeLoaded.value = true;
-    }, 100);
-  }
+// 二维码图片
+const qrCodeImage = ref("")
+function openQrCode() {
+    console.log("打开二维码弹窗");
+    showQrcode.value = true;
+}
+function closeQrCode() {
+    console.log("关闭二维码弹窗");
+    showQrcode.value = false;
 }
 
 // 解析scene参数中的值
@@ -91,17 +116,31 @@ function navigateToMyPage() {
   <view class="page-container">
     <view class="body-view">
       <view class="btn-container">
-        <view class="back-index">主页</view>
-        <view class="qrcode-icon" @tap="popQrCodeWindow(true)">二维码</view>
-        <view class="my-account">账户</view>
+        <view class="back-index" @tap="navigateToIndexPage">主页</view>
+        <view class="qrcode-icon" @tap="openQrCode">二维码</view>
+        <view class="my-account" @tap="navigateToMyPage">账户</view>
       </view>
     </view>
 
+    <!-- 隐藏的 Canvas，只负责生成二维码 -->
+    <canvas
+      id="qrcode"
+      canvas-id="qrcode"
+      class="qrcode-canvas"
+    ></canvas>
+
     <!-- 二维码弹窗 -->
-    <view class="pop-window" v-show="showQrcode" @tap="popQrCodeWindow(false)">
+    <view class="pop-window" v-if="showQrcode" @tap="closeQrCode">
         <!-- 二维码容器 -->
         <view class="qrcode-container" @tap.stop>
-          <canvas id="qrcode" canvas-id="qrcode" class="qrcode-style"></canvas>
+          <!-- <canvas id="qrcode" canvas-id="qrcode" class="qrcode-style"></canvas> -->
+          <!-- 生成好的二维码图片 -->
+          <image
+            v-if="qrCodeImage"
+            :src="qrCodeImage"
+            class="qrcode-style"
+            mode="aspectFit"
+          />
           <view class="proflie_text">ID: {{ myStore.profile?.user_id }}</view>
           <view class="proflie_text">昵称：{{ myStore.profile?.nick_name }}</view>
           <view class="proflie_text">分数：{{ myStore.profile?.score }}</view>
@@ -148,14 +187,26 @@ function navigateToMyPage() {
 
   }
 
+  // 二维码生成画布
+  .qrcode-canvas {
+    position: fixed;
+    left: -9999px;
+    top: -9999px;
+    width: 180px;
+    height: 180px;
+  }
+
   // 推广弹窗
   .pop-window {
-    position: absolute;
+    position: fixed;
     top: 0rpx;
     left: 0rpx;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+
+    // overflow: hidden;
+    z-index: 9999;
+
     display: flex;
     justify-content: center;
     align-items: center;
