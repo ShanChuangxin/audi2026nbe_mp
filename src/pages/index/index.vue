@@ -1,17 +1,26 @@
 <!-- TabBar主页 -->
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { onLoad, onShow } from '@dcloudio/uni-app'
 import { useMeetingRoomList } from '@/composables'
-import { useMyStore } from '@/stores'
+import { useMyStore, useSystemStore } from '@/stores'
 import type { UserInfoType } from '@/types/user_info'
 import { getOpenIdAPI, getUserInfoAPI } from '@/services/login'
 
-const currentCity = "beijing";
+const currentCity = "shanghai";
 
 // 持久化存储
 const myStore = useMyStore();
+const systemStore = useSystemStore();
+// 更新城市
+onLoad(() => {
+    systemStore.updateCity("shanghai")
+    console.log(
+        "当前系统配置:",
+        systemStore.system_config
+    )
+})
 
 // 获取页面参数
 // 页面参数通过defineProps来定义
@@ -83,6 +92,8 @@ const showPrivacy = ref(true);  // false为不显示弹窗；true为显示弹窗
 function closePopWindow(){
   console.log("关闭隐私条款弹窗");
   showPrivacy.value = false;
+  // 跳转至地图页面
+  navigateToMapPage();
 }
 
 // 解析scene参数中的值
@@ -108,7 +119,49 @@ onLoad(async () => {
 //   }
 // )
 
-// 筛选提交
+// 开屏动画相关
+const showSplash = ref(true);
+const isFadeOut = ref(false);
+let timer = null;
+
+onMounted(() => {
+	// 例如视频最长 5 秒，6 秒后强制关闭
+	timer = setTimeout(() => {
+		closeSplash()
+	}, 6000)
+})
+
+const videoPlay = () => {
+    console.log("视频开始播放")
+}
+const videoEnded = () => {
+	console.log('视频播放结束')
+  closeSplash();
+}
+const videoError = (e) => {
+    console.log("视频加载失败", e)
+}
+const closeSplash = () => {
+	if (isFadeOut.value) return
+
+	isFadeOut.value = true
+
+	if (timer) {
+		clearTimeout(timer)
+	}
+
+	setTimeout(() => {
+		showSplash.value = false
+	}, 800)
+}
+
+onUnmounted(() => {
+	if (timer) {
+		clearTimeout(timer)
+	}
+})
+
+// 跳转到地图页面
 function navigateToMapPage() {
   // 把填写的信息以参数形式传到列表页面
   console.log("跳转到地图页面")
@@ -122,23 +175,40 @@ function navigateToMapPage() {
 <template>
   <view class="page-container">
     <view class="body-view">
-      <view class="explore" @tap="navigateToMapPage"></view>
+      <!-- <view class="explore" @tap="navigateToMapPage"></view> -->
     </view>
 
-  
-
-    <!-- 会员权益 -->
+    <!-- 隐私条款弹窗 -->
     <view class="privacy-container" v-if="showPrivacy" @touchmove.stop.prevent="">
         <view class="pop-window">
-          <view class="promotion-card"></view>
-          <view class="close" @tap="closePopWindow">
-            <image
-              src="https://www.mbcstyle.cn/projects/mbc-static/wmp/static/images/index/btn-close.png"
-              mode="scaleToFill"
-            />
+          <view class="privacy-title"></view>
+          <view class="privacy-content"></view>
+          <view class="btn-agree" @tap="closePopWindow">
           </view> 
         </view>
     </view>
+
+    <!-- 开屏动画 -->
+    <view
+			v-if="showSplash"
+			class="splash"
+			:class="{ fadeOut: isFadeOut }"
+		>
+			<video
+				class="splash-video"
+				src="https://www.mbcstyle.cn/projects/static/audi2026nbe/splash-new.mp4"
+				autoplay
+				:controls="false"
+				:show-center-play-btn="false"
+				:show-play-btn="false"
+				:enable-progress-gesture="false"
+				object-fit="cover"
+        @play="videoPlay"
+        @ended="videoEnded"
+        @error="videoError"
+			/>
+		</view>
+
   </view>
 
 </template>
@@ -149,6 +219,8 @@ function navigateToMapPage() {
   .body-view {
     // background-color: #f6f6f6; 
     background-color: skyblue;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/bg.png") top center no-repeat;
+    background-size: 100% 100%;
     width: 100vw;
     height: 100vh;
 
@@ -164,7 +236,7 @@ function navigateToMapPage() {
 
   }
 
-  // 推广弹窗
+  // 隐私条款弹窗
   .privacy-container {
     position: absolute;
     top: 0rpx;
@@ -180,36 +252,64 @@ function navigateToMapPage() {
     background-color: rgba(0, 0, 0, .5);
     
     .pop-window {
-      width: 80%;
-      height: 900rpx;
-      background-color: pink;
+      width: 538rpx;
+      height: 949rpx;
+      // background-color: pink;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/pop-window.png") top center no-repeat;
+      background-size: 100% 100%;
       z-index: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
 
-      .qrcode-container {
+      .privacy-title {
         margin-top: 50rpx;
-        width: 600rpx;
-        height: 580rpx;
+        width: 345rpx;
+        height: 70rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy-title.png") top center no-repeat;
+        background-size: 100% 100%;
+      }
+      .privacy-content {
+        margin-top: 50rpx;
+        width: 389rpx;
+        height: 465rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy-content.png") top center no-repeat;
+        background-size: 100% 100%;
       }
 
-      .close {
-        margin-top:50rpx;
-        width: 90rpx;
-        height: 90rpx;
-        image {
-          width: 100%;
-          height: 100%;
-        }
+      .btn-agree {
+        margin-top: 50rpx;
+        width: 394rpx;
+        height: 60rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/btn-agree.png") top center no-repeat;
+        background-size: 100% 100%;
       }
     }
   }
+
+  // 开屏层
+  .splash {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+  }
+  /* 视频 */
+  .splash-video {
+    width: 100%;
+    height: 100%;
+  }
+  /* 淡出 */
+  .fadeOut {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
-
-
-
 
 
 </style>

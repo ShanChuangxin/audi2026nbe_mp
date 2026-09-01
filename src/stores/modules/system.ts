@@ -5,10 +5,10 @@ import { ref } from 'vue'
 
 // 定义 Store
 export const useSystemStore = defineStore(
-    'my',
+    'system',
     () => {
         // 会员信息
-        const system_config = ref<{ language: "cn" | "en" }>()
+        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu" }>({ language: "cn", city: "beijing" })
 
         // 保存会员信息，登录时使用
         const switchLanguage = () => {
@@ -19,9 +19,15 @@ export const useSystemStore = defineStore(
             }
         }
 
+        // 设置城市
+        const updateCity = (val: string) => {
+            system_config.value!.city = val;
+        }
+
         // 记得 return
         return {
             system_config,
+            updateCity,
             switchLanguage,
         }
     },

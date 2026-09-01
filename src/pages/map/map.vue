@@ -20,7 +20,7 @@ function loadQrCode(codeValue: string) {
   // 设置二维码内容
   qr.data = codeValue;
   // 设置二维码大小，必须与canvas设置的宽高一致
-  qr.size = 180;
+  qr.size = 250;
   // 调用制作二维码方法
   qr.make();
   // 获取canvas上下文
@@ -92,13 +92,24 @@ function parseScene(scene: string): Record<string, string> {
   return params;
 }
 
-// 返回主页
-function navigateToIndexPage() {
-  // 把填写的信息以参数形式传到列表页面
-  console.log("跳转到主页面")
-  // uni.navigateTo({ url: `/pages/office_list/office_list?num_type=${peopleNum.value}&table_type=${selectedTableType.value}&city_type=${selectedCityType.value}&purpose_type=${selectedPurposeType.value}` })
-  uni.navigateTo({url: "/pages/index/index"});
+function navigateToAudiArchiveStudio() {
+  console.log("跳转到拍照互动页面")
+  uni.navigateTo({url: "/pages/audi_vision/audi_vision"});
+}
 
+function navigateToAudiMusicCapsule() {
+  console.log("跳转到音乐互动页面")
+  uni.navigateTo({url: "/pages/audi_vision/audi_vision"});
+}
+
+function navigateToAudiMiniatureCity() {
+  console.log("跳转到赛车互动页面")
+  uni.navigateTo({url: "/pages/audi_vision/audi_vision"});
+}
+
+function navigateToAudiTennisChallenge() {
+  console.log("跳转到网球互动页面")
+  uni.navigateTo({url: "/pages/audi_vision/audi_vision"});
 }
 
 // 跳转到我的账户
@@ -106,7 +117,7 @@ function navigateToMyPage() {
   // 把填写的信息以参数形式传到列表页面
   console.log("跳转到账户页面")
   // uni.navigateTo({ url: `/pages/office_list/office_list?num_type=${peopleNum.value}&table_type=${selectedTableType.value}&city_type=${selectedCityType.value}&purpose_type=${selectedPurposeType.value}` })
-  uni.navigateTo({url: "/pages/my/my"});
+  uni.navigateTo({url: "/pages/profile/profile"});
 
 }
 
@@ -115,10 +126,34 @@ function navigateToMyPage() {
 <template>
   <view class="page-container">
     <view class="body-view">
+      <!-- 顶部 -->
+      <view class="top-container">
+        <!-- 标题 -->
+         <view class="map-text"></view>
+         <view class="language"></view>
+      </view>
+
+      <!-- 地图容器 -->
+      <view class="map-container">
+        <!-- Audi Archive Studio -->
+         <view class="audi-archive-studio" @tap="navigateToAudiArchiveStudio"></view>
+        <!-- Audi 4D Cinema -->
+         <view class="audi-4d-cinema" @tap="()=>{console.log('跳转到Audi 4D Cinema')}"></view>
+        <!-- Audi Music Capsule -->
+         <view class="audi-music-capsule" @tap="navigateToAudiMusicCapsule"></view>
+        <!-- Audi Miniature City -->
+         <view class="audi-miniature-city" @tap="navigateToAudiMiniatureCity"></view>
+        <!-- Audi Tennis Challenge -->
+         <view class="audi-tennis-challenge" @tap="navigateToAudiTennisChallenge"></view>
+
+      </view>
+       
+
+
+      <!-- 底部按钮栏 -->
       <view class="btn-container">
-        <view class="back-index" @tap="navigateToIndexPage">主页</view>
-        <view class="qrcode-icon" @tap="openQrCode">二维码</view>
-        <view class="my-account" @tap="navigateToMyPage">账户</view>
+        <view class="qrcode-icon" @tap="openQrCode"></view>
+        <view class="my-account" @tap="navigateToMyPage"></view>
       </view>
     </view>
 
@@ -135,15 +170,13 @@ function navigateToMyPage() {
         <view class="qrcode-container" @tap.stop>
           <!-- <canvas id="qrcode" canvas-id="qrcode" class="qrcode-style"></canvas> -->
           <!-- 生成好的二维码图片 -->
-          <image
-            v-if="qrCodeImage"
-            :src="qrCodeImage"
-            class="qrcode-style"
-            mode="aspectFit"
-          />
-          <view class="proflie_text">ID: {{ myStore.profile?.user_id }}</view>
-          <view class="proflie_text">昵称：{{ myStore.profile?.nick_name }}</view>
-          <view class="proflie_text">分数：{{ myStore.profile?.score }}</view>
+          <view class="qr-bg">
+            <image v-if="qrCodeImage" :src="qrCodeImage" class="qrcode-style" mode="aspectFit"/>
+          </view>
+          <view class="text-container">
+            <view class="proflie_text">ID: {{ myStore.profile?.user_id }}</view>
+            <view class="proflie_text">昵称：{{ myStore.profile?.nick_name }}</view>
+          </view>
         </view>
     </view>
   </view>
@@ -155,9 +188,93 @@ function navigateToMyPage() {
 .page-container {
   .body-view {
     // background-color: #f6f6f6; 
-    background-color: skyblue;
+    // background-color: skyblue;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/bg.png") top center no-repeat;
+    background-size: 100% 100%;
     width: 100vw;
     height: 100vh;
+    // 顶部Bar
+    .top-container {
+      position: absolute;
+      top: 50rpx;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      // background-color: pink;
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .map-text {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/text-map.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 71rpx;
+        height: 21rpx;
+      }
+      .language {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 60rpx;
+        height: 60rpx;
+      }
+    }
+
+    // 地图容器
+    .map-container {
+      position: absolute;
+      top: 150rpx;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/map.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 750rpx;
+      height: 1035rpx;
+      .audi-archive-studio {
+        position: absolute;
+        top: -12rpx;
+        right: 55rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-archive-studio.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 291rpx;
+        height: 258rpx;
+      }
+      .audi-4d-cinema {
+        position: absolute;
+        top: 275rpx;
+        right: 195rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-4d-cinema.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 230rpx;
+        height: 123rpx;
+      }
+      .audi-music-capsule {
+        position: absolute;
+        top: 470rpx;
+        left: 80rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-music-capsule.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 262rpx;
+        height: 68rpx;
+      }
+      .audi-miniature-city {
+        position: absolute;
+        top: 700rpx;
+        right: 155rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-miniature-city.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 332rpx;
+        height: 40rpx;
+      }
+      .audi-tennis-challenge {
+        position: absolute;
+        top: 880rpx;
+        left: 175rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-tennis-challenge.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 283rpx;
+        height: 117rpx;
+      }
+
+    }
 
     .btn-container {
       position: absolute;
@@ -165,23 +282,22 @@ function navigateToMyPage() {
       margin-left: 50%;
       transform: translateX(-50%);
       // background-color: pink;
-      width: 90%;
-      height: 80rpx;
-      .back-index {
-        position: absolute;
-        left: 10rpx;
-        bottom: 10rpx
-      }
+      width: 40%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
       .qrcode-icon {
-        position: absolute;
-        bottom: 10rpx;
-        margin-left: 50%;
-        transform: translateX(-50%);
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/qrcode.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 60rpx;
+        height: 60rpx;
       }
       .my-account {
-        position: absolute;
-        right: 10rpx;
-        bottom: 10rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/profile.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 60rpx;
+        height: 60rpx;
       }
     }
 
@@ -217,28 +333,52 @@ function navigateToMyPage() {
       // 二维码容器
       .qrcode-container {
         width: 500rpx;
-        height: 500rpx;
+        height: 550rpx;
+        border-radius: 30rpx;
+        border: solid 1rpx white;
         z-index: 1;
-        background-color: white;
+        background-color: rgba(255, 255, 255, .4);
         padding-top: 50rpx;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-items: center;
 
-        .qrcode-style {
-          margin: 10rpx;
-          width: 180px;
-          height: 180px;
+        .qr-bg {
+          margin-top: 50rpx;
+          width: 260rpx;
+          height: 260rpx;
+          padding: 15rpx;
+          border-radius: 15rpx;
+          background: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+           .qrcode-style {
+            // margin: 10rpx;
+            width: 250px;
+            height: 250px;
+          }
         }
-        .proflie_text {
-          width: 100%;
-          height: 30rpx;
-          line-height: 30rpx;
-          text-align: center;
-          font-size: 25rpx;
-          color: #adadad;
+
+        .text-container {
+          margin-top: 20rpx;
+          width: 360rpx;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .proflie_text {
+            margin-top: 10rpx;
+            width: 100%;
+            height: 30rpx;
+            line-height: 30rpx;
+            text-align: center;
+            font-size: 25rpx;
+            color: white;
+          }
         }
+       
+        
       }
     }
 }
