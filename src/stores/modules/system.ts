@@ -8,7 +8,7 @@ export const useSystemStore = defineStore(
     'system',
     () => {
         // 会员信息
-        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu" }>({ language: "cn", city: "beijing" })
+        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu", pop_ruler: boolean }>({ language: "cn", city: "beijing", pop_ruler: true })
 
         // 保存会员信息，登录时使用
         const switchLanguage = () => {
@@ -21,7 +21,13 @@ export const useSystemStore = defineStore(
 
         // 设置城市
         const updateCity = (val: string) => {
-            system_config.value!.city = val;
+            system_config.value!.city = val as "beijing" | "shanghai" | "chengdu";
+        }
+
+        // 设置是否弹窗体验规则
+        const upatePopRuler = (isPop: boolean) => {
+            console.log("更新体验弹窗设置");
+            system_config.value.pop_ruler = isPop;
         }
 
         // 记得 return
@@ -29,6 +35,7 @@ export const useSystemStore = defineStore(
             system_config,
             updateCity,
             switchLanguage,
+            upatePopRuler
         }
     },
     {

@@ -39,7 +39,6 @@ const generateQRCode = () => {
   console.log('二维码绘制完成')
 }
 
-
 // 获取屏幕安全区域
 const { safeAreaInsets } = uni.getSystemInfoSync()
 
@@ -149,6 +148,26 @@ const editNickName = () => {
 }
 
 /**
+ * 计算昵称的视觉长度
+ *
+ * 汉字 = 2
+ * 英文、数字 = 1
+ */
+const getNickNameLength = (name: string) => {
+  let length = 0
+  for (const char of name) {
+    // 中文及全角字符
+    if (/[\u4e00-\u9fa5]/.test(char)) {
+      length += 2
+    } else {
+      // 英文、数字等
+      length += 1
+    }
+  }
+  return length
+}
+
+/**
  * 昵称输入框失焦
  * 自动保存
  */
@@ -168,12 +187,17 @@ const onNickNameBlur = async () => {
   // 昵称不能为空
   if (!nick_name) {
     uni.showToast({ icon: 'none', title: '昵称不能为空' });
-
     // 恢复旧昵称
     nickNameInput.value = oldNickName;
     return
   }
-
+  // 昵称长度限制
+  if(getNickNameLength(nick_name) > 18) {
+    uni.showToast({ icon: 'none', title: '昵称过长' });
+    // 恢复旧昵称
+    nickNameInput.value = oldNickName;
+    return
+  }
   // 昵称没有变化，不请求服务器
   if (nick_name === oldNickName) {
     return
@@ -253,23 +277,16 @@ const onNickNameBlur = async () => {
 const uploadFile = (file: string) => {
   uni.uploadFile({
     url: '/update_avatar',
-
     name: 'file',
-
     filePath: file,
-
     formData: {
-      user_id: myStore.profile?.user_id
+      open_id: myStore.profile?.open_id
     },
-
     success: (res) => {
       console.log('头像上传结果：', res)
-
       if (res.statusCode === 200) {
         const result = JSON.parse(res.data)
-
         console.log('解析后的返回信息：', result)
-
         if (result.errcode === 0) {
           // 更新当前页面头像
           profile.value.avatar = result.data.avatar_url
@@ -278,7 +295,6 @@ const uploadFile = (file: string) => {
           if (myStore.profile) {
             myStore.profile.avatar = result.data.avatar_url
           }
-
           uni.showToast({
             icon: 'success',
             title: '更新成功'
@@ -299,7 +315,6 @@ const uploadFile = (file: string) => {
 
     fail: (error) => {
       console.error('上传头像失败：', error)
-
       uni.showToast({
         icon: 'none',
         title: '网络错误~'
@@ -314,202 +329,339 @@ const uploadFile = (file: string) => {
 const onAvatarChange = () => {
   // H5 / APP
   // #ifdef H5 || APP-PLUS
-
   uni.chooseImage({
     count: 1,
-
     success: (res) => {
       const tempFilePaths = res.tempFilePaths
-
       uploadFile(tempFilePaths[0])
     }
   })
-
   // #endif
 
   // 微信小程序
   // #ifdef MP-WEIXIN
-
   uni.chooseMedia({
     // 选择数量
     count: 1,
-
     // 只选择图片
     mediaType: ['image'],
-
     success: (res) => {
       const { tempFilePath } = res.tempFiles[0]
-
       uploadFile(tempFilePath)
     }
   })
 
   // #endif
 }
+
+// 关闭规则体验弹窗
+function closePopWindow(){
+  console.log("关闭规则体验弹窗");
+  systemStore.upatePopRuler(false); // 更新进本地存储
+}
 </script>
 
 <template>
+
+  <!-- 顶部 -->
+  <view class="top-container">
+    <!-- 标题 -->
+      <view class="language"></view>
+      <view class="prize-ruler"></view>
+  </view>
+
   <!-- 顶部个人信息 -->
   <view class="profile-container">
     <!-- 用户头像 -->
     <view class="head-container" @tap="onAvatarChange">
       <image class="image" :src="profile.avatar" mode="aspectFill" />
+      <view class="avatar-update"></view>
     </view>
 
-    <!-- 用户 ID -->
-    <view class="user-id"> ID：{{ profile.user_id }} </view>
+    <view class="info-container">
+      <!-- 用户 ID -->
+      <view class="user-id"> User ID：{{ profile.user_id }} </view>
 
-    <!-- 用户昵称 -->
-    <view class="user-name">
-      <!-- 正常显示昵称 -->
-      <view v-if="!isEditingName" class="nickname-text" @tap="editNickName" >
-        <text> 昵称：{{ profile.nick_name || '点击设置昵称' }} </text>
-        <text class="edit-icon"> ✎ </text>
+      <!-- 用户昵称 -->
+      <view class="user-name">
+        <!-- 正常显示昵称 -->
+        <view v-if="!isEditingName" class="nickname-text" @tap="editNickName" >
+          <text class="nickname-value"> Name：{{ profile.nick_name || '点击设置昵称' }} </text>
+          <text class="edit-icon"></text>
+        </view>
+        <!-- 编辑昵称 -->
+        <input v-else v-model="nickNameInput" class="nickname-input" type="text" :focus="true" :maxlength="20" confirm-type="done" @blur="onNickNameBlur" />
       </view>
-      <!-- 编辑昵称 -->
-      <input v-else v-model="nickNameInput" class="nickname-input" type="text" :focus="true" :maxlength="20" confirm-type="done" @blur="onNickNameBlur" />
     </view>
-
-
   </view>
 
   <!-- 用户完成的打卡数量 -->
-  <view class="experience-count">
-    {{ experienceCount }} / 4
+  <view class="experience-container">
+    <view class="experience-label"></view>
+    <view class="experience-count">
+      {{ experienceCount }} / 6
+    </view>
   </view>
 
   <!-- 用户二维码 -->
   <view class="qrcode-container">
-    <canvas
-      id="qrcode"
-      canvas-id="qrcode"
-      class="qrcode"
-    ></canvas>
-    <view class="qrcode-id">
-      {{ profile.open_id }}
+    <view class="qrcode-label"></view>
+    <view class="qrcode-bg">
+      <canvas
+        id="qrcode"
+        canvas-id="qrcode"
+        class="qrcode"
+      ></canvas>
     </view>
+  </view>
+
+  <!-- 体验规则弹窗 -->
+  <view class="ruler-container" v-if="systemStore.system_config.pop_ruler" @tap="closePopWindow">
+      <view class="pop-window" @tap.stop >
+        <view class="pop-content">
+          <view class="btn-close" @tap="closePopWindow">
+        </view>
+        </view> 
+      </view>
   </view>
 
 </template>
 
 <style lang="scss">
 page {
-  background-color: #f5f5f5;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/bg.jpg") top center no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  // padding-top: 100rpx;
+}
+
+// 顶部Bar
+.top-container {
+  position: absolute;
+  top: 50rpx;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  // background-color: pink;
+  width: 90%;
+  .prize-ruler {
+    float: right;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/prize-ruler.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 60rpx;
+    height: 60rpx;
+  }
+  .language {
+    float: right;
+    margin-left: 40rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 60rpx;
+    height: 60rpx;
+  }
 }
 
 /* 顶部个人信息 */
 .profile-container {
+  margin-top: 200rpx;
   width: 750rpx;
-  height: 410rpx;
-
-  background:
-    url("https://www.mbcstyle.cn/projects/mbc-static/wmp/static/images/my/profile-bg.png")
-    bottom center
-    no-repeat;
-
-  background-size: 100% 100%;
-
+  height: 360rpx;
   position: relative;
   box-sizing: border-box;
 
-  padding-top: 60rpx;
-
   /* 用户头像 */
   .head-container {
+    position: relative;
     margin-left: 50%;
     transform: translateX(-50%);
-
     width: 180rpx;
     height: 180rpx;
-
     border: solid 2px white;
     border-radius: 100rpx;
-
-    overflow: hidden;
-
+    // overflow: hidden;
     image {
       width: 100%;
       height: 100%;
+      border-radius: 100rpx;
+      overflow: hidden;
+    }
+    .avatar-update {
+      position: absolute;
+      right: 0rpx;
+      bottom: 0rpx;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/update-avatar.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 47rpx;
+      height: 47rpx;
     }
   }
 
-  /* 用户 ID */
-  .user-id {
-    margin-top: 15rpx;
+  // 用户信息
+  .info-container {
+    margin-top: 40rpx;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 56%;
+    height: 300rpx;
+    // background-color: pink;
+    /* 用户 ID */
+    .user-id {
+      margin-top: 15rpx;
+      text-align: left;
+      color: white;
+      font-size: 30rpx;
+    }
+    /* 昵称区域 */
+    .user-name {
+      margin-top: 15rpx;
+      width: 100%;
+      min-height: 60rpx;
+    }
+    /* 普通显示昵称 */
+    .nickname-text {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      // padding: 10rpx 20rpx;
+      color: white;
+      font-size: 30rpx;
+      white-space: nowrap;
+      .nickname-value {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+        min-width: 0;
+      }
+      .edit-icon {
+        flex-shrink: 0;
+        margin-left: 15rpx;
+        // font-size: 26rpx;
+        // opacity: 0.8;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/update-nickname.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 24rpx;
+        height: 24rpx;
+      }
+    }
 
-    text-align: center;
-
-    color: white;
-    font-size: 26rpx;
+    /* 编辑昵称输入框 */
+    .nickname-input {
+      width: 400rpx;
+      height: 60rpx;
+      text-align: center;
+      color: white;
+      font-size: 30rpx;
+      border-bottom: 1px solid white;
+    }
   }
+}
 
-  /* 昵称区域 */
-  .user-name {
-    margin-top: 15rpx;
-
-    width: 100%;
-    min-height: 60rpx;
-
+// 用户完成的打卡数量
+.experience-container {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 84%;
+  height: 130rpx;
+  border-top: solid #D9D8DD 1rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .experience-label {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-experience.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 310rpx;
+    height: 25rpx;
+  }
+  .experience-count {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #9570FF;
   }
+}
 
-  /* 普通显示昵称 */
-  .nickname-text {
+
+/* 二维码 */
+.qrcode-container {
+  position: relative;
+  z-index: 1;
+
+  margin: auto;
+  padding-top: 50rpx;
+  // background-color: pink;
+  border-top: solid #D9D8DD 1rpx;
+  width: 84%;
+  .qrcode-label {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-qrcode.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 201rpx;
+    height: 29rpx;
+  }
+  .qrcode-bg {
+    margin: 80rpx auto 0;
     display: flex;
+    width: 290rpx;
+    flex-direction: column;
     align-items: center;
+    background-color: white;
+    border-radius: 21rpx;
+    padding: 30rpx;
+    box-sizing: border-box;
+    .qrcode {
+      position: relative;
+      z-index: 1;
+      width: 120px;
+      height: 120px;
+    }
+  } 
+}
 
-    padding: 10rpx 20rpx;
-
-    color: white;
-    font-size: 30rpx;
-
-    .edit-icon {
-      margin-left: 15rpx;
-
-      font-size: 26rpx;
-
-      opacity: 0.8;
+// 体验规则弹窗
+  .ruler-container {
+    position: fixed;
+    top: 0rpx;
+    left: 0rpx;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: black;
+    // opacity: .5;
+    background-color: rgba(0, 0, 0, .5);
+    .pop-window {
+      width: 538rpx;
+      height: 654rpx;
+      // background-color: pink;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/pop-bg.png") top center no-repeat;
+      background-size: 100% 100%;
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .pop-content {
+        position: relative;
+        margin-top: 50rpx;
+        width: 410rpx;
+        height: 455rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/pop-content.png") top center no-repeat;
+        background-size: 100% 100%;
+        .btn-close {
+          position: absolute;
+          bottom: 0;
+          margin-top: 50rpx;
+          // background-color: pink;
+          width: 410rpx;
+          height: 60rpx;
+        }
+      }
     }
   }
 
-  /* 编辑昵称输入框 */
-  .nickname-input {
-    width: 400rpx;
-    height: 60rpx;
-
-    text-align: center;
-
-    color: white;
-    font-size: 30rpx;
-
-    border-bottom: 1px solid white;
-  }
-}
-/* 二维码 */
-.qrcode-container {
-  margin: 40rpx auto 0;
-  width: 360rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  border-radius: 21rpx;
-  padding: 30rpx;
-  box-sizing: border-box;
-}
-
-.qrcode {
-  width: 120px;
-  height: 120px;
-}
-
-.qrcode-id {
-  margin-top: 20rpx;
-  font-size: 28rpx;
-  color: #333;
-  text-align: center;
-  word-break: break-all;
-}
 </style>

@@ -128,7 +128,7 @@ onMounted(() => {
 	// 例如视频最长 5 秒，6 秒后强制关闭
 	timer = setTimeout(() => {
 		closeSplash()
-	}, 6000)
+	}, 7000)
 })
 
 const videoPlay = () => {
@@ -196,7 +196,7 @@ function navigateToMapPage() {
 		>
 			<video
 				class="splash-video"
-				src="https://www.mbcstyle.cn/projects/static/audi2026nbe/splash-new.mp4"
+				src="https://www.mbcstyle.cn/projects/static/audi2026nbe/splash.mp4"
 				autoplay
 				:controls="false"
 				:show-center-play-btn="false"
