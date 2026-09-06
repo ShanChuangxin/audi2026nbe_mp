@@ -54,6 +54,9 @@ onLoad(() => {
     return
   }
   loadQrCode(openId)
+
+  // 获取参数
+  console.log(parseScene(query))
 })
 
 // 持久化存储
@@ -94,22 +97,22 @@ function parseScene(scene: string): Record<string, string> {
 
 function navigateToAudiArchiveStudio() {
   console.log("跳转到拍照互动页面")
-  uni.navigateTo({url: "/pages/audi_vision/audi_vision"});
+  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
 }
 
 function navigateToAudiMusicCapsule() {
   console.log("跳转到音乐互动页面")
-  uni.navigateTo({url: "/pages/audi_vision/audi_vision"});
+  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
 }
 
 function navigateToAudiMiniatureCity() {
   console.log("跳转到赛车互动页面")
-  uni.navigateTo({url: "/pages/audi_vision/audi_vision"});
+  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
 }
 
 function navigateToAudiTennisChallenge() {
   console.log("跳转到网球互动页面")
-  uni.navigateTo({url: "/pages/audi_vision/audi_vision"});
+  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
 }
 
 // 跳转到我的账户

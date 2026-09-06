@@ -31,7 +31,13 @@
 			}
 		},
 		{
-			"path": "pages/audi_vision/audi_vision",
+			"path": "pages/audi_vision_index/audi_vision_index",
+			"style": {
+				"navigationBarTitleText": "Audi Vision"
+			}
+		},
+		{
+			"path": "pages/audi_vision_detail/audi_vision_detail",
 			"style": {
 				"navigationBarTitleText": "Audi Vision"
 			}
@@ -95,12 +101,6 @@
 			"path": "pages/involve_list/involve_list",
 			"style": {
 				"navigationBarTitleText": "我参与的"
-			}
-		},
-		{
-			"path": "pages/access_ticket/access_ticket",
-			"style": {
-				"navigationBarTitleText": "门禁使用"
 			}
 		},
 		{
