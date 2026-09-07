@@ -20,7 +20,7 @@ function loadQrCode(codeValue: string) {
   // 设置二维码内容
   qr.data = codeValue;
   // 设置二维码大小，必须与canvas设置的宽高一致
-  qr.size = 250;
+  qr.size = 240;
   // 调用制作二维码方法
   qr.make();
   // 获取canvas上下文
@@ -102,7 +102,7 @@ function navigateToAudiArchiveStudio() {
 
 function navigateToAudiMusicCapsule() {
   console.log("跳转到音乐互动页面")
-  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
+  uni.navigateTo({url: "/pages/music_lab_index/music_lab_index"});
 }
 
 function navigateToAudiMiniatureCity() {
@@ -311,8 +311,8 @@ function navigateToMyPage() {
     position: fixed;
     left: -9999px;
     top: -9999px;
-    width: 180px;
-    height: 180px;
+    width: 240px;
+    height: 240px;
   }
 
   // 推广弹窗
