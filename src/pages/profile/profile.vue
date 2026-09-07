@@ -15,19 +15,30 @@ import UQRCode from "uqrcodejs"; // ts忽略了类型校验
 /**
  * 生成二维码
  */
+const qrCodeUrl = ref("")
 const generateQRCode = () => {
   const openId = profile.value?.open_id
   if (!openId) {
     console.log('没有 open_id，无法生成二维码')
     return
   }
-  console.log('开始生成二维码：', openId)
+
+  // 先读取本地缓存
+  const cacheKey = `qrcode_${openId}`
+  const cachedQRCode = uni.getStorageSync(cacheKey)
+  if (cachedQRCode) {
+    console.log('使用缓存二维码')
+    qrCodeUrl.value = cachedQRCode
+    return
+  }
+
+  console.log('重新生成二维码', openId)
   // 创建二维码实例
   const qrCode = new UQRCode()
   // 设置二维码内容
   qrCode.data = String(openId)
   // 二维码尺寸
-  qrCode.size = 120;
+  qrCode.size = 240;
   // 生成二维码数据
   qrCode.make()
   // 获取 Canvas 上下文
@@ -36,7 +47,22 @@ const generateQRCode = () => {
   qrCode.canvasContext = canvasContext
   // 绘制二维码
   qrCode.drawCanvas()
-  console.log('二维码绘制完成')
+  // 等 Canvas 绘制完成
+  setTimeout(() => {
+    uni.canvasToTempFilePath({
+      canvasId: 'qrcode',
+      success: (res) => {
+        console.log('二维码生成成功：', res.tempFilePath)
+        // 最终只显示这个 image
+        qrCodeUrl.value = res.tempFilePath
+        // 保存缓存，不用每次进来都要重新生成
+        uni.setStorageSync(cacheKey, res.tempFilePath)
+      },
+      fail: (err) => {
+        console.error('二维码转换失败：', err)
+      }
+    })
+  }, 100)
 }
 
 // 获取屏幕安全区域
@@ -407,12 +433,20 @@ function closePopWindow(){
   <view class="qrcode-container">
     <view class="qrcode-label"></view>
     <view class="qrcode-bg">
+      <!-- 最终显示的二维码 -->
+      <image
+        v-if="qrCodeUrl"
+        class="qrcode-image"
+        :src="qrCodeUrl"
+        mode="aspectFit"
+      />
+    </view>
+    <!-- 专门用于生成二维码的Canvas -->
       <canvas
         id="qrcode"
         canvas-id="qrcode"
-        class="qrcode"
+        class="qrcode-generator"
       ></canvas>
-    </view>
   </view>
 
   <!-- 体验规则弹窗 -->
@@ -586,9 +620,7 @@ page {
 
 /* 二维码 */
 .qrcode-container {
-  position: relative;
-  z-index: 1;
-
+  // position: relative;
   margin: auto;
   padding-top: 50rpx;
   // background-color: pink;
@@ -602,21 +634,36 @@ page {
   }
   .qrcode-bg {
     margin: 80rpx auto 0;
-    display: flex;
     width: 290rpx;
-    flex-direction: column;
+    height: 290rpx;
+    display: flex;
+    // flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-color: white;
     border-radius: 21rpx;
-    padding: 30rpx;
+    // padding: 30rpx;
     box-sizing: border-box;
-    .qrcode {
-      position: relative;
-      z-index: 1;
-      width: 120px;
-      height: 120px;
+    .qrcode-image {
+      width: 130px;
+      height: 130px;
     }
   } 
+  /*
+   * 这个 Canvas 只用于生成二维码
+   * 不让它参与正常页面布局
+   */
+  .qrcode-generator {
+    position: fixed;
+    left: -1000px;
+    top: -1000px;
+
+    width: 240px;
+    height: 240px;
+
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 // 体验规则弹窗
@@ -627,7 +674,7 @@ page {
     width: 100vw;
     height: 100vh;
     z-index: 99999;
-    overflow: hidden;
+    // overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
