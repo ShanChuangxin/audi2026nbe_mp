@@ -99,6 +99,10 @@ function navigateToAudiArchiveStudio() {
   console.log("跳转到拍照互动页面")
   uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
 }
+function navigateToCinema() {
+  console.log("跳转到影院页面")
+  uni.navigateTo({url: "/pages/cinema/cinema"});
+}
 
 function navigateToAudiMusicCapsule() {
   console.log("跳转到音乐互动页面")
@@ -107,7 +111,7 @@ function navigateToAudiMusicCapsule() {
 
 function navigateToAudiMiniatureCity() {
   console.log("跳转到赛车互动页面")
-  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
+  uni.navigateTo({url: "/pages/helly_hansen_ocean/helly_hansen_ocean"});
 }
 
 function navigateToAudiTennisChallenge() {
@@ -141,7 +145,7 @@ function navigateToMyPage() {
         <!-- Audi Archive Studio -->
          <view class="audi-archive-studio" @tap="navigateToAudiArchiveStudio"></view>
         <!-- Audi 4D Cinema -->
-         <view class="audi-4d-cinema" @tap="()=>{console.log('跳转到Audi 4D Cinema')}"></view>
+         <view class="audi-4d-cinema" @tap="navigateToCinema"></view>
         <!-- Audi Music Capsule -->
          <view class="audi-music-capsule" @tap="navigateToAudiMusicCapsule"></view>
         <!-- Audi Miniature City -->
