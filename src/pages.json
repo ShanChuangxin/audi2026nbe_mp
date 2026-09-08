@@ -54,6 +54,18 @@
 				"navigationBarTitleText": "Music Lab"
 			}
 		},
+		{
+			"path": "pages/cinema/cinema",
+			"style": {
+				"navigationBarTitleText": "Audi Vision"
+			}
+		},
+		{
+			"path": "pages/helly_hansen_ocean/helly_hansen_ocean",
+			"style": {
+				"navigationBarTitleText": "Helly Hansen Ocean Explore"
+			}
+		},
 		// 以下是办飞的项目
 		{
 			"path": "pages/member/member",

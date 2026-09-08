@@ -200,7 +200,7 @@ function downloadMusic() {
     <view class="music-container">
       <view class="music-area">
         <!-- 需要旋转的唱片 -->
-        <view class="record-card"></view>
+        <view class="record-card" :class="{ 'record-playing': isPlaying }"></view>
       </view>
     </view>
     <view class="music-title"></view>
@@ -294,9 +294,7 @@ page {
     margin-left: 50%;
     transform: translateX(-50%);
     width: 90%;
-    
     .music-area {
-
       margin-top: -120rpx;
       margin-left: 50%;
       transform: translateX(-50%);
@@ -307,6 +305,19 @@ page {
         height: 948rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/record-card.png") top center no-repeat;
         background-size: 100% 100%;
+        animation: recordRotate 8s linear infinite;
+        animation-play-state: paused;
+      }
+      .record-playing {
+        animation-play-state: running;
+      }
+      @keyframes recordRotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
       }
     }
   }
