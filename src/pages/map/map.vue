@@ -51,12 +51,38 @@ onLoad(() => {
   const openId = myStore.profile?.open_id || ""
   if (!openId) {
     console.log("没有获取到 open_id")
+    uni.navigateTo({url: "/pages/index/index"});
     return
   }
   loadQrCode(openId)
 
   // 获取参数
   console.log(parseScene(query))
+})
+
+const getUserInfoFunc = async (open_id: string) => {
+  const res = await getUserInfoAPI({open_id, city: "beijing", is_register: false})
+  console.log("同步用户信息的结果为：", res)
+  if (0 == res.errcode) {
+    myStore.setProfile(res.data.user_info);
+    console.log("更新用户信息成功");
+  } else {
+    console.log("网络不佳，请稍后再试");
+    // uni.showToast({
+    //   icon: 'none',
+    //   title: "网络不佳，请稍后重试~",
+    //   duration: 1000
+    // });
+  }
+}
+onShow(() => {
+  const open_id = myStore.profile?.open_id || ""
+  if (!open_id) {
+    console.log("没有获取到 open_id")
+    uni.navigateTo({url: "/pages/index/index"});
+    return;
+  }
+  getUserInfoFunc(open_id);
 })
 
 // 持久化存储
@@ -95,28 +121,33 @@ function parseScene(scene: string): Record<string, string> {
   return params;
 }
 
-function navigateToAudiArchiveStudio() {
+function navigateToHistoryCapsule() {
   console.log("跳转到拍照互动页面")
   uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
 }
-function navigateToCinema() {
+function navigateToVisionLab() {
   console.log("跳转到影院页面")
   uni.navigateTo({url: "/pages/cinema/cinema"});
 }
 
-function navigateToAudiMusicCapsule() {
-  console.log("跳转到音乐互动页面")
-  uni.navigateTo({url: "/pages/music_lab_index/music_lab_index"});
+function navigateToHellyHansen() {
+  console.log("跳转到划船页面")
+  uni.navigateTo({url: "/pages/helly_hansen_ocean/helly_hansen_ocean"});
 }
 
-function navigateToAudiMiniatureCity() {
+function navigateToTerrainChallenge() {
   console.log("跳转到赛车互动页面")
   uni.navigateTo({url: "/pages/car_index/car_index"});
 }
 
-function navigateToAudiTennisChallenge() {
+function navigateToTennisChallenge() {
   console.log("跳转到网球互动页面")
   uni.navigateTo({url: "/pages/tennis_index/tennis_index"});
+}
+
+function navigateToMusicRemix() {
+  console.log("跳转到音乐互动页面")
+  uni.navigateTo({url: "/pages/music_lab_index/music_lab_index"});
 }
 
 // 跳转到我的账户
@@ -142,20 +173,50 @@ function navigateToMyPage() {
 
       <!-- 地图容器 -->
       <view class="map-container">
-        <!-- Audi Archive Studio -->
-         <view class="audi-archive-studio" @tap="navigateToAudiArchiveStudio"></view>
-        <!-- Audi 4D Cinema -->
-         <view class="audi-4d-cinema" @tap="navigateToCinema"></view>
-        <!-- Audi Music Capsule -->
-         <view class="audi-music-capsule" @tap="navigateToAudiMusicCapsule"></view>
-        <!-- Audi Miniature City -->
-         <view class="audi-miniature-city" @tap="navigateToAudiMiniatureCity"></view>
-        <!-- Audi Tennis Challenge -->
-         <view class="audi-tennis-challenge" @tap="navigateToAudiTennisChallenge"></view>
-
-      </view>
-       
-
+        <!-- 静态不可点击的按钮 -->
+        <view class="static-information-desk"></view>
+        <view class="static-vibe-lounge"></view>
+        <view class="static-social-hub"></view>
+        <view class="static-icon-stage"></view>
+        <view class="walk-in"></view>
+        <view class="walk-out"></view>
+        <!-- 拍照互动 -->
+         <view class="history-capsule-container" @tap="navigateToHistoryCapsule">
+          <view class="line-history-capsule"></view>
+          <view  v-if="myStore.profile?.photo_time == 0" class="btn-history-capsule"></view>
+          <view v-else class="btn-history-capsule-exp"></view>
+         </view>
+         <!-- 4D影院 -->
+         <view class="vision-lab-container" @tap="navigateToVisionLab">
+          <view class="line-vision-lab"></view>
+          <view v-if="myStore.profile?.cinema_time == 0" class="btn-vision-lab"></view>
+          <view v-else class="btn-vision-lab-exp"></view>
+         </view>
+         <!-- Helly Hansen划船区域 -->
+         <view class="helly-hansen-container" @tap="navigateToHellyHansen">
+          <view class="line-helly-hansen"></view>
+          <view v-if="myStore.profile?.helly_hansen_time == 0" class="btn-helly-hansen"></view>
+          <view v-else class="btn-helly-hansen-exp"></view>
+         </view>
+         <!-- 赛车区域 -->
+         <view class="terrain-challenge-container" @tap="navigateToTerrainChallenge">
+          <view class="line-terrain-challenge"></view>
+          <view v-if="myStore.profile?.latest_car_time == 0" class="btn-terrain-challenge"></view>
+          <view v-else class="btn-terrain-challenge-exp"></view>
+         </view>
+         <!-- 网球区域 -->
+         <view class="tennis-challenge-container" @tap="navigateToTennisChallenge">
+          <view class="line-tennis-challenge"></view>
+          <view v-if="myStore.profile?.latest_tennis_time == 0" class="btn-tennis-challenge"></view>
+          <view v-else class="btn-tennis-challenge-exp"></view>
+         </view>
+         <!-- 音乐区域 -->
+         <view class="music-remix-container" @tap="navigateToMusicRemix">
+          <view class="line-music-remix"></view>
+          <view v-if="myStore.profile?.music_time == 0" class="btn-music-remix"></view>
+          <view v-else class="btn-music-remix-exp"></view>
+         </view>
+       </view>
 
       <!-- 底部按钮栏 -->
       <view class="btn-container">
@@ -196,14 +257,14 @@ function navigateToMyPage() {
   .body-view {
     // background-color: #f6f6f6; 
     // background-color: skyblue;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/bg.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/bg.jpg") top center no-repeat;
     background-size: 100% 100%;
     width: 100vw;
     height: 100vh;
     // 顶部Bar
     .top-container {
       position: absolute;
-      top: 50rpx;
+      top: 20rpx;
       margin-left: 50%;
       transform: translateX(-50%);
       // background-color: pink;
@@ -218,7 +279,7 @@ function navigateToMyPage() {
         height: 21rpx;
       }
       .language {
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-language.png") top center no-repeat;
         background-size: 100% 100%;
         width: 60rpx;
         height: 60rpx;
@@ -233,54 +294,261 @@ function navigateToMyPage() {
       transform: translateX(-50%);
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/map.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 750rpx;
-      height: 1035rpx;
-      .audi-archive-studio {
+      width: 749rpx;
+      height: 933rpx;
+      .static-information-desk{
         position: absolute;
-        top: -12rpx;
-        right: 55rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-archive-studio.png") top center no-repeat;
+        top: -60rpx;
+        left: 35rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/static-information-desk.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 291rpx;
-        height: 258rpx;
+        width: 210rpx;
+        height: 140rpx;
       }
-      .audi-4d-cinema {
+      .static-vibe-lounge{
         position: absolute;
-        top: 275rpx;
-        right: 195rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-4d-cinema.png") top center no-repeat;
+        top: 299rpx;
+        left: 110rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/static-vibe-lounge.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 230rpx;
-        height: 123rpx;
-      }
-      .audi-music-capsule {
-        position: absolute;
-        top: 470rpx;
-        left: 80rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-music-capsule.png") top center no-repeat;
-        background-size: 100% 100%;
-        width: 262rpx;
-        height: 68rpx;
-      }
-      .audi-miniature-city {
-        position: absolute;
-        top: 700rpx;
-        right: 155rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-miniature-city.png") top center no-repeat;
-        background-size: 100% 100%;
-        width: 332rpx;
+        width: 284rpx;
         height: 40rpx;
       }
-      .audi-tennis-challenge {
+      .static-social-hub{
         position: absolute;
-        top: 880rpx;
-        left: 175rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/audi-tennis-challenge.png") top center no-repeat;
+        top: 560rpx;
+        left: 145rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/static-social-hub.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 283rpx;
-        height: 117rpx;
+        width: 255rpx;
+        height: 40rpx;
+      }
+      .static-icon-stage{
+        position: absolute;
+        bottom: 40rpx;
+        left: 35rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/static-icon-stage.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 196rpx;
+        height: 145rpx;
+      }
+      .walk-in{
+        position: absolute;
+        top: 0rpx;
+        left: 220rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/tip-direction.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 42rpx;
+        height: 103rpx;
+      }
+      .walk-out{
+        position: absolute;
+        bottom: 30rpx;
+        right: 240rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/tip-direction.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 42rpx;
+        height: 103rpx;
       }
 
+      .history-capsule-container {
+        position: absolute;
+        top: -20rpx;
+        right: 100rpx;
+        background-color: pink;
+        .line-history-capsule{
+          position: absolute;
+          top: -20rpx;
+          right: 150rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/line-history-capsule.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 6rpx;
+          height: 173rpx;
+        }
+        .btn-history-capsule{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-history-capsule.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 243rpx;
+          height: 40rpx;
+        }
+        .btn-history-capsule-exp{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-history-capsule-exp.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 243rpx;
+          height: 40rpx;
+        }
+      }
+      .vision-lab-container {
+        position: absolute;
+        top: 290rpx;
+        right: 240rpx;
+        background-color: pink;
+        .line-vision-lab{
+          position: absolute;
+          top: -20rpx;
+          right: 60rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/line-vision-lab.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 6rpx;
+          height: 97rpx;
+        }
+        .btn-vision-lab{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-vision-lab.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 190rpx;
+          height: 40rpx;
+        }
+        .btn-vision-lab-exp{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-vision-lab-exp.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 190rpx;
+          height: 40rpx;
+        }
+      }
+      .helly-hansen-container {
+        position: absolute;
+        bottom: 250rpx;
+        right: 180rpx;
+        background-color: pink;
+        .line-helly-hansen{
+          position: absolute;
+          top: -60rpx;
+          right: 340rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/line-helly-hansen.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 121rpx;
+          height: 42rpx;
+        }
+        .btn-helly-hansen{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-helly-hansen.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 424rpx;
+          height: 40rpx;
+        }
+        .btn-helly-hansen-exp{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-helly-hansen-exp.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 424rpx;
+          height: 40rpx;
+        }
+      }
+      .terrain-challenge-container {
+        position: absolute;
+        bottom: 180rpx;
+        right: 240rpx;
+        background-color: pink;
+        .line-terrain-challenge{
+          position: absolute;
+          top: -20rpx;
+          right: -85rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/line-terrain-challenge.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 91rpx;
+          height: 6rpx;
+        }
+        .btn-terrain-challenge{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-terrain-challenge.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 372rpx;
+          height: 40rpx;
+        }
+        .btn-terrain-challenge-exp{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-terrain-challenge-exp.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 372rpx;
+          height: 40rpx;
+        }
+      }
+      .tennis-challenge-container {
+        position: absolute;
+        bottom: -20rpx;
+        right: 300rpx;
+        background-color: pink;
+        .line-tennis-challenge{
+          position: absolute;
+          top: -120rpx;
+          right: 100rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/line-tennis-challenge.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 6rpx;
+          height: 97rpx;
+        }
+        .btn-tennis-challenge{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-tennis-challenge.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 414rpx;
+          height: 40rpx;
+        }
+        .btn-tennis-challenge-exp{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-tennis-challenge-exp.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 414rpx;
+          height: 40rpx;
+        }
+      }
+      .music-remix-container {
+        position: absolute;
+        bottom: -80rpx;
+        right: 50rpx;
+        background-color: pink;
+        .line-music-remix{
+          position: absolute;
+          top: -140rpx;
+          right: 120rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/line-music-remix.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 6rpx;
+          height: 123rpx;
+        }
+        .btn-music-remix{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-music-remix.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 282rpx;
+          height: 40rpx;
+        }
+        .btn-music-remix-exp{
+          position: absolute;
+          bottom: 0rpx;
+          right: 0rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-music-remix-exp.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 282rpx;
+          height: 40rpx;
+        }
+      }
     }
 
     .btn-container {
@@ -295,13 +563,13 @@ function navigateToMyPage() {
       align-items: center;
 
       .qrcode-icon {
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/qrcode.png") top center no-repeat;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-qrcode.png") top center no-repeat;
         background-size: 100% 100%;
         width: 60rpx;
         height: 60rpx;
       }
       .my-account {
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/profile.png") top center no-repeat;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-profile.png") top center no-repeat;
         background-size: 100% 100%;
         width: 60rpx;
         height: 60rpx;

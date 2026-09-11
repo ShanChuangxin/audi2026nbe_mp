@@ -80,6 +80,9 @@ export type UserInfoType = {
     // 4D影院
     cinema_time?: number;
 
+    // 划船区域
+    helly_hansen_time?: number;
+
     // 咖啡兑换
     prize_time?: number;
     drinks_time?: number;

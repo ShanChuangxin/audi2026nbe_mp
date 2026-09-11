@@ -27,6 +27,15 @@ export const getUserInfoAPI = (data: { open_id: string, city: "beijing" | "shang
     })
 }
 
+// 划船区域和4D影院打卡
+export const getAreaCheckAPI = (data: { open_id: string, area: "helly_hansen" | "cinema" }) => {
+    return http<{ user_info: UserInfoType }>({
+        method: 'POST',
+        url: '/area_check',
+        data,
+    })
+}
+
 // 获取网球当日排行榜
 export const getTennisRankAPI = () => {
     return http<{ daily_rank: TennisRankType }>({
