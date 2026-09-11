@@ -78,6 +78,18 @@
 				"navigationBarTitleText": "AUDI热爱嘉年华"
 			}
 		},
+		{
+			"path": "pages/car_index/car_index",
+			"style": {
+				"navigationBarTitleText": "AUDI热爱嘉年华"
+			}
+		},
+		{
+			"path": "pages/car_detail/car_detail",
+			"style": {
+				"navigationBarTitleText": "AUDI热爱嘉年华"
+			}
+		},
 		// 以下是办飞的项目
 		{
 			"path": "pages/member/member",

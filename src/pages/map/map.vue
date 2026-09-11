@@ -111,7 +111,7 @@ function navigateToAudiMusicCapsule() {
 
 function navigateToAudiMiniatureCity() {
   console.log("跳转到赛车互动页面")
-  uni.navigateTo({url: "/pages/helly_hansen_ocean/helly_hansen_ocean"});
+  uni.navigateTo({url: "/pages/car_index/car_index"});
 }
 
 function navigateToAudiTennisChallenge() {
