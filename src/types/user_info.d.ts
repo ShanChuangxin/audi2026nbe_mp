@@ -51,32 +51,68 @@ export type UserInfoType = {
     create_time?: number;
     avatar?: string;
     nick_name?: string;
-    score?: number;
+    // score?: number;
 
     // Audio Vision
     photo_url?: string;
     photo_time?: number;
 
     // Sonic Playground
-    capsule_time?: number;  //领取扭蛋的时间
     music_url?: string;
     music_time?: number;
     chip_id?: string;
     bind_time?: number;
 
     // Audi miniature City
-    car_score?: number;
-    car_time?: number;
+    latest_car_score?: number;
+    latest_car_time?: number;
+    highest_car_score?: number;
+    highest_car_time?: number;
 
     // Sport Barcade
-    tennis_score?: number;
-    tennis_time?: number;
-    highlight_url?: string;
+    latest_tennis_score?: number;
+    latest_tennis_time?: number;
+    latest_highlight_url?: string;
+    highest_tennis_score?: number;
+    highest_tennis_time?: number;
+    highest_highlight_url?: string;
+
+    // 4D影院
+    cinema_time?: number;
 
     // 咖啡兑换
-    drinks_type?: string;
+    prize_time?: number;
     drinks_time?: number;
+    capsule_time?: number;  //领取扭蛋的时间
+}
 
+export type CarRankType = {
+    id: number;
+    rank: number;
+    user_id: string;
+    open_id: string;
+    nick_name: string;
+    avatar: string;
+    car_score: number;
+}
+export type CarDailyRankType = {
+    daily_rank: CarRankType[];
+}
+export type CarCityRankType = {
+    daily_rank: CarRankType[];
+}
+
+export type TennisRankType = {
+    id: number;
+    rank: number;
+    user_id: string;
+    open_id: string;
+    nick_name: string;
+    avatar: string;
+    tennis_score: number;
+}
+export type TennisType = {
+    daily_rank: TennisRankType[];
 }
 
 /** 个人信息 修改请求体参数 */

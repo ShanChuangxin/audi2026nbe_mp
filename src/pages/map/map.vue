@@ -116,7 +116,7 @@ function navigateToAudiMiniatureCity() {
 
 function navigateToAudiTennisChallenge() {
   console.log("跳转到网球互动页面")
-  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
+  uni.navigateTo({url: "/pages/tennis_index/tennis_index"});
 }
 
 // 跳转到我的账户

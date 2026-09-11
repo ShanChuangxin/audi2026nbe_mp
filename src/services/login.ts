@@ -1,7 +1,7 @@
 // 微信授权登录相关的API
 
 import type { LoginWxMinParams } from '@/types/login'
-import type { UserInfoType } from '@/types/user_info'
+import type { UserInfoType, TennisRankType, CarDailyRankType, CarCityRankType } from '@/types/user_info'
 import { http } from '@/utils/http'
 
 /**
@@ -24,6 +24,24 @@ export const getUserInfoAPI = (data: { open_id: string, city: "beijing" | "shang
         method: 'POST',
         url: '/get_user_info',
         data,
+    })
+}
+
+// 获取网球当日排行榜
+export const getTennisRankAPI = () => {
+    return http<{ daily_rank: TennisRankType }>({
+        method: 'POST',
+        url: '/get_tennis_rank',
+        // data,
+    })
+}
+
+// 获取赛车排行榜
+export const getCarRankAPI = () => {
+    return http<{ rank_info: { daily_rank: CarDailyRankType, city_rank: CarCityRankType } }>({
+        method: 'POST',
+        url: '/get_car_rank',
+        // data,
     })
 }
 
