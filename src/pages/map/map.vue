@@ -123,31 +123,31 @@ function parseScene(scene: string): Record<string, string> {
 
 function navigateToHistoryCapsule() {
   console.log("跳转到拍照互动页面")
-  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
+  uni.redirectTo({url: "/pages/audi_vision_index/audi_vision_index"});
 }
 function navigateToVisionLab() {
   console.log("跳转到影院页面")
-  uni.navigateTo({url: "/pages/cinema/cinema"});
+  uni.redirectTo({url: "/pages/cinema/cinema"});
 }
 
 function navigateToHellyHansen() {
   console.log("跳转到划船页面")
-  uni.navigateTo({url: "/pages/helly_hansen_ocean/helly_hansen_ocean"});
+  uni.redirectTo({url: "/pages/helly_hansen_ocean/helly_hansen_ocean"});
 }
 
 function navigateToTerrainChallenge() {
   console.log("跳转到赛车互动页面")
-  uni.navigateTo({url: "/pages/car_index/car_index"});
+  uni.redirectTo({url: "/pages/car_index/car_index"});
 }
 
 function navigateToTennisChallenge() {
   console.log("跳转到网球互动页面")
-  uni.navigateTo({url: "/pages/tennis_index/tennis_index"});
+  uni.redirectTo({url: "/pages/tennis_index/tennis_index"});
 }
 
 function navigateToMusicRemix() {
   console.log("跳转到音乐互动页面")
-  uni.navigateTo({url: "/pages/music_lab_index/music_lab_index"});
+  uni.redirectTo({url: "/pages/music_lab_index/music_lab_index"});
 }
 
 // 跳转到我的账户
@@ -242,8 +242,8 @@ function navigateToMyPage() {
             <image v-if="qrCodeImage" :src="qrCodeImage" class="qrcode-style" mode="aspectFit"/>
           </view>
           <view class="text-container">
-            <view class="proflie_text">ID: {{ myStore.profile?.user_id }}</view>
-            <view class="proflie_text">昵称：{{ myStore.profile?.nick_name }}</view>
+            <view class="proflie_text">User ID: {{ myStore.profile?.user_id }}</view>
+            <view class="proflie_text">Name: {{ myStore.profile?.nick_name }}</view>
           </view>
         </view>
     </view>
@@ -603,21 +603,27 @@ function navigateToMyPage() {
     align-items: center;
     // background-color: black;
     // opacity: .5;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .3);
+
+      // 模糊后面的地图
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
 
       // 二维码容器
       .qrcode-container {
+        transform: translateY(-8vh);
         width: 500rpx;
         height: 550rpx;
         border-radius: 30rpx;
-        border: solid 1rpx white;
+        border: solid 1rpx rgba(255, 255, 255, .8);
         z-index: 1;
-        background-color: rgba(255, 255, 255, .4);
+        background-color: rgba(255, 255, 255, .3);
         padding-top: 50rpx;
         display: flex;
         flex-direction: column;
         // justify-content: space-between;
         align-items: center;
+        box-sizing: border-box;
 
         .qr-bg {
           margin-top: 50rpx;
@@ -625,7 +631,7 @@ function navigateToMyPage() {
           height: 260rpx;
           padding: 15rpx;
           border-radius: 15rpx;
-          background: white;
+          background: #fff;
           display: flex;
           justify-content: center;
           align-items: center;

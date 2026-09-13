@@ -25,7 +25,7 @@ const getUserInfo = async () => {
     return;
   }
 
-  const userInfo = await getUserInfoAPI({ open_id, is_register: false });
+  const userInfo = await getUserInfoAPI({ open_id, city:"beijing",is_register: false });
   console.log("调取用户信息的结果为：", userInfo);
 
   if (userInfo.errcode === 0) {
@@ -109,135 +109,168 @@ onShow(async () => {
 // 返回地图
 function navitateToHome() {
   console.log("跳转到地图页面");
-  uni.navigateTo({ url: "/pages/map/map" });
+  uni.reLaunch({ url: "/pages/map/map" });
 }
 
 </script>
 
 <template>
-  <!-- 顶部 Bar -->
-  <view class="top-container">
-    <view class="language"></view>
-  </view>
 
-  <!-- 我的成绩 -->
-  <view class="score-container">
-    <view class="score-label"></view>
+  <view class="page">
+    <image
+      class="page-bg"
+      src="https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/bg.jpg"
+      mode="widthFix"
+    />
+     <!-- 顶部 Bar -->
+    <view class="top-container">
+      <view class="language"></view>
+    </view>
 
-    <view v-if="myStore.profile?.latest_car_time == 0" class="no-score"></view>
+    <!-- 我的成绩 -->
+    <view class="score-container">
+      <view class="score-label"></view>
 
-    <view v-else class="my-score">
-      <view class="user-info">
-        <view class="my-rank">-</view>
+      <view v-if="myStore.profile?.latest_car_time == 0" class="no-score"></view>
 
-        <view class="avatar">
-          <image :src="myStore.profile?.avatar" mode="aspectFill" />
+      <view v-else class="my-score">
+        <view class="user-info">
+          <view class="my-rank">-</view>
+
+          <view class="avatar">
+            <image :src="myStore.profile?.avatar" mode="aspectFill" />
+          </view>
+
+          <view class="nick-name">
+            {{ myStore.profile?.nick_name }}
+          </view>
         </view>
 
-        <view class="nick-name">
-          {{ myStore.profile?.nick_name }}
+        <view class="score-num">
+          {{ myStore.profile?.latest_car_score }}
+        </view>
+      </view>
+    </view>
+
+    <!-- 排行榜 -->
+    <view class="leaderboard-container">
+      <view class="leaderboard-label"></view>
+
+      <!-- 今日榜 / 城市榜 -->
+      <view class="rank-tabs">
+        <view
+          class="rank-tab rank-tab-today"
+          :class="{ active: currentRankType === 'today' }"
+          @tap="switchRank('today')"
+        >
+          Today
+        </view>
+
+        <view
+          class="rank-tab rank-tab-city"
+          :class="{ active: currentRankType === 'city' }"
+          @tap="switchRank('city')"
+        >
+          Beijing
         </view>
       </view>
 
-      <view class="score-num">
-        {{ myStore.profile?.latest_car_score }}
-      </view>
-    </view>
-  </view>
-
-  <!-- 排行榜 -->
-  <view class="leaderboard-container">
-    <view class="leaderboard-label"></view>
-
-    <!-- 今日榜 / 城市榜 -->
-    <view class="rank-tabs">
-      <view
-        class="rank-tab rank-tab-today"
-        :class="{ active: currentRankType === 'today' }"
-        @tap="switchRank('today')"
-      >
-        Today
-      </view>
-
-      <view
-        class="rank-tab rank-tab-city"
-        :class="{ active: currentRankType === 'city' }"
-        @tap="switchRank('city')"
-      >
-        Beijing
-      </view>
-    </view>
-
-    <view class="leaderboard-body">
-      <!-- 固定10个位置 -->
-      <view
-        v-for="index in 10"
-        :key="index"
-        class="rank-row"
-        :class="{
-          'top-rank-row': isTopRank(getRankItem(index - 1)),
-          'my-rank-row': isMyRank(getRankItem(index - 1))
-        }"
-      >
-        <!-- 有数据 -->
-        <template v-if="getRankItem(index - 1)">
-          <view class="rank-num">
-            {{ getRankItem(index - 1)?.rank }}
-          </view>
-
-          <view class="user-info">
-            <view class="avatar">
-              <image
-                :src="getRankItem(index - 1)?.avatar"
-                mode="aspectFill"
-              />
+      <view class="leaderboard-body">
+        <!-- 固定10个位置 -->
+        <view
+          v-for="index in 10"
+          :key="index"
+          class="rank-row"
+          :class="{
+            'top-rank-row': isTopRank(getRankItem(index - 1)),
+            'my-rank-row': isMyRank(getRankItem(index - 1))
+          }"
+        >
+          <!-- 有数据 -->
+          <template v-if="getRankItem(index - 1)">
+            <view class="rank-num">
+              {{ getRankItem(index - 1)?.rank }}
             </view>
 
-            <view class="nick-name">
-              {{ getRankItem(index - 1)?.nick_name }}
+            <view class="user-info">
+              <view class="avatar">
+                <image
+                  :src="getRankItem(index - 1)?.avatar"
+                  mode="aspectFill"
+                />
+              </view>
+
+              <view class="nick-name">
+                {{ getRankItem(index - 1)?.nick_name }}
+              </view>
             </view>
-          </view>
 
-          <view class="score-num">
-            {{ getRankItem(index - 1)?.car_score }}
-          </view>
-        </template>
+            <view class="score-num">
+              {{ getRankItem(index - 1)?.car_score }}
+            </view>
+          </template>
 
-        <!-- 没有数据 -->
-        <template v-else>
-          <view class="rank-num"></view>
-          <view class="user-info"></view>
-          <view class="score-num"></view>
-        </template>
+          <!-- 没有数据 -->
+          <template v-else>
+            <view class="rank-num"></view>
+            <view class="user-info"></view>
+            <view class="score-num"></view>
+          </template>
+        </view>
       </view>
+    </view>
+
+    <!-- 底部按钮栏 -->
+    <view class="btn-container">
+      <view v-if="myStore.profile?.latest_car_time != 0" class="btn-home" @tap="navitateToHome"></view>
+      <view v-else class="btn-experience" @tap="navitateToHome"></view>
     </view>
   </view>
 
-  <!-- 底部按钮栏 -->
-  <view class="btn-container">
-    <view v-if="myStore.profile?.latest_car_time != 0" class="btn-home" @tap="navitateToHome"></view>
-    <view v-else class="btn-experience" @tap="navitateToHome"></view>
-  </view>
+ 
 </template>
 
 <style lang="scss">
 page {
-  background-color: black;
+  background: #000;
+}
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 150rpx;
   box-sizing: border-box;
+  overflow: hidden;
+}
+.page-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.top-container,
+.score-container,
+.leaderboard-container,
+.btn-container {
+  position: relative;
+  z-index: 1;
 }
 
 // 顶部 Bar
 .top-container {
-  margin: 50rpx auto 0;
+  margin: 20rpx auto 0;
   width: 90%;
 
   .language {
     float: right;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-language.png") top center no-repeat;
     background-size: 100% 100%;
     width: 60rpx;
     height: 60rpx;

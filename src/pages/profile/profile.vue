@@ -93,8 +93,10 @@ const experienceCount = computed(() => {
   const experienceTimes = [
     profile.value.photo_time,
     profile.value.music_time,
-    profile.value.car_time,
-    profile.value.tennis_time
+    profile.value.latest_car_time,
+    profile.value.latest_tennis_time,
+    profile.value.cinema_time,
+    profile.value.helly_hansen_time
   ]
   return experienceTimes.filter((time) => time && Number(time) !== 0).length;
 })
@@ -105,7 +107,7 @@ const experienceCount = computed(() => {
 const getUserInfoData = async () => {
   // 未登录或没有城市信息
   if (!myStore.profile?.open_id || !systemStore.system_config.city) {
-    uni.navigateTo({
+    uni.reLaunch({
       url: '/pages/index/index'
     })
     return
@@ -149,11 +151,15 @@ const getUserInfoData = async () => {
   }
 }
 
+// 有关弹窗
+const isPopWindow = ref(false);
+
 /**
  * 页面加载
  */
 onLoad(() => {
-  getUserInfoData()
+  getUserInfoData();
+  isPopWindow.value = systemStore.system_config.pop_ruler;
 })
 
 /**
@@ -380,9 +386,14 @@ const onAvatarChange = () => {
   // #endif
 }
 
+// 临时打开弹窗
+function openPopWindow() {
+  isPopWindow.value = true;
+}
 // 关闭规则体验弹窗
 function closePopWindow(){
   console.log("关闭规则体验弹窗");
+  isPopWindow.value = false;
   systemStore.upatePopRuler(false); // 更新进本地存储
 }
 </script>
@@ -429,6 +440,12 @@ function closePopWindow(){
     </view>
   </view>
 
+  <!-- 礼物领取弹窗 -->
+  <view class="gift-container">
+    <view class="gift-label"></view>
+    <view class="gift-icon" @tap="openPopWindow"> </view>
+  </view>
+
   <!-- 用户二维码 -->
   <view class="qrcode-container">
     <view class="qrcode-label"></view>
@@ -450,7 +467,7 @@ function closePopWindow(){
   </view>
 
   <!-- 体验规则弹窗 -->
-  <view class="ruler-container" v-if="systemStore.system_config.pop_ruler" @tap="closePopWindow">
+  <view class="ruler-container" v-if="isPopWindow" @tap="closePopWindow">
       <view class="pop-window" @tap.stop >
         <view class="pop-content">
           <view class="btn-close" @tap="closePopWindow">
@@ -475,22 +492,15 @@ page {
 // 顶部Bar
 .top-container {
   position: absolute;
-  top: 50rpx;
+  top: 20rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;
   width: 90%;
-  .prize-ruler {
-    float: right;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/prize-ruler.png") top center no-repeat;
-    background-size: 100% 100%;
-    width: 60rpx;
-    height: 60rpx;
-  }
   .language {
     float: right;
     margin-left: 40rpx;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-language.png") top center no-repeat;
     background-size: 100% 100%;
     width: 60rpx;
     height: 60rpx;
@@ -499,7 +509,7 @@ page {
 
 /* 顶部个人信息 */
 .profile-container {
-  margin-top: 200rpx;
+  margin-top: 170rpx;
   width: 750rpx;
   height: 360rpx;
   position: relative;
@@ -614,6 +624,30 @@ page {
     justify-content: center;
     align-items: center;
     color: #9570FF;
+  }
+}
+
+// 礼物弹窗
+.gift-container {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 84%;
+  height: 130rpx;
+  border-top: solid #D9D8DD 1rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .gift-label {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-gift.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 376rpx;
+    height: 24rpx;
+  }
+  .gift-icon {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/gift-icon.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 45rpx;
+    height: 45rpx;
   }
 }
 

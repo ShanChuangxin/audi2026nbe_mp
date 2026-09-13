@@ -3,7 +3,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { onShow } from '@dcloudio/uni-app'
 import { useMyStore } from '@/stores/modules/my'
+import { getUserInfoAPI } from '@/services/login'
 
 
 // 获取用户信息
@@ -11,14 +13,42 @@ const myInfo = useMyStore()
 console.log(myInfo.profile);
 // const user_id = myInfo.profile!.user_id!
 
+// 请求用户信息
+const getUserInfo = async () => {
+  const open_id = myInfo.profile?.open_id;
+  if (!open_id) {
+    console.log("未获取到用户信息，跳转到首页");
+    uni.navigateTo({ url: "/pages/index/index" });
+    return;
+  }
+  const userInfo = await getUserInfoAPI({ open_id, city:"beijing",is_register: false });
+  console.log("调取用户信息的结果为：", userInfo);
+
+  if (userInfo.errcode === 0) {
+    const user_info = userInfo.data.user_info;
+    console.log("获取到的用户信息：", user_info);
+    myInfo.setProfile(user_info);
+  } else {
+    uni.showToast({
+      icon: 'none',
+      title: "网络不佳，请稍后重试~",
+      duration: 1000
+    });
+  }
+}
+// 页面显示
+onShow(async () => {
+  await getUserInfo();
+});
+
 // 返回主页，分为传不传参数两种
 function navitateToHome(isExplore: boolean){
   if (isExplore) {
     console.log("带参跳转到地图页");
-    uni.navigateTo({ url: "/pages/map/map?is_explore=audi_vision"});
+    uni.reLaunch({ url: "/pages/map/map?is_explore=audi_vision"});
   } else {
     console.log("跳转到地图页");
-    uni.navigateTo({ url: "/pages/map/map"});
+    uni.reLaunch({ url: "/pages/map/map"});
   }
 }
 
@@ -77,7 +107,9 @@ function downloadPhoto() {
 
 <template>
   <!-- 顶部按钮容器 -->
-  <view class="top-container"></view>
+  <view class="top-container">
+    <view class="language"></view>
+  </view>
     <!-- Audi Vision内容介绍 -->
   <view class="detail-content"></view>
   <!-- 照片容器 -->
@@ -118,7 +150,7 @@ page {
 // 顶部Bar
 .top-container {
   position: absolute;
-  top: 50rpx;
+  top: 20rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;
@@ -126,7 +158,7 @@ page {
 
   .language {
     float: right;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-language.png") top center no-repeat;
     background-size: 100% 100%;
     width: 60rpx;
     height: 60rpx;
@@ -135,9 +167,9 @@ page {
 .detail-content {
   position: absolute;
   top: 150rpx;
-  margin-left: 10rpx;
-  width: 568rpx;
-  height: 118rpx;
+  margin-left: 30rpx;
+  width: 449rpx;
+  height: 98rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/content.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -150,8 +182,8 @@ page {
   width: 90%;
   .no-photo {
     margin-top: 100rpx;
-    width: 459rpx;
-    height: 152rpx;
+    width: 603rpx;
+    height: 206rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/no-photo.png") top center no-repeat;
     background-size: 100% 100%;
   }
@@ -181,7 +213,7 @@ page {
   .btn-explore {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/btn-explore-now.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 284rpx;
+    width: 363rpx;
     height: 30rpx;
   }
   .photo-btn-container {

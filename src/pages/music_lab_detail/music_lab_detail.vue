@@ -1,21 +1,48 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useMyStore } from '@/stores/modules/my'
+import { onShow } from '@dcloudio/uni-app'
+import { getUserInfoAPI } from '@/services/login'
 
 // 获取用户信息
 const myInfo = useMyStore()
 console.log(myInfo.profile);
 // const user_id = myInfo.profile!.user_id!
+const getUserInfo = async() => {
+  const open_id = myInfo.profile?.open_id;
+  if (!open_id){
+    console.log("未获取到用户信息，跳转到首首页");
+    uni.navigateTo({url: "/pages/index/index"});
+    return;
+  }
+  const userInfo = await getUserInfoAPI({open_id: open_id, city:"beijing", is_register: false})
+  console.log("调取用户信息的结果为：", userInfo);
+  if (0 == userInfo.errcode) {
+    const user_info = userInfo.data.user_info;
+      console.log("获取到的用户信息：", user_info);
+      // 本地化存储
+      myInfo.setProfile(user_info);
+  } else {
+    uni.showToast({
+      icon: 'none',
+      title: "网络不佳，请稍后重试~",
+      duration: 1000
+    });
+  }
+}
+onShow(() => {
+  getUserInfo();
+})
 
 // ==================== 页面跳转 ====================
 // 返回主页，分为传不传参数两种
 function navigateToHome(isExplore: boolean){
   if (isExplore) {
     console.log("带参跳转到地图页");
-    uni.navigateTo({ url: "/pages/map/map?is_explore=music_lab"});
+    uni.reLaunch({ url: "/pages/map/map?is_explore=music_lab"});
   } else {
     console.log("跳转到地图页");
-    uni.navigateTo({ url: "/pages/map/map"});
+    uni.reLaunch({ url: "/pages/map/map"});
   }
 }
 
@@ -190,7 +217,7 @@ function downloadMusic() {
     <view class="no-music-title"></view>
     <view class="no-music-content"></view>
     <view class="no-music-btn-container">
-      <view class="btn-home" @tap="navigateToHome(false)"></view>
+      <!-- <view class="btn-home" @tap="navigateToHome(false)"></view> -->
       <view class="btn-experience" @tap="navigateToHome(true)"></view>
     </view>
   </view>
@@ -230,14 +257,14 @@ page {
 // 顶部Bar
 .top-container {
   position: absolute;
-  top: 50rpx;
+  top: 20rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;
   width: 90%;
   .language {
     float: right;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-language.png") top center no-repeat;
     background-size: 100% 100%;
     width: 60rpx;
     height: 60rpx;
@@ -247,11 +274,11 @@ page {
 .no-music {
   .no-music-title {
     position: absolute;
-    top: 150rpx;
+    top: 100rpx;
     margin-left: 30rpx;
-    width: 481rpx;
-    height: 118rpx;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music-title.png") top center no-repeat;
+    width: 602rpx;
+    height: 174rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/title.png") top center no-repeat;
     background-size: 100% 100%;
   }
   .no-music-content {
@@ -270,14 +297,14 @@ page {
     // background-color: pink;
     width: 90%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    .btn-home {
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-home.png") top center no-repeat;
-      background-size: 100% 100%;
-      width: 125rpx;
-      height: 24rpx;
-    }
+    // .btn-home {
+    //   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-home.png") top center no-repeat;
+    //   background-size: 100% 100%;
+    //   width: 125rpx;
+    //   height: 24rpx;
+    // }
     .btn-experience {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-experience.png") top center no-repeat;
       background-size: 100% 100%;
@@ -323,11 +350,11 @@ page {
   }
   .music-title {
     position: absolute;
-    top: 150rpx;
+    top: 100rpx;
     margin-left: 30rpx;
-    width: 556rpx;
-    height: 210rpx;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
+    width: 602rpx;
+    height: 174rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/title.png") top center no-repeat;
     background-size: 100% 100%;
   }
 

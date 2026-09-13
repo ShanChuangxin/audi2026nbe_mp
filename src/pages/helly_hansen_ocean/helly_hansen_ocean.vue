@@ -26,7 +26,7 @@ onLoad(() => {
   const open_id = myStore.profile?.open_id || ""
   if (!open_id) {
     console.log("没有获取到 open_id")
-    uni.navigateTo({url: "/pages/index/index"});
+    uni.reLaunch({url: "/pages/index/index"});
     return;
   }
   areaCheck(open_id);
@@ -35,7 +35,7 @@ onLoad(() => {
 
 function navitateToHome() {
   console.log("跳转到地图页面")
-  uni.navigateTo({url: "/pages/map/map"});
+  uni.reLaunch({url: "/pages/map/map"});
 }
 
 </script>
@@ -67,7 +67,7 @@ page {
 // 顶部Bar
 .top-container {
   position: absolute;
-  top: 50rpx;
+  top: 20rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;
@@ -75,7 +75,7 @@ page {
 
   .language {
     float: right;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-language.png") top center no-repeat;
     background-size: 100% 100%;
     width: 60rpx;
     height: 60rpx;
@@ -86,8 +86,8 @@ page {
   position: absolute;
   top: 150rpx;
   margin-left: 30rpx;
-  width: 602rpx;
-  height: 321rpx;
+  width: 678rpx;
+  height: 234rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/content.png") top center no-repeat;
   background-size: 100% 100%;
 

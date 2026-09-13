@@ -8,12 +8,12 @@ function navitateToMP() {
 
 function navitateToHome() {
   console.log("跳转到地图页面")
-  uni.navigateTo({url: "/pages/map/map"});
+  uni.reLaunch({url: "/pages/map/map"});
 }
 
 function navigateToMyScore() {
   console.log("跳转到网球详情页面")
-  uni.navigateTo({url: "/pages/tennis_detail/tennis_detail"});
+  uni.redirectTo({url: "/pages/tennis_detail/tennis_detail"});
 }
 
 
@@ -48,7 +48,7 @@ page {
 // 顶部Bar
 .top-container {
   position: absolute;
-  top: 50rpx;
+  top: 20rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;
@@ -56,7 +56,7 @@ page {
 
   .language {
     float: right;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/language.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-language.png") top center no-repeat;
     background-size: 100% 100%;
     width: 60rpx;
     height: 60rpx;

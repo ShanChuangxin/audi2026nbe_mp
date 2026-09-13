@@ -8,7 +8,7 @@ export const useSystemStore = defineStore(
     'system',
     () => {
         // 会员信息
-        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu", pop_ruler: boolean }>({ language: "cn", city: "beijing", pop_ruler: true })
+        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu", pop_ruler: boolean, isPrivacy: boolean }>({ language: "cn", city: "beijing", pop_ruler: true, isPrivacy: false })
 
         // 保存会员信息，登录时使用
         const switchLanguage = () => {
@@ -30,12 +30,19 @@ export const useSystemStore = defineStore(
             system_config.value.pop_ruler = isPop;
         }
 
+        // 设置是否同意隐私条款，同意后，就不可能再回主页了
+        const agreePrivacy = () => {
+            console.log("同意隐私条款，存储并记录不再返回");
+            system_config.value.isPrivacy = true;
+        }
+
         // 记得 return
         return {
             system_config,
             updateCity,
             switchLanguage,
-            upatePopRuler
+            upatePopRuler,
+            agreePrivacy
         }
     },
     {

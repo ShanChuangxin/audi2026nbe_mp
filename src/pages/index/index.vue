@@ -63,6 +63,11 @@ const getOpenId = async () => {
   }
 }
 onLoad(async () => {
+  // 判断是否已经同意过许可，同意过的话，就直接跳地图页面
+  if (systemStore.system_config.isPrivacy) {
+    navigateToMapPage();
+    return;
+  }
   // 注意，这里可以同时进行，而不是一个完成后再处理另外一个；等所有都完成后，才会往下继续执行代码
   // await Promise.all([getSwiperData(), getOpenId()])
   getOpenId();
@@ -92,6 +97,7 @@ const showPrivacy = ref(true);  // false为不显示弹窗；true为显示弹窗
 function closePopWindow(){
   console.log("关闭隐私条款弹窗");
   showPrivacy.value = false;
+  systemStore.agreePrivacy();
   // 跳转至地图页面
   navigateToMapPage();
 }
@@ -166,7 +172,7 @@ function navigateToMapPage() {
   // 把填写的信息以参数形式传到列表页面
   console.log("跳转到地图页面")
   // uni.navigateTo({ url: `/pages/office_list/office_list?num_type=${peopleNum.value}&table_type=${selectedTableType.value}&city_type=${selectedCityType.value}&purpose_type=${selectedPurposeType.value}` })
-  uni.navigateTo({url: "/pages/map/map"});
+  uni.reLaunch({url: "/pages/map/map"});
 
 }
 
