@@ -9,56 +9,83 @@ import { getOpenIdAPI, getUserInfoAPI } from '@/services/login'
 //@ts-ignore
 import UQRCode from "uqrcodejs"; // ts忽略了类型校验
 // 生成二维码
-function loadQrCode(codeValue: string) {
+async function loadQrCode(codeValue: string, retryCount = 0) {
   if (!codeValue) {
     console.log("没有获取到用户的id，返回到登录页面");
-    uni.navigateTo({url: "/pages/index/index"});
+    uni.navigateTo({
+      url: "/pages/index/index"
+    });
+    return;
   }
-  console.log("生成二维码")
-  // 获取uQRCode实例
-  var qr = new UQRCode();
-  // 设置二维码内容
-  qr.data = codeValue;
-  // 设置二维码大小，必须与canvas设置的宽高一致
-  qr.size = 240;
-  // 调用制作二维码方法
-  qr.make();
-  // 获取canvas上下文
-  var canvasContext = uni.createCanvasContext('qrcode'); // 如果是组件，this必须传入
-  // 设置uQRCode实例的canvas上下文
-  qr.canvasContext = canvasContext;
-  // 调用绘制方法将二维码图案绘制到canvas上
-  qr.drawCanvas();
-  // 等待Canvas绘制完成，然后转成图片
-  setTimeout(() => {
+  console.log(`开始生成二维码，第 ${retryCount + 1} 次`);
+  try {
+    // 等待页面和 Canvas 准备完成
+    await nextTick();
+    // 再稍微等待一下，给小程序 Canvas 初始化时间
+    await new Promise(resolve => setTimeout(resolve, 200));
+    const qr = new UQRCode();
+    // 设置二维码内容
+    qr.data = codeValue;
+    // 二维码大小
+    qr.size = 240;
+    // 生成二维码
+    qr.make();
+    // 获取 Canvas 上下文
+    const canvasContext = uni.createCanvasContext("qrcode");
+    // 设置 Canvas 上下文
+    qr.canvasContext = canvasContext;
+    // 绘制二维码
+    qr.drawCanvas();
+    // 等待 Canvas 绘制
+    await new Promise(resolve => setTimeout(resolve, 300));
+    // 转成临时图片
     uni.canvasToTempFilePath({
       canvasId: "qrcode",
       success: (res) => {
-        console.log("二维码图片生成成功")
-        console.log(res.tempFilePath)
-        qrCodeImage.value = res.tempFilePath
+        console.log("二维码图片生成成功");
+        console.log("二维码图片地址：", res.tempFilePath);
+        if (res.tempFilePath) {
+          qrCodeImage.value = res.tempFilePath;
+        } else {
+          console.log("二维码图片地址为空");
+          retryQrCode(codeValue, retryCount);
+        }
       },
       fail: (err) => {
-        console.log("二维码图片生成失败")
-        console.log(err)
+        console.log("二维码图片生成失败：", err);
+        retryQrCode(codeValue, retryCount);
       }
-    })
-  }, 100)
+    });
+  } catch (error) {
+    console.log("二维码生成异常：", error);
+    retryQrCode(codeValue, retryCount);
+  }
+}
+function retryQrCode(codeValue: string, retryCount: number) {
+  if (retryCount >= 2) {
+    console.log("二维码生成失败，已经达到最大重试次数");
+    return;
+  }
+  console.log(`准备重新生成二维码，第 ${retryCount + 2} 次`);
+  setTimeout(() => {
+    loadQrCode(codeValue, retryCount + 1);
+  }, 500);
 }
 
 // 页面加载
-onLoad(() => {
-  const openId = myStore.profile?.open_id || ""
+onLoad(async () => {
+  const openId = myStore.profile?.open_id || "";
   if (!openId) {
-    console.log("没有获取到 open_id")
-    uni.navigateTo({url: "/pages/index/index"});
-    return
+    console.log("没有获取到 open_id");
+    uni.navigateTo({
+      url: "/pages/index/index"
+    });
+    return;
   }
-  loadQrCode(openId)
-
-  // 获取参数
-  console.log(parseScene(query))
-})
+  console.log("获取到 open_id：", openId);
+  await nextTick();
+  loadQrCode(openId);
+});
 
 const getUserInfoFunc = async (open_id: string) => {
   const res = await getUserInfoAPI({open_id, city: "beijing", is_register: false})
@@ -123,31 +150,31 @@ function parseScene(scene: string): Record<string, string> {
 
 function navigateToHistoryCapsule() {
   console.log("跳转到拍照互动页面")
-  uni.redirectTo({url: "/pages/audi_vision_index/audi_vision_index"});
+  uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
 }
 function navigateToVisionLab() {
   console.log("跳转到影院页面")
-  uni.redirectTo({url: "/pages/cinema/cinema"});
+  uni.navigateTo({url: "/pages/cinema/cinema"});
 }
 
 function navigateToHellyHansen() {
   console.log("跳转到划船页面")
-  uni.redirectTo({url: "/pages/helly_hansen_ocean/helly_hansen_ocean"});
+  uni.navigateTo({url: "/pages/helly_hansen_ocean/helly_hansen_ocean"});
 }
 
 function navigateToTerrainChallenge() {
   console.log("跳转到赛车互动页面")
-  uni.redirectTo({url: "/pages/car_index/car_index"});
+  uni.navigateTo({url: "/pages/car_index/car_index"});
 }
 
 function navigateToTennisChallenge() {
   console.log("跳转到网球互动页面")
-  uni.redirectTo({url: "/pages/tennis_index/tennis_index"});
+  uni.navigateTo({url: "/pages/tennis_index/tennis_index"});
 }
 
 function navigateToMusicRemix() {
   console.log("跳转到音乐互动页面")
-  uni.redirectTo({url: "/pages/music_lab_index/music_lab_index"});
+  uni.navigateTo({url: "/pages/music_lab_index/music_lab_index"});
 }
 
 // 跳转到我的账户
@@ -183,38 +210,44 @@ function navigateToMyPage() {
         <!-- 拍照互动 -->
          <view class="history-capsule-container" @tap="navigateToHistoryCapsule">
           <view class="line-history-capsule"></view>
-          <view  v-if="myStore.profile?.photo_time == 0" class="btn-history-capsule"></view>
-          <view v-else class="btn-history-capsule-exp"></view>
+          <!-- <view  v-if="myStore.profile?.photo_time == 0" class="btn-history-capsule"></view>
+          <view v-else class="btn-history-capsule-exp"></view> -->
+          <view class="btn-history-capsule"></view>
          </view>
          <!-- 4D影院 -->
          <view class="vision-lab-container" @tap="navigateToVisionLab">
           <view class="line-vision-lab"></view>
-          <view v-if="myStore.profile?.cinema_time == 0" class="btn-vision-lab"></view>
-          <view v-else class="btn-vision-lab-exp"></view>
+          <!-- <view v-if="myStore.profile?.cinema_time == 0" class="btn-vision-lab"></view>
+          <view v-else class="btn-vision-lab-exp"></view> -->
+          <view class="btn-vision-lab"></view>
          </view>
          <!-- Helly Hansen划船区域 -->
          <view class="helly-hansen-container" @tap="navigateToHellyHansen">
           <view class="line-helly-hansen"></view>
-          <view v-if="myStore.profile?.helly_hansen_time == 0" class="btn-helly-hansen"></view>
-          <view v-else class="btn-helly-hansen-exp"></view>
+          <!-- <view v-if="myStore.profile?.helly_hansen_time == 0" class="btn-helly-hansen"></view>
+          <view v-else class="btn-helly-hansen-exp"></view> -->
+          <view class="btn-helly-hansen"></view>
          </view>
          <!-- 赛车区域 -->
          <view class="terrain-challenge-container" @tap="navigateToTerrainChallenge">
           <view class="line-terrain-challenge"></view>
-          <view v-if="myStore.profile?.latest_car_time == 0" class="btn-terrain-challenge"></view>
-          <view v-else class="btn-terrain-challenge-exp"></view>
+          <!-- <view v-if="myStore.profile?.latest_car_time == 0" class="btn-terrain-challenge"></view>
+          <view v-else class="btn-terrain-challenge-exp"></view> -->
+          <view class="btn-terrain-challenge"></view>
          </view>
          <!-- 网球区域 -->
          <view class="tennis-challenge-container" @tap="navigateToTennisChallenge">
           <view class="line-tennis-challenge"></view>
-          <view v-if="myStore.profile?.latest_tennis_time == 0" class="btn-tennis-challenge"></view>
-          <view v-else class="btn-tennis-challenge-exp"></view>
+          <!-- <view v-if="myStore.profile?.latest_tennis_time == 0" class="btn-tennis-challenge"></view>
+          <view v-else class="btn-tennis-challenge-exp"></view> -->
+          <view class="btn-tennis-challenge"></view>
          </view>
          <!-- 音乐区域 -->
          <view class="music-remix-container" @tap="navigateToMusicRemix">
           <view class="line-music-remix"></view>
-          <view v-if="myStore.profile?.music_time == 0" class="btn-music-remix"></view>
-          <view v-else class="btn-music-remix-exp"></view>
+          <!-- <view v-if="myStore.profile?.music_time == 0" class="btn-music-remix"></view>
+          <view v-else class="btn-music-remix-exp"></view> -->
+          <view class="btn-music-remix"></view>
          </view>
        </view>
 
@@ -605,9 +638,9 @@ function navigateToMyPage() {
     // opacity: .5;
     background-color: rgba(0, 0, 0, .3);
 
-      // 模糊后面的地图
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+    // 模糊后面的地图
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 
       // 二维码容器
       .qrcode-container {

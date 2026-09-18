@@ -48,7 +48,8 @@ function navitateToHome(isExplore: boolean){
     uni.reLaunch({ url: "/pages/map/map?is_explore=audi_vision"});
   } else {
     console.log("跳转到地图页");
-    uni.reLaunch({ url: "/pages/map/map"});
+    // uni.reLaunch({ url: "/pages/map/map"});
+    uni.navigateBack({delta: 2});
   }
 }
 
@@ -182,8 +183,8 @@ page {
   width: 90%;
   .no-photo {
     margin-top: 100rpx;
-    width: 603rpx;
-    height: 206rpx;
+    width: 556rpx;
+    height: 152rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/no-photo.png") top center no-repeat;
     background-size: 100% 100%;
   }
@@ -191,8 +192,8 @@ page {
     margin-top: 20rpx;
     margin-left: 50%;
     transform: translateX(-50%);
-    width: 649rpx;
-    height: 866rpx;
+    width: 661.5rpx;
+    height: 441rpx;
     image {
       width: 100%;
       height: 100%;
@@ -201,7 +202,7 @@ page {
 }
 .btn-container {
   position: absolute;
-  bottom: 50rpx;
+  bottom: 80rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;

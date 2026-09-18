@@ -109,7 +109,8 @@ onShow(async () => {
 // 返回地图
 function navitateToHome() {
   console.log("跳转到地图页面");
-  uni.reLaunch({ url: "/pages/map/map" });
+  // uni.reLaunch({ url: "/pages/map/map" });
+  uni.navigateBack({delta: 2});
 }
 
 </script>
@@ -135,7 +136,7 @@ function navitateToHome() {
 
       <view v-else class="my-score">
         <view class="user-info">
-          <view class="my-rank">-</view>
+          <!-- <view class="my-rank">-</view> -->
 
           <view class="avatar">
             <image :src="myStore.profile?.avatar" mode="aspectFill" />
@@ -293,8 +294,8 @@ page {
   .no-score {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/no-score.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 598rpx;
-    height: 98rpx;
+    width: 562rpx;
+    height: 150rpx;
   }
 
   .my-score {
@@ -314,7 +315,7 @@ page {
       align-items: center;
 
       .my-rank {
-        width: 80rpx;
+        width: 60rpx;
         height: 80rpx;
         display: flex;
         justify-content: center;
@@ -357,7 +358,8 @@ page {
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 30rpx;
+      font-size: 32rpx;
+      font-weight: 400;
     }
   }
 }
@@ -527,7 +529,7 @@ page {
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        font-size: 30rpx;
+        font-size: 32rpx;
         color: white;
       }
     }

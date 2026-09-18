@@ -396,6 +396,11 @@ function closePopWindow(){
   isPopWindow.value = false;
   systemStore.upatePopRuler(false); // 更新进本地存储
 }
+
+// 注销相关
+const isPopCancelWindow = ref(false);
+
+
 </script>
 
 <template>
@@ -440,7 +445,7 @@ function closePopWindow(){
     </view>
   </view>
 
-  <!-- 礼物领取弹窗 -->
+  <!-- 礼物领取 -->
   <view class="gift-container">
     <view class="gift-label"></view>
     <view class="gift-icon" @tap="openPopWindow"> </view>
@@ -466,13 +471,21 @@ function closePopWindow(){
       ></canvas>
   </view>
 
-  <!-- 体验规则弹窗 -->
-  <view class="ruler-container" v-if="isPopWindow" @tap="closePopWindow">
+  <view class="btn-cancel" @tap="isPopCancelWindow=true"></view>
+
+  <!-- 礼品规则弹窗 -->
+  <view class="ruler-container" v-if="isPopWindow">
       <view class="pop-window" @tap.stop >
-        <view class="pop-content">
-          <view class="btn-close" @tap="closePopWindow">
-        </view>
-        </view> 
+        <view class="pop-content"></view>
+        <view class="btn-close" @tap="closePopWindow"></view> 
+      </view>
+  </view>
+
+  <!-- 注销规则弹窗 -->
+  <view class="cancel-container" v-if="isPopCancelWindow" @tap="isPopCancelWindow=false">
+      <view class="pop-window" @tap.stop >
+        <view class="pop-content"></view>
+        <view class="btn-close" @tap="isPopCancelWindow=false"> </view>
       </view>
   </view>
 
@@ -700,7 +713,16 @@ page {
   }
 }
 
-// 体验规则弹窗
+// 注销弹窗
+.btn-cancel {
+  margin: 50rpx auto 0;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-cancel.png") top center no-repeat;
+  background-size: 100% 100%;
+  width: 121rpx;
+  height: 25rpx;
+}
+
+// 礼品规则弹窗
   .ruler-container {
     position: fixed;
     top: 0rpx;
@@ -715,12 +737,59 @@ page {
     // background-color: black;
     // opacity: .5;
     background-color: rgba(0, 0, 0, .5);
+    // 模糊后面的地图
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     .pop-window {
-      width: 538rpx;
-      height: 654rpx;
+      width: 666rpx;
+      height: 100%;
       // background-color: pink;
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/pop-bg.png") top center no-repeat;
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .pop-content {
+        margin: 60rpx auto;
+        position: relative;
+        width: 666rpx;
+        height: 1143rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/ruler-prize.png") top center no-repeat;
+        background-size: 100% 100%;
+      }
+      .btn-close {
+        // background-color: pink;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-close-prize.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 666rpx;
+        height: 60rpx;
+      }
+    }
+  }
+
+  // 注销规则弹窗
+  .cancel-container {
+    position: fixed;
+    top: 0rpx;
+    left: 0rpx;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    // overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: black;
+    // opacity: .5;
+    background-color: rgba(0, 0, 0, .5);
+    // 模糊后面的地图
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  .pop-window {
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-bg.png") top center no-repeat;
       background-size: 100% 100%;
+      width: 643rpx;
+      height: 1191rpx;
+      // background-color: pink;
       z-index: 100000;
       display: flex;
       flex-direction: column;
@@ -728,19 +797,18 @@ page {
       align-items: center;
       .pop-content {
         position: relative;
-        margin-top: 50rpx;
-        width: 410rpx;
-        height: 455rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/pop-content.png") top center no-repeat;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-content.png") top center no-repeat;
         background-size: 100% 100%;
-        .btn-close {
-          position: absolute;
-          bottom: 0;
-          margin-top: 50rpx;
-          // background-color: pink;
-          width: 410rpx;
-          height: 60rpx;
-        }
+        width: 539rpx;
+        height: 902rpx;
+      }
+      .btn-close {
+        margin-top: 50rpx;
+        // background-color: pink;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-close-cancel.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 539rpx;
+        height: 60rpx;
       }
     }
   }

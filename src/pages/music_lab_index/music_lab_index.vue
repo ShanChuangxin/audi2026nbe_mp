@@ -11,12 +11,13 @@ function navitateToMP() {
 
 function navitateToHome() {
   console.log("跳转到地图页面")
-  uni.reLaunch({url: "/pages/map/map"});
+  // uni.reLaunch({url: "/pages/map/map"});
+  uni.navigateBack({delta: 1});
 }
 
 function navitateToMyMusic() {
   console.log("跳转到音乐详情页面")
-  uni.redirectTo({url: "/pages/music_lab_detail/music_lab_detail"});
+  uni.navigateTo({url: "/pages/music_lab_detail/music_lab_detail"});
 }
 
 
@@ -74,8 +75,8 @@ page {
   position: absolute;
   top: 150rpx;
   margin-left: 30rpx;
-  width: 602rpx;
-  height: 234rpx;
+  width: 711rpx;
+  height: 290rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/content.png") top center no-repeat;
   background-size: 100% 100%;
 
@@ -94,7 +95,7 @@ page {
 
 .btn-container {
   position: absolute;
-  bottom: 50rpx;
+  bottom: 80rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;

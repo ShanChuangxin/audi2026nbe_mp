@@ -185,10 +185,15 @@ function navigateToMapPage() {
     </view>
 
     <!-- 隐私条款弹窗 -->
-    <view class="privacy-container" v-if="showPrivacy" @touchmove.stop.prevent="">
+    <!-- <view class="privacy-container" v-if="showPrivacy" @touchmove.stop.prevent=""> -->
+    <view class="privacy-container" v-if="showPrivacy">
         <view class="pop-window">
-          <view class="privacy-title"></view>
-          <view class="privacy-content"></view>
+          <view class="text-content">
+            <scroll-view class="scroll" enhanced scroll-y>
+              <view class="privacy-content"></view>
+            </scroll-view>
+          </view>
+          
           <view class="btn-agree" @tap="closePopWindow">
           </view> 
         </view>
@@ -224,8 +229,8 @@ function navigateToMapPage() {
 .page-container {
   .body-view {
     // background-color: #f6f6f6; 
-    background-color: skyblue;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/bg.png") top center no-repeat;
+    background-color: black;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/bg.jpg") top center no-repeat;
     background-size: 100% 100%;
     width: 100vw;
     height: 100vh;
@@ -256,38 +261,53 @@ function navigateToMapPage() {
     // background-color: black;
     // opacity: .5;
     background-color: rgba(0, 0, 0, .5);
+
+    // 模糊后面的地图
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     
     .pop-window {
-      width: 538rpx;
-      height: 949rpx;
+      transform: translateY(-3vh);
+      position: relative;
+      width: 610rpx;
+      height: 1053rpx;
       // background-color: pink;
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/pop-window.png") top center no-repeat;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/pop-bg.png") top center no-repeat;
       background-size: 100% 100%;
       z-index: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
-      .privacy-title {
-        margin-top: 50rpx;
-        width: 345rpx;
-        height: 70rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy-title.png") top center no-repeat;
-        background-size: 100% 100%;
-      }
-      .privacy-content {
-        margin-top: 50rpx;
-        width: 389rpx;
-        height: 465rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy-content.png") top center no-repeat;
-        background-size: 100% 100%;
+      .text-content {
+        width: 600rpx;
+        height: 800rpx;
+        //
+        margin: 10rpx auto 120rpx;
+        overflow: hidden;
+        .scroll {
+          width: 600rpx;
+          height: 800rpx;
+          // 
+          // padding-bottom: 150rpx;
+          // height: 100%;
+          // display: flex;
+          // justify-content: center;
+          .privacy-content {
+            margin: 0 auto 150rpx;
+            width: 487rpx;
+            height: 18595rpx;
+            background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy.png") top center no-repeat;
+            background-size: 100% 100%;
+          }
+        }
       }
 
       .btn-agree {
-        margin-top: 50rpx;
-        width: 394rpx;
-        height: 60rpx;
+        position: absolute;
+        bottom: 50rpx;
+        width: 485rpx;
+        height: 92rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/btn-agree.png") top center no-repeat;
         background-size: 100% 100%;
       }

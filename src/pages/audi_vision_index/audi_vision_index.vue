@@ -7,12 +7,13 @@ import { ref } from 'vue';
 
 function navitateToHome() {
   console.log("跳转到地图页面")
-  uni.reLaunch({url: "/pages/map/map"});
+  // uni.reLaunch({url: "/pages/map/map"});
+  uni.navigateBack({delta: 1});
 }
 
 function navitateToMyPhoto() {
   console.log("跳转到拍照详情页面")
-  uni.redirectTo({url: "/pages/audi_vision_detail/audi_vision_detail"});
+  uni.navigateTo({url: "/pages/audi_vision_detail/audi_vision_detail"});
 }
 
 
@@ -67,8 +68,8 @@ page {
   position: absolute;
   top: 150rpx;
   margin-left: 30rpx;
-  width: 630rpx;
-  height: 242rpx;
+  width: 661rpx;
+  height: 287rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/content.png") top center no-repeat;
   background-size: 100% 100%;
 
@@ -80,7 +81,7 @@ page {
 
 .btn-container {
   position: absolute;
-  bottom: 50rpx;
+  bottom: 80rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;

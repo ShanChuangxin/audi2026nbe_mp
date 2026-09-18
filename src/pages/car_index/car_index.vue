@@ -3,12 +3,13 @@ import { ref } from 'vue';
 
 function navitateToHome() {
   console.log("跳转到地图页面")
-  uni.reLaunch({url: "/pages/map/map"});
+  // uni.reLaunch({url: "/pages/map/map"});
+  uni.navigateBack({delta: 1});
 }
 
 function navigateToLeaderboard() {
   console.log("跳转到模拟赛车详情页面")
-  uni.redirectTo({url: "/pages/car_detail/car_detail"});
+  uni.navigateTo({url: "/pages/car_detail/car_detail"});
 }
 
 
@@ -63,7 +64,7 @@ page {
   top: 150rpx;
   margin-left: 30rpx;
   width: 666rpx;
-  height: 189rpx;
+  height: 247rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_index/content.png") top center no-repeat;
   background-size: 100% 100%;
 
@@ -71,7 +72,7 @@ page {
 
 .btn-container {
   position: absolute;
-  bottom: 50rpx;
+  bottom: 80rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;

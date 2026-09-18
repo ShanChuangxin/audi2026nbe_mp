@@ -8,12 +8,13 @@ function navitateToMP() {
 
 function navitateToHome() {
   console.log("跳转到地图页面")
-  uni.reLaunch({url: "/pages/map/map"});
+  // uni.reLaunch({url: "/pages/map/map"});
+  uni.navigateBack({delta: 1});
 }
 
 function navigateToMyScore() {
   console.log("跳转到网球详情页面")
-  uni.redirectTo({url: "/pages/tennis_detail/tennis_detail"});
+  uni.navigateTo({url: "/pages/tennis_detail/tennis_detail"});
 }
 
 
@@ -76,7 +77,7 @@ page {
 
 .btn-container {
   position: absolute;
-  bottom: 50rpx;
+  bottom: 80rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;

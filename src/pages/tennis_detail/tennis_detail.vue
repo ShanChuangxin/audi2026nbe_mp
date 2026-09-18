@@ -262,7 +262,8 @@ function navitateToHome(isExplore: boolean){
     uni.reLaunch({ url: "/pages/map/map?is_explore=audi_vision"});
   } else {
     console.log("跳转到地图页");
-    uni.reLaunch({ url: "/pages/map/map"});
+    // uni.reLaunch({ url: "/pages/map/map"});
+    uni.navigateBack({delta: 2});
   }
 }
 
@@ -278,7 +279,7 @@ function navitateToHome(isExplore: boolean){
     <view v-if="myStore.profile?.latest_tennis_time==0" class="no-score"></view>
     <view v-else class="my-score">
       <view class="user-info">
-        <view class="my-rank"> - </view>
+        <!-- <view class="my-rank"> - </view> -->
         <view class="avatar">
           <image
             :src="myStore.profile?.avatar"
@@ -430,8 +431,8 @@ page {
   .no-score {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/no-score.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 603rpx;
-    height: 206rpx;
+    width: 556rpx;
+    height: 152rpx;
   }
   .my-score {
     border-top: solid 1rpx white;
@@ -472,6 +473,7 @@ page {
         height: 100%;
         display: flex;
         align-items: center;
+        font-size: 28rpx;
       }
     }
     .score-num {
@@ -479,6 +481,7 @@ page {
       height: 100%;
       display: flex;
       align-items: center;
+      font-size: 28rpx;
     }
   }
 }
@@ -490,14 +493,14 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/label-highlight.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 260rpx;
+    width: 436rpx;
     height: 43rpx;
   }
   .no-highlight {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/no-highlight.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 146rpx;
-    height: 43rpx;
+    width: 114rpx;
+    height: 31rpx;
   }
   .my-highlight {
     // border-top: solid 1rpx white;

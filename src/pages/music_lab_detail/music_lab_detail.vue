@@ -42,7 +42,8 @@ function navigateToHome(isExplore: boolean){
     uni.reLaunch({ url: "/pages/map/map?is_explore=music_lab"});
   } else {
     console.log("跳转到地图页");
-    uni.reLaunch({ url: "/pages/map/map"});
+    // uni.reLaunch({ url: "/pages/map/map"});
+    uni.navigateBack({delta: 2});
   }
 }
 
@@ -238,7 +239,7 @@ function downloadMusic() {
     </view>
     <view class="music-btn-container">
       <view class="btn-home" @tap="navigateToHome(false)"></view>
-      <view class="btn-download" @tap="downloadMusic"></view>
+      <!-- <view class="btn-download" @tap="downloadMusic"></view> -->
     </view>
   </view>
 
@@ -276,16 +277,16 @@ page {
     position: absolute;
     top: 100rpx;
     margin-left: 30rpx;
-    width: 602rpx;
-    height: 174rpx;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/title.png") top center no-repeat;
+    width: 711rpx;
+    height: 132rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
     background-size: 100% 100%;
   }
   .no-music-content {
     margin-top: 300rpx;
     margin-left: 30rpx;
-    width: 567rpx;
-    height: 259rpx;
+    width: 562rpx;
+    height: 150rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music.png") top center no-repeat;
     background-size: 100% 100%;
   }
@@ -352,9 +353,9 @@ page {
     position: absolute;
     top: 100rpx;
     margin-left: 30rpx;
-    width: 602rpx;
-    height: 174rpx;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/title.png") top center no-repeat;
+    width: 711rpx;
+    height: 210rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
     background-size: 100% 100%;
   }
 
@@ -386,15 +387,16 @@ page {
 
   .music-btn-container {
     position: absolute;
-    bottom: 50rpx;
+    bottom: 80rpx;
     margin-left: 50%;
     transform: translateX(-50%);
     // background-color: pink;
     width: 90%;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
     .btn-home {
+      float: left;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-home.png") top center no-repeat;
       background-size: 100% 100%;
       width: 125rpx;
