@@ -75,8 +75,8 @@ page {
   position: absolute;
   top: 150rpx;
   margin-left: 30rpx;
-  width: 711rpx;
-  height: 290rpx;
+  width: 624rpx;
+  height: 274rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/content.png") top center no-repeat;
   background-size: 100% 100%;
 

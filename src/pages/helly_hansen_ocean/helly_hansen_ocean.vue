@@ -88,7 +88,7 @@ page {
   top: 150rpx;
   margin-left: 30rpx;
   width: 642rpx;
-  height: 317rpx;
+  height: 301rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/content.png") top center no-repeat;
   background-size: 100% 100%;
 

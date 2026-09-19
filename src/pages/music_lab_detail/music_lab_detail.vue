@@ -277,9 +277,9 @@ page {
     position: absolute;
     top: 100rpx;
     margin-left: 30rpx;
-    width: 711rpx;
-    height: 132rpx;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
+    width: 621rpx;
+    height: 116rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music-title.png") top center no-repeat;
     background-size: 100% 100%;
   }
   .no-music-content {
@@ -353,8 +353,8 @@ page {
     position: absolute;
     top: 100rpx;
     margin-left: 30rpx;
-    width: 711rpx;
-    height: 210rpx;
+    width: 623rpx;
+    height: 194rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
     background-size: 100% 100%;
   }
