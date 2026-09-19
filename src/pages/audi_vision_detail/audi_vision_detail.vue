@@ -45,7 +45,8 @@ onShow(async () => {
 function navitateToHome(isExplore: boolean){
   if (isExplore) {
     console.log("带参跳转到地图页");
-    uni.reLaunch({ url: "/pages/map/map?is_explore=audi_vision"});
+    // uni.reLaunch({ url: "/pages/map/map?is_explore=audi_vision"});
+    uni.navigateBack({delta: 2});
   } else {
     console.log("跳转到地图页");
     // uni.reLaunch({ url: "/pages/map/map"});
@@ -131,7 +132,7 @@ function downloadPhoto() {
     </view>
     <view v-else class="photo-btn-container">
       <view class="btn-home" @tap="navitateToHome(false)"></view>
-      <view class="btn-my-photo" @tap="downloadPhoto"></view>
+      <view class="btn-download" @tap="downloadPhoto"></view>
     </view>
   </view>
   
@@ -214,8 +215,8 @@ page {
   .btn-explore {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/btn-explore-now.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 363rpx;
-    height: 30rpx;
+    width: 295rpx;
+    height: 31rpx;
   }
   .photo-btn-container {
     width: 100%;
@@ -225,14 +226,14 @@ page {
     .btn-home {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/btn-home.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 125rpx;
+      width: 100rpx;
       height: 24rpx;
     }
-    .btn-my-photo {
+    .btn-download {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/btn-download.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 222rpx;
-      height: 24rpx;
+      width: 180rpx;
+      height: 25rpx;
     }
   }
   

@@ -84,14 +84,14 @@ page {
   .btn-home {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_index/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 125rpx;
+    width: 100rpx;
     height: 24rpx;
   }
   .btn-leaderboard {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_index/btn-leaderboard.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 287rpx;
-    height: 24rpx;
+    width: 233rpx;
+    height: 25rpx;
   }
 }
 

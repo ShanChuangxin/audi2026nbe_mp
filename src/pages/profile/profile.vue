@@ -568,7 +568,7 @@ page {
       margin-top: 15rpx;
       text-align: left;
       color: white;
-      font-size: 30rpx;
+      font-size: 28rpx;
     }
     /* 昵称区域 */
     .user-name {
@@ -583,7 +583,8 @@ page {
       width: 100%;
       // padding: 10rpx 20rpx;
       color: white;
-      font-size: 30rpx;
+      font-size: 28rpx;
+      font-weight: 400;
       white-space: nowrap;
       .nickname-value {
         overflow: hidden;
@@ -629,8 +630,8 @@ page {
   .experience-label {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-experience.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 310rpx;
-    height: 25rpx;
+    width: 291rpx;
+    height: 24rpx;
   }
   .experience-count {
     display: flex;
@@ -676,8 +677,8 @@ page {
   .qrcode-label {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-qrcode.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 201rpx;
-    height: 29rpx;
+    width: 192rpx;
+    height: 28rpx;
   }
   .qrcode-bg {
     margin: 80rpx auto 0;
@@ -713,13 +714,13 @@ page {
   }
 }
 
-// 注销弹窗
+// 注销按钮
 .btn-cancel {
   margin: 50rpx auto 0;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-cancel.png") top center no-repeat;
   background-size: 100% 100%;
-  width: 121rpx;
-  height: 25rpx;
+  width: 109rpx;
+  height: 21rpx;
 }
 
 // 礼品规则弹窗
@@ -752,7 +753,7 @@ page {
         margin: 60rpx auto;
         position: relative;
         width: 666rpx;
-        height: 1143rpx;
+        height: 1135rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/ruler-prize.png") top center no-repeat;
         background-size: 100% 100%;
       }
@@ -788,7 +789,7 @@ page {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-bg.png") top center no-repeat;
       background-size: 100% 100%;
       width: 643rpx;
-      height: 1191rpx;
+      height: 793rpx;
       // background-color: pink;
       z-index: 100000;
       display: flex;
@@ -800,7 +801,7 @@ page {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-content.png") top center no-repeat;
         background-size: 100% 100%;
         width: 539rpx;
-        height: 902rpx;
+        height: 529rpx;
       }
       .btn-close {
         margin-top: 50rpx;

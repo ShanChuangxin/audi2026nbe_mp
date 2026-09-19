@@ -574,7 +574,7 @@ page {
     float: left;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 125rpx;
+    width: 100rpx;
     height: 24rpx;
   }
 
@@ -582,8 +582,8 @@ page {
     float: left;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/btn-experience.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 363rpx;
-    height: 30rpx;
+    width: 295rpx;
+    height: 31rpx;
   }
 }
 </style>

@@ -89,13 +89,13 @@ page {
   .btn-home {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_index/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 125rpx;
+    width: 100rpx;
     height: 24rpx;
   }
   .btn-my-score {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_index/btn-my-score.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 199rpx;
+    width: 161rpx;
     height: 31rpx;
   }
 }

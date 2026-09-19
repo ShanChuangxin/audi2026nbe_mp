@@ -93,14 +93,14 @@ page {
   .btn-home {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 125rpx;
+    width: 100rpx;
     height: 24rpx;
   }
   .btn-my-photo {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/btn-my-photo.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 209rpx;
-    height: 31rpx;
+    width: 171rpx;
+    height: 32rpx;
   }
 }
 

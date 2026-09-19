@@ -107,13 +107,13 @@ page {
   .btn-home {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 125rpx;
+    width: 100rpx;
     height: 24rpx;
   }
   .btn-my-music {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/btn-my-music.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 209rpx;
+    width: 171rpx;
     height: 31rpx;
   }
 }

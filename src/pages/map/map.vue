@@ -194,7 +194,7 @@ function navigateToMyPage() {
       <!-- 顶部 -->
       <view class="top-container">
         <!-- 标题 -->
-         <view class="map-text"></view>
+         <!-- <view class="map-text"></view> -->
          <view class="language"></view>
       </view>
 
@@ -303,7 +303,7 @@ function navigateToMyPage() {
       // background-color: pink;
       width: 90%;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       .map-text {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/text-map.png") top center no-repeat;
@@ -620,7 +620,7 @@ function navigateToMyPage() {
     height: 240px;
   }
 
-  // 推广弹窗
+  // 二维码弹窗
   .pop-window {
     position: fixed;
     top: 0rpx;
@@ -687,7 +687,7 @@ function navigateToMyPage() {
             height: 30rpx;
             line-height: 30rpx;
             text-align: center;
-            font-size: 25rpx;
+            font-size: 28rpx;
             color: white;
           }
         }

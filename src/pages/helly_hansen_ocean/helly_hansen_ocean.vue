@@ -102,14 +102,13 @@ page {
   // background-color: pink;
   width: 90%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 
   .btn-home {
-    float: left;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 125rpx;
+    width: 100rpx;
     height: 24rpx;
   }
 }
