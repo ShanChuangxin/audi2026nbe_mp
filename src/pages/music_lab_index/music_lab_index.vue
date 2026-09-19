@@ -73,7 +73,7 @@ page {
 
 .index-content {
   position: absolute;
-  top: 150rpx;
+  top: 100rpx;
   margin-left: 30rpx;
   width: 624rpx;
   height: 274rpx;

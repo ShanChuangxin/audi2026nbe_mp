@@ -290,8 +290,8 @@ function navigateToMyPage() {
             <image v-if="qrCodeImage" :src="qrCodeImage" class="qrcode-style" mode="aspectFit"/>
           </view>
           <view class="text-container">
-            <view class="proflie_text">User ID: {{ myStore.profile?.user_id }}</view>
-            <view class="proflie_text">Name: {{ myStore.profile?.nick_name }}</view>
+            <view class="proflie_text">{{ mySystem.system_config.language=="en" ? "User ID: " : "用户ID："}}{{ myStore.profile?.user_id }}</view>
+            <view class="proflie_text">{{ mySystem.system_config.language=="en" ? "Name: " : "昵称："}}{{ myStore.profile?.nick_name }}</view>
           </view>
         </view>
     </view>

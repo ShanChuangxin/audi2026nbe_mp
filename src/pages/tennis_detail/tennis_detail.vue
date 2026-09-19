@@ -418,7 +418,7 @@ page {
 }
 
 .score-container {
-  margin: 50rpx auto 0;
+  margin: 30rpx auto 0;
   width: 90%;
   // height: 332rpx;
   .score-label {

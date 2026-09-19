@@ -168,7 +168,7 @@ page {
 }
 .detail-content {
   position: absolute;
-  top: 150rpx;
+  top: 100rpx;
   margin-left: 30rpx;
   width: 449rpx;
   height: 98rpx;
@@ -178,12 +178,12 @@ page {
 
 .photo-container {
   position: absolute;
-  top: 300rpx;
+  top: 260rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   width: 90%;
   .no-photo {
-    margin-top: 100rpx;
+    // margin-top: 100rpx;
     width: 556rpx;
     height: 152rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/no-photo.png") top center no-repeat;

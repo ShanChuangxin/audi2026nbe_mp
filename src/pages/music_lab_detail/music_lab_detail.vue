@@ -283,7 +283,7 @@ page {
     background-size: 100% 100%;
   }
   .no-music-content {
-    margin-top: 300rpx;
+    margin-top: 200rpx;
     margin-left: 30rpx;
     width: 562rpx;
     height: 150rpx;

@@ -280,7 +280,7 @@ page {
 
 // 我的成绩
 .score-container {
-  margin: 50rpx auto 0;
+  margin: 30rpx auto 0;
   width: 90%;
 
   .score-label {

@@ -136,7 +136,7 @@ const getUserInfoData = async () => {
     } else {
       uni.showToast({
         icon: 'none',
-        title: res.errmsg || '网络错误~',
+        title: res.errmsg || (systemStore.system_config.language=="cn" ? "网络错误~" : "Network error"),
         duration: 2000
       })
     }
@@ -145,7 +145,7 @@ const getUserInfoData = async () => {
 
     uni.showToast({
       icon: 'none',
-      title: '网络错误~',
+      title: systemStore.system_config.language=="cn" ? "网络错误~" : "Network error",
       duration: 2000
     })
   }
@@ -218,14 +218,14 @@ const onNickNameBlur = async () => {
 
   // 昵称不能为空
   if (!nick_name) {
-    uni.showToast({ icon: 'none', title: '昵称不能为空' });
+    uni.showToast({ icon: 'none', title: systemStore.system_config.language == "cn" ? "昵称不能为空" : "Nickname is required" });
     // 恢复旧昵称
     nickNameInput.value = oldNickName;
     return
   }
   // 昵称长度限制
   if(getNickNameLength(nick_name) > 18) {
-    uni.showToast({ icon: 'none', title: '昵称过长' });
+    uni.showToast({ icon: 'none', title: systemStore.system_config.language == "cn" ? "昵称过长" : "Nickname is too long" });
     // 恢复旧昵称
     nickNameInput.value = oldNickName;
     return
@@ -276,12 +276,12 @@ const onNickNameBlur = async () => {
 
       uni.showToast({
         icon: 'success',
-        title: '修改成功'
+        title: systemStore.system_config.language=="cn" ? "更新成功" : "Updated successfully"
       })
     } else {
       uni.showToast({
         icon: 'none',
-        title: res.errmsg || '修改失败'
+        title: res.errmsg || (systemStore.system_config.language=="cn" ? "更新失败" : "Update failed")
       })
 
       // 保存失败，恢复旧昵称
@@ -292,7 +292,7 @@ const onNickNameBlur = async () => {
 
     uni.showToast({
       icon: 'none',
-      title: '网络错误~'
+      title: systemStore.system_config.language=="cn" ? "网络错误~" : "Network error",
     })
 
     // 网络错误，恢复旧昵称
@@ -329,18 +329,18 @@ const uploadFile = (file: string) => {
           }
           uni.showToast({
             icon: 'success',
-            title: '更新成功'
+            title: systemStore.system_config.language=="cn" ? "更新成功" : "Updated successfully"
           })
         } else {
           uni.showToast({
             icon: 'none',
-            title: result.errmsg || '更新失败'
+            title: result.errmsg || (systemStore.system_config.language=="cn" ? "更新失败" : "Update failed")
           })
         }
       } else {
         uni.showToast({
           icon: 'none',
-          title: '上传失败'
+          title: systemStore.system_config.language=="cn" ? "上传失败" : "Upload failed"
         })
       }
     },
@@ -349,7 +349,7 @@ const uploadFile = (file: string) => {
       console.error('上传头像失败：', error)
       uni.showToast({
         icon: 'none',
-        title: '网络错误~'
+        title: systemStore.system_config.language=="cn" ? "网络错误~" : "Network error",
       })
     }
   })
@@ -400,6 +400,10 @@ function closePopWindow(){
 // 注销相关
 const isPopCancelWindow = ref(false);
 
+function switchLanguage() {
+  console.log("切换语言");
+  systemStore.switchLanguage();
+}
 
 </script>
 
@@ -408,8 +412,8 @@ const isPopCancelWindow = ref(false);
   <!-- 顶部 -->
   <view class="top-container">
     <!-- 标题 -->
-      <view class="language"></view>
-      <view class="prize-ruler"></view>
+      <view class="language" @tap="switchLanguage"></view>
+      <!-- <view class="prize-ruler"></view> -->
   </view>
 
   <!-- 顶部个人信息 -->
@@ -422,13 +426,13 @@ const isPopCancelWindow = ref(false);
 
     <view class="info-container">
       <!-- 用户 ID -->
-      <view class="user-id"> User ID：{{ profile.user_id }} </view>
+      <view class="user-id"> {{systemStore.system_config.language=="en" ? "User ID: " : "用户ID："}}{{ profile.user_id }} </view>
 
       <!-- 用户昵称 -->
       <view class="user-name">
         <!-- 正常显示昵称 -->
         <view v-if="!isEditingName" class="nickname-text" @tap="editNickName" >
-          <text class="nickname-value"> Name：{{ profile.nick_name || '点击设置昵称' }} </text>
+          <text class="nickname-value">{{ systemStore.system_config.language=="en" ?  "Name: " : "昵称："}} {{ profile.nick_name || '点击设置昵称' }} </text>
           <text class="edit-icon"></text>
         </view>
         <!-- 编辑昵称 -->
@@ -439,7 +443,8 @@ const isPopCancelWindow = ref(false);
 
   <!-- 用户完成的打卡数量 -->
   <view class="experience-container">
-    <view class="experience-label"></view>
+    <view v-if="systemStore.system_config.language=='en'" class="experience-label"></view>
+    <view v-else class="experience-label-cn"></view>
     <view class="experience-count">
       {{ experienceCount }} / 6
     </view>
@@ -447,13 +452,15 @@ const isPopCancelWindow = ref(false);
 
   <!-- 礼物领取 -->
   <view class="gift-container">
-    <view class="gift-label"></view>
+    <view v-if="systemStore.system_config.language=='en'" class="gift-label"></view>
+    <view v-else class="gift-label-cn"></view>
     <view class="gift-icon" @tap="openPopWindow"> </view>
   </view>
 
   <!-- 用户二维码 -->
   <view class="qrcode-container">
-    <view class="qrcode-label"></view>
+    <view v-if="systemStore.system_config.language=='en'" class="qrcode-label"></view>
+    <view v-else class="qrcode-label-cn"></view>
     <view class="qrcode-bg">
       <!-- 最终显示的二维码 -->
       <image
@@ -471,19 +478,28 @@ const isPopCancelWindow = ref(false);
       ></canvas>
   </view>
 
-  <view class="btn-cancel" @tap="isPopCancelWindow=true"></view>
+  <view v-if="systemStore.system_config.language=='en'" class="btn-cancel" @tap="isPopCancelWindow=true"></view>
+  <view v-else class="btn-cancel-cn" @tap="isPopCancelWindow=true"></view>
 
   <!-- 礼品规则弹窗 -->
   <view class="ruler-container" v-if="isPopWindow">
-      <view class="pop-window" @tap.stop >
+      <view v-if="systemStore.system_config.language=='en'" class="pop-window" @tap.stop >
         <view class="pop-content"></view>
         <view class="btn-close" @tap="closePopWindow"></view> 
+      </view>
+      <view v-else class="pop-window-cn" @tap.stop >
+        <view class="pop-content-cn"></view>
+        <view class="btn-close-cn" @tap="closePopWindow"></view> 
       </view>
   </view>
 
   <!-- 注销规则弹窗 -->
   <view class="cancel-container" v-if="isPopCancelWindow" @tap="isPopCancelWindow=false">
-      <view class="pop-window" @tap.stop >
+      <view v-if="systemStore.system_config.language=='en'" class="pop-window" @tap.stop >
+        <view class="pop-content"></view>
+        <view class="btn-close" @tap="isPopCancelWindow=false"> </view>
+      </view>
+      <view v-else class="pop-window-cn" @tap.stop >
         <view class="pop-content"></view>
         <view class="btn-close" @tap="isPopCancelWindow=false"> </view>
       </view>
@@ -633,6 +649,12 @@ page {
     width: 291rpx;
     height: 24rpx;
   }
+  .experience-label-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/标签-已参与互动.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 178rpx;
+    height: 31rpx;
+  }
   .experience-count {
     display: flex;
     justify-content: center;
@@ -654,8 +676,14 @@ page {
   .gift-label {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-gift.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 376rpx;
+    width: 389rpx;
     height: 24rpx;
+  }
+  .gift-label-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/标签-礼品兑换.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 146rpx;
+    height: 31rpx;
   }
   .gift-icon {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/gift-icon.png") top center no-repeat;
@@ -679,6 +707,12 @@ page {
     background-size: 100% 100%;
     width: 192rpx;
     height: 28rpx;
+  }
+  .qrcode-label-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/标签-二维码.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 111rpx;
+    height: 30rpx;
   }
   .qrcode-bg {
     margin: 80rpx auto 0;
@@ -721,6 +755,13 @@ page {
   background-size: 100% 100%;
   width: 109rpx;
   height: 21rpx;
+}
+.btn-cancel-cn {
+  margin: 50rpx auto 0;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/按钮注销.png") top center no-repeat;
+  background-size: 100% 100%;
+  width: 53rpx;
+  height: 26rpx;
 }
 
 // 礼品规则弹窗
@@ -765,6 +806,30 @@ page {
         height: 60rpx;
       }
     }
+    .pop-window-cn {
+      width: 666rpx;
+      height: 100%;
+      // background-color: pink;
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .pop-content-cn {
+        margin: 60rpx auto;
+        position: relative;
+        width: 648rpx;
+        height: 998rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/礼品兑换机制.png") top center no-repeat;
+        background-size: 100% 100%;
+      }
+      .btn-close-cn {
+        // background-color: pink;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/关闭礼品兑换弹窗.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 648rpx;
+        height: 60rpx;
+      }
+    }
   }
 
   // 注销规则弹窗
@@ -786,32 +851,59 @@ page {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   .pop-window {
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-bg.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-bg.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 643rpx;
+    height: 793rpx;
+    // background-color: pink;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .pop-content {
+      position: relative;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-content.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 643rpx;
-      height: 793rpx;
-      // background-color: pink;
-      z-index: 100000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .pop-content {
-        position: relative;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-content.png") top center no-repeat;
-        background-size: 100% 100%;
-        width: 539rpx;
-        height: 529rpx;
-      }
-      .btn-close {
-        margin-top: 50rpx;
-        // background-color: pink;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-close-cancel.png") top center no-repeat;
-        background-size: 100% 100%;
-        width: 539rpx;
-        height: 60rpx;
-      }
+      width: 539rpx;
+      height: 529rpx;
     }
+    .btn-close {
+      margin-top: 50rpx;
+      // background-color: pink;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-close-cancel.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 539rpx;
+      height: 60rpx;
+    }
+  }
+  .pop-window-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/注销账户背景.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 643rpx;
+    height: 716rpx;
+    // background-color: pink;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .pop-content {
+      position: relative;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/注销账户说明.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 539rpx;
+      height: 405rpx;
+    }
+    .btn-close {
+      margin-top: 50rpx;
+      // background-color: pink;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/关闭注销窗口.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 539rpx;
+      height: 60rpx;
+    }
+  }
   }
 
 </style>
