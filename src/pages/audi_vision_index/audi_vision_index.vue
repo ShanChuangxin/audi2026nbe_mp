@@ -3,7 +3,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useSystemStore } from '@/stores'
 
+const mySystem = useSystemStore(); // 主要用于切换语言
+
+function switchLanguage() {
+  console.log("切换语言");
+  mySystem.switchLanguage();
+}
 
 function navitateToHome() {
   console.log("跳转到地图页面")
@@ -23,15 +30,18 @@ function navitateToMyPhoto() {
 <template>
   <view class="top-container">
     <!-- 标题 -->
-      <view class="language"></view>
+      <view class="language" @tap="switchLanguage"></view>
   </view>
   <!-- Audi Vision内容介绍 -->
-  <view class="index-content"></view>
+  <view v-if="mySystem.system_config.language=='en'" class="index-content"></view>
+  <view v-else class="index-content-cn"></view>
 
   <!-- 底部按钮栏 -->
   <view class="btn-container">
-    <view class="btn-home" @tap="navitateToHome"></view>
-    <view class="btn-my-photo" @tap="navitateToMyPhoto"></view>
+    <view v-if="mySystem.system_config.language=='en'" class="btn-home" @tap="navitateToHome"></view>
+    <view v-else class="btn-home-cn" @tap="navitateToHome"></view>
+    <view v-if="mySystem.system_config.language=='en'" class="btn-my-photo" @tap="navitateToMyPhoto"></view>
+    <view v-else class="btn-my-photo-cn" @tap="navitateToMyPhoto"></view>
   </view>
 
 </template>
@@ -72,7 +82,15 @@ page {
   height: 287rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/content.png") top center no-repeat;
   background-size: 100% 100%;
-
+}
+.index-content-cn {
+  position: absolute;
+  top: 100rpx;
+  margin-left: 30rpx;
+  width: 592rpx;
+  height: 192rpx;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_index/文案介绍.png") top center no-repeat;
+  background-size: 100% 100%;
 }
 
 .photo-container {
@@ -96,11 +114,23 @@ page {
     width: 100rpx;
     height: 24rpx;
   }
+  .btn-home-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_index/主页按钮.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 71rpx;
+    height: 33rpx;
+  }
   .btn-my-photo {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/btn-my-photo.png") top center no-repeat;
     background-size: 100% 100%;
     width: 171rpx;
     height: 32rpx;
+  }
+  .btn-my-photo-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_index/我的照片按钮.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 150rpx;
+    height: 33rpx;
   }
 }
 

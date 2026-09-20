@@ -4,7 +4,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { onShow } from '@dcloudio/uni-app'
-import { useMyStore } from '@/stores/modules/my'
+import { useMyStore, useSystemStore } from '@/stores'
 import { getUserInfoAPI } from '@/services/login'
 
 
@@ -12,6 +12,11 @@ import { getUserInfoAPI } from '@/services/login'
 const myInfo = useMyStore()
 console.log(myInfo.profile);
 // const user_id = myInfo.profile!.user_id!
+const mySystem = useSystemStore(); // 主要用于切换语言
+function switchLanguage() {
+  console.log("切换语言");
+  mySystem.switchLanguage();
+}
 
 // 请求用户信息
 const getUserInfo = async () => {
@@ -110,29 +115,39 @@ function downloadPhoto() {
 <template>
   <!-- 顶部按钮容器 -->
   <view class="top-container">
-    <view class="language"></view>
+    <view class="language" @tap="switchLanguage"></view>
   </view>
     <!-- Audi Vision内容介绍 -->
-  <view class="detail-content"></view>
+  <view v-if="mySystem.system_config.language=='en'" class="detail-content"></view>
+  <view v-else class="detail-content-cn"></view>
   <!-- 照片容器 -->
   <view class="photo-container">
-    <view v-if="myInfo.profile?.photo_time==0" class="no-photo"></view>
+    <view v-if="myInfo.profile?.photo_time==0" >
+      <view v-if="mySystem.system_config.language=='en'" class="no-photo"></view>
+      <view v-else class="no-photo-cn"></view>
+    </view>
     <view v-else class="photo">
       <image
         :src="myInfo.profile?.photo_url" 
         mode="scaleToFill"
       />
-      
     </view>
   </view>
   <!-- 底部按钮栏 -->
   <view class="btn-container">
     <view v-if="myInfo.profile?.photo_time==0">
-      <view class="btn-explore" @tap="navitateToHome(true)"></view>
+      <view v-if="mySystem.system_config.language=='en'"  class="btn-explore" @tap="navitateToHome(true)"></view>
+      <view v-else class="btn-explore-cn" @tap="navitateToHome(true)"></view>
     </view>
     <view v-else class="photo-btn-container">
-      <view class="btn-home" @tap="navitateToHome(false)"></view>
-      <view class="btn-download" @tap="downloadPhoto"></view>
+      <view v-if="mySystem.system_config.language=='en'" class="en-container" >
+        <view class="btn-home" @tap="navitateToHome(false)"></view>
+        <view class="btn-download" @tap="downloadPhoto"></view>
+      </view>
+      <view v-else class="cn-container">
+        <view class="btn-home-cn" @tap="navitateToHome(false)"></view>
+        <view class="btn-download-cn" @tap="downloadPhoto"></view>
+      </view>
     </view>
   </view>
   
@@ -175,6 +190,15 @@ page {
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/content.png") top center no-repeat;
   background-size: 100% 100%;
 }
+.detail-content-cn {
+  position: absolute;
+  top: 100rpx;
+  margin-left: 30rpx;
+  width: 662rpx;
+  height: 48rpx;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/标题.png") top center no-repeat;
+  background-size: 100% 100%;
+}
 
 .photo-container {
   position: absolute;
@@ -187,6 +211,13 @@ page {
     width: 556rpx;
     height: 152rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/no-photo.png") top center no-repeat;
+    background-size: 100% 100%;
+  }
+  .no-photo-cn {
+    // margin-top: 100rpx;
+    width: 298rpx;
+    height: 90rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/无照片提示.png") top center no-repeat;
     background-size: 100% 100%;
   }
   .photo {
@@ -218,22 +249,47 @@ page {
     width: 295rpx;
     height: 31rpx;
   }
+  .btn-explore-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/现在体验按钮.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 153rpx;
+    height: 33rpx;
+  }
   .photo-btn-container {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .btn-home {
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/btn-home.png") top center no-repeat;
-      background-size: 100% 100%;
-      width: 100rpx;
-      height: 24rpx;
+    .en-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .btn-home {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/btn-home.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 100rpx;
+        height: 24rpx;
+      }
+      .btn-download {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/btn-download.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 180rpx;
+        height: 25rpx;
+      }
     }
-    .btn-download {
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_detail/btn-download.png") top center no-repeat;
-      background-size: 100% 100%;
-      width: 180rpx;
-      height: 25rpx;
+    .cn-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .btn-home-cn {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/主页按钮.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 71rpx;
+        height: 33rpx;
+      }
+      .btn-download-cn {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/下载照片按钮.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 150rpx;
+        height: 33rpx;
+      }
     }
   }
   

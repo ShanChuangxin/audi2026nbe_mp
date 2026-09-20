@@ -38,19 +38,25 @@ function navitateToHome() {
   // uni.reLaunch({url: "/pages/map/map"});
   uni.navigateBack({delta: 1});
 }
+function switchLanguage() {
+  console.log("切换语言");
+  mySystem.switchLanguage();
+}
 
 </script>
 
 <template>
   <view class="top-container">
     <!-- 标题 -->
-      <view class="language"></view>
+      <view class="language" @tap="switchLanguage"></view>
   </view>
-  <view class="index-content"></view>
+  <view v-if="mySystem.system_config.language=='en'" class="index-content"></view>
+  <view v-else class="index-content-cn"></view>
 
   <!-- 底部按钮栏 -->
   <view class="btn-container">
-    <view class="btn-home" @tap="navitateToHome"></view>
+    <view v-if="mySystem.system_config.language=='en'" class="btn-home" @tap="navitateToHome"></view>
+    <view v-else class="btn-home-cn" @tap="navitateToHome"></view>
   </view>
 
 </template>
@@ -91,7 +97,15 @@ page {
   height: 301rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/content.png") top center no-repeat;
   background-size: 100% 100%;
-
+}
+.index-content-cn {
+  position: absolute;
+  top: 100rpx;
+  margin-left: 30rpx;
+  width: 676rpx;
+  height: 292rpx;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/helly_hansen_ocean/标题.png") top center no-repeat;
+  background-size: 100% 100%;
 }
 
 .btn-container {
@@ -110,6 +124,12 @@ page {
     background-size: 100% 100%;
     width: 100rpx;
     height: 24rpx;
+  }
+  .btn-home-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/helly_hansen_ocean/主页按钮.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 71rpx;
+    height: 33rpx;
   }
 }
 

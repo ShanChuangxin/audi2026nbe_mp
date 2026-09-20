@@ -7,7 +7,7 @@ import { getUserInfoAPI, getTennisRankAPI } from '@/services/login'
 
 // 持久化存储
 const myStore = useMyStore();
-const systemStore = useSystemStore();
+const mySystem = useSystemStore();
 // 请求用户信息
 const getUserInfo = async() => {
   const open_id = myStore.profile?.open_id;
@@ -266,17 +266,25 @@ function navitateToHome(isExplore: boolean){
     uni.navigateBack({delta: 2});
   }
 }
-
+function switchLanguage() {
+  console.log("切换语言");
+  mySystem.switchLanguage();
+}
 </script>
 
 <template>
   <view class="top-container">
     <!-- 标题 -->
-      <view class="language"></view>
+      <view class="language" @tap="switchLanguage"></view>
   </view>
   <view class="score-container">
-    <view class="score-label"></view>
-    <view v-if="myStore.profile?.latest_tennis_time==0" class="no-score"></view>
+    <view v-if="mySystem.system_config.language=='en'" class="score-label"></view>
+    <view v-else class="score-label-cn"></view>
+    <view v-if="myStore.profile?.latest_tennis_time==0">
+      <view v-if="mySystem.system_config.language=='en'" class="no-score"></view>
+      <view v-else class="no-score-cn"></view>
+    </view>
+    
     <view v-else class="my-score">
       <view class="user-info">
         <!-- <view class="my-rank"> - </view> -->
@@ -292,8 +300,16 @@ function navitateToHome(isExplore: boolean){
     </view>
   </view>
   <view class="highlight-container">
-    <view class="highlight-label"></view>
-    <view v-if="myStore.profile?.latest_tennis_time==0" class="no-highlight"></view>
+    <view v-if="mySystem.system_config.language=='en'" class="highlight-label"></view>
+    <view v-else class="highlight-label-cn"></view>
+    <view v-if="myStore.profile?.latest_tennis_time==0">
+      <view v-if="mySystem.system_config.language=='en'" >
+        <view class="no-highlight"></view>
+      </view>
+      <view v-else>
+        <view class="no-highlight-cn"></view>
+      </view>
+    </view>
     <view v-else class="my-highlight">
       <video
         class="video"
@@ -307,7 +323,8 @@ function navitateToHome(isExplore: boolean){
   </view>
 
   <view class="leaderboard-container">
-    <view class="leaderboard-label"></view>
+    <view v-if="mySystem.system_config.language=='en'" class="leaderboard-label"></view>
+    <view v-else class="leaderboard-label-cn"></view>
 
     <view class="leaderboard-body">
 
@@ -377,11 +394,22 @@ function navitateToHome(isExplore: boolean){
    <!-- 底部按钮栏 -->
   <view class="btn-container">
     <view v-if="myStore.profile?.latest_tennis_time==0">
-      <view class="btn-explore" @tap="navitateToHome(true)"></view>
+      <view v-if="mySystem.system_config.language=='en'" >
+        <view class="btn-explore" @tap="navitateToHome(true)"></view>
+      </view>
+      <view v-else>
+        <view class="btn-explore-cn" @tap="navitateToHome(true)"></view>
+      </view>
     </view>
     <view v-else class="photo-btn-container">
-      <view class="btn-home" @tap="navitateToHome(false)"></view>
-      <view class="btn-download" @tap="downloadVideo"></view>
+      <view v-if="mySystem.system_config.language=='en'" class="en-container">
+        <view class="btn-home" @tap="navitateToHome(false)"></view>
+        <view class="btn-download" @tap="downloadVideo"></view>
+      </view>
+      <view v-else class="cn-container">
+        <view class="btn-home-cn" @tap="navitateToHome(false)"></view>
+        <view class="btn-download-cn" @tap="downloadVideo"></view>
+      </view>
     </view>
   </view>
 
@@ -428,11 +456,24 @@ page {
     width: 249rpx;
     height: 44rpx;
   }
+  .score-label-cn {
+    margin-bottom: 50rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/标签-我的分数.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 163rpx;
+    height: 38rpx;
+  }
   .no-score {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/no-score.png") top center no-repeat;
     background-size: 100% 100%;
     width: 556rpx;
     height: 152rpx;
+  }
+  .no-score-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/无分数记录.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 298rpx;
+    height: 70rpx;
   }
   .my-score {
     border-top: solid 1rpx white;
@@ -496,11 +537,24 @@ page {
     width: 436rpx;
     height: 43rpx;
   }
+  .highlight-label-cn {
+    margin-bottom: 50rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/标签-高光视频.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 163rpx;
+    height: 38rpx;
+  }
   .no-highlight {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/no-highlight.png") top center no-repeat;
     background-size: 100% 100%;
     width: 114rpx;
     height: 31rpx;
+  }
+  .no-highlight-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/无体验记录.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 189rpx;
+    height: 30rpx;
   }
   .my-highlight {
     // border-top: solid 1rpx white;
@@ -531,6 +585,13 @@ page {
     background-size: 100% 100%;
     width: 353rpx;
     height: 34rpx;
+  }
+  .leaderboard-label-cn {
+    margin-bottom: 50rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/标签-排行榜.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 121rpx;
+    height: 38rpx;
   }
 
   .leaderboard-body {
@@ -731,29 +792,57 @@ page {
     width: 295rpx;
     height: 31rpx;
   }
+  .btn-explore-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/即刻体验按钮.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 152rpx;
+    height: 33rpx;
+  }
 
   // 有视频：Home 左边，Download 右边
   .photo-btn-container {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .en-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .btn-home {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/btn-home.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 100rpx;
+        height: 24rpx;
+        flex-shrink: 0;
+      }
 
-  .btn-home {
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/btn-home.png") top center no-repeat;
-    background-size: 100% 100%;
-    width: 100rpx;
-    height: 24rpx;
-    flex-shrink: 0;
-  }
-
-  .btn-download {
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/btn-download.png") top center no-repeat;
-    background-size: 100% 100%;
-    width: 180rpx;
-    height: 25rpx;
-    flex-shrink: 0;
+      .btn-download {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/btn-download.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 180rpx;
+        height: 25rpx;
+        flex-shrink: 0;
+      }
+    }
+    .cn-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .btn-home-cn {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/主页按钮.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 71rpx;
+        height: 33rpx;
+        flex-shrink: 0;
+      }
+      .btn-download-cn {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/下载按钮.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 72rpx;
+        height: 33rpx;
+        flex-shrink: 0;
+      }
+    }
   }
 }
 

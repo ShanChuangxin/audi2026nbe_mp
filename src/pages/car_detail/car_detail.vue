@@ -7,7 +7,7 @@ import { getUserInfoAPI, getCarRankAPI } from '@/services/login'
 
 // 持久化存储
 const myStore = useMyStore();
-const systemStore = useSystemStore();
+const mySystem = useSystemStore();
 
 // 当前排行榜：today 今日榜 / city 城市榜
 const currentRankType = ref<'today' | 'city'>('today');
@@ -113,6 +113,11 @@ function navitateToHome() {
   uni.navigateBack({delta: 2});
 }
 
+function switchLanguage() {
+  console.log("切换语言");
+  mySystem.switchLanguage();
+}
+
 </script>
 
 <template>
@@ -125,14 +130,18 @@ function navitateToHome() {
     />
      <!-- 顶部 Bar -->
     <view class="top-container">
-      <view class="language"></view>
+      <view class="language" @tap="switchLanguage"></view>
     </view>
 
     <!-- 我的成绩 -->
     <view class="score-container">
-      <view class="score-label"></view>
+      <view v-if="mySystem.system_config.language=='en'" class="score-label"></view>
+      <view v-else class="score-label-cn"></view>
 
-      <view v-if="myStore.profile?.latest_car_time == 0" class="no-score"></view>
+      <view v-if="myStore.profile?.latest_car_time == 0" >
+        <view v-if="mySystem.system_config.language=='en'" class="no-score"></view>
+        <view v-else class="no-score-cn"></view>
+      </view>
 
       <view v-else class="my-score">
         <view class="user-info">
@@ -155,7 +164,8 @@ function navitateToHome() {
 
     <!-- 排行榜 -->
     <view class="leaderboard-container">
-      <view class="leaderboard-label"></view>
+      <view v-if="mySystem.system_config.language=='en'" class="leaderboard-label"></view>
+      <view v-else class="leaderboard-label-cn"></view>
 
       <!-- 今日榜 / 城市榜 -->
       <view class="rank-tabs">
@@ -164,7 +174,7 @@ function navitateToHome() {
           :class="{ active: currentRankType === 'today' }"
           @tap="switchRank('today')"
         >
-          Today
+          {{ mySystem.system_config.language=="en" ? "Today" : "今日榜"}}
         </view>
 
         <view
@@ -172,7 +182,7 @@ function navitateToHome() {
           :class="{ active: currentRankType === 'city' }"
           @tap="switchRank('city')"
         >
-          Beijing
+          {{ mySystem.system_config.language=="en" ? "Beijing" : "北京"}}
         </view>
       </view>
 
@@ -223,8 +233,14 @@ function navitateToHome() {
 
     <!-- 底部按钮栏 -->
     <view class="btn-container">
-      <view v-if="myStore.profile?.latest_car_time != 0" class="btn-home" @tap="navitateToHome"></view>
-      <view v-else class="btn-experience" @tap="navitateToHome"></view>
+      <view v-if="mySystem.system_config.language=='en'" class="en-container">
+        <view v-if="myStore.profile?.latest_car_time != 0" class="btn-home" @tap="navitateToHome"></view>
+        <view v-else class="btn-experience" @tap="navitateToHome"></view>
+      </view>
+      <view v-else class="cn-container">
+        <view v-if="myStore.profile?.latest_car_time != 0" class="btn-home-cn" @tap="navitateToHome"></view>
+        <view v-else class="btn-experience-cn" @tap="navitateToHome"></view>
+      </view>
     </view>
   </view>
 
@@ -290,12 +306,25 @@ page {
     width: 249rpx;
     height: 44rpx;
   }
+  .score-label-cn {
+    margin-bottom: 50rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/标签-我的分数.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 163rpx;
+    height: 38rpx;
+  }
 
   .no-score {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/no-score.png") top center no-repeat;
     background-size: 100% 100%;
     width: 562rpx;
     height: 150rpx;
+  }
+  .no-score-cn {
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/无分数.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 298rpx;
+    height: 30rpx;
   }
 
   .my-score {
@@ -366,7 +395,7 @@ page {
 
 // 排行榜
 .leaderboard-container {
-  margin: 50rpx auto 0;
+  margin: 100rpx auto 0;
   width: 90%;
 
   .leaderboard-label {
@@ -375,6 +404,13 @@ page {
     background-size: 100% 100%;
     width: 353rpx;
     height: 34rpx;
+  }
+  .leaderboard-label-cn {
+    margin-bottom: 35rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/标签-排行榜.png") top center no-repeat;
+    background-size: 100% 100%;
+    width: 121rpx;
+    height: 38rpx;
   }
 
   // 榜单切换
@@ -570,20 +606,38 @@ page {
     z-index: -1;
   }
 
-  .btn-home {
-    float: left;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/btn-home.png") top center no-repeat;
-    background-size: 100% 100%;
-    width: 100rpx;
-    height: 24rpx;
+  .en-container {
+    .btn-home {
+      float: left;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/btn-home.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 100rpx;
+      height: 24rpx;
+    }
+    .btn-experience {
+      float: left;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/btn-experience.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 295rpx;
+      height: 31rpx;
+    }
   }
-
-  .btn-experience {
-    float: left;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/btn-experience.png") top center no-repeat;
-    background-size: 100% 100%;
-    width: 295rpx;
-    height: 31rpx;
+  .cn-container {
+    .btn-home-cn {
+      float: left;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/主页按钮.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 71rpx;
+      height: 33rpx;
+    }
+    .btn-experience-cn {
+      float: left;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/即刻体验按钮.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 152rpx;
+      height: 33rpx;
+    }
   }
+  
 }
 </style>

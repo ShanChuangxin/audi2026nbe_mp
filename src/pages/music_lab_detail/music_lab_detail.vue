@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useMyStore } from '@/stores/modules/my'
+import { useMyStore, useSystemStore } from '@/stores'
 import { onShow } from '@dcloudio/uni-app'
 import { getUserInfoAPI } from '@/services/login'
 
 // 获取用户信息
 const myInfo = useMyStore()
+const mySystem = useSystemStore(); // 主要用于切换语言
 console.log(myInfo.profile);
 // const user_id = myInfo.profile!.user_id!
 const getUserInfo = async() => {
@@ -204,23 +205,36 @@ function downloadMusic() {
     }
   })
 }
-
+function switchLanguage() {
+  console.log("切换语言");
+  mySystem.switchLanguage();
+}
 
 </script>
 
 <template>
   <!-- 顶部按钮容器 -->
   <view class="top-container">
-    <view class="language"></view>
+    <view class="language" @tap="switchLanguage"></view>
   </view>
-    <!-- Audi Vision内容介绍 -->
+    <!-- 内容介绍 -->
   <view v-if="myInfo.profile?.music_time==0" class="no-music">
-    <view class="no-music-title"></view>
-    <view class="no-music-content"></view>
-    <view class="no-music-btn-container">
-      <!-- <view class="btn-home" @tap="navigateToHome(false)"></view> -->
-      <view class="btn-experience" @tap="navigateToHome(true)"></view>
+    <view v-if="mySystem.system_config.language=='en'" class="no-music-en">
+      <view class="no-music-title"></view>
+      <view class="no-music-content"></view>
+      <view class="no-music-btn-container">
+        <!-- <view class="btn-home" @tap="navigateToHome(false)"></view> -->
+        <view class="btn-experience" @tap="navigateToHome(true)"></view>
+      </view>
     </view>
+    <view v-else class="no-music-cn">
+      <view class="no-music-title-cn"></view>
+      <view class="no-music-content-cn"></view>
+      <view class="no-music-btn-container-cn">
+        <!-- <view class="btn-home" @tap="navigateToHome(false)"></view> -->
+        <view class="btn-experience-cn" @tap="navigateToHome(true)"></view>
+      </view>
+    </view> 
   </view>
 
   <view v-else class="music">
@@ -231,14 +245,16 @@ function downloadMusic() {
         <view class="record-card" :class="{ 'record-playing': isPlaying }"></view>
       </view>
     </view>
-    <view class="music-title"></view>
+    <view v-if="mySystem.system_config.language=='en'" class="music-title"></view>
+    <view v-else class="music-title-cn"></view>
     <view class="music-control" @tap="toggleMusic">
       <!-- 播放或者暂停按钮 -->
         <view v-if="!isPlaying" class="btn-play"></view>
         <view v-else class="btn-pause"></view>
     </view>
     <view class="music-btn-container">
-      <view class="btn-home" @tap="navigateToHome(false)"></view>
+      <view v-if="mySystem.system_config.language=='en'" class="btn-home" @tap="navigateToHome(false)"></view>
+      <view v-else class="btn-home-cn" @tap="navigateToHome(false)"></view>
       <!-- <view class="btn-download" @tap="downloadMusic"></view> -->
     </view>
   </view>
@@ -273,46 +289,79 @@ page {
 }
 
 .no-music {
-  .no-music-title {
-    position: absolute;
-    top: 100rpx;
-    margin-left: 30rpx;
-    width: 621rpx;
-    height: 116rpx;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music-title.png") top center no-repeat;
-    background-size: 100% 100%;
-  }
-  .no-music-content {
-    margin-top: 200rpx;
-    margin-left: 30rpx;
-    width: 562rpx;
-    height: 150rpx;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music.png") top center no-repeat;
-    background-size: 100% 100%;
-  }
-  .no-music-btn-container {
-    position: absolute;
-    bottom: 50rpx;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    // background-color: pink;
-    width: 90%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    // .btn-home {
-    //   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-home.png") top center no-repeat;
-    //   background-size: 100% 100%;
-    //   width: 125rpx;
-    //   height: 24rpx;
-    // }
-    .btn-experience {
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-experience.png") top center no-repeat;
+  .no-music-en {
+    .no-music-title {
+      position: absolute;
+      top: 100rpx;
+      margin-left: 30rpx;
+      width: 621rpx;
+      height: 116rpx;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music-title.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 295rpx;
-      height: 31rpx;
+    }
+    .no-music-content {
+      margin-top: 200rpx;
+      margin-left: 30rpx;
+      width: 562rpx;
+      height: 150rpx;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music.png") top center no-repeat;
+      background-size: 100% 100%;
+    }
+    .no-music-btn-container {
+      position: absolute;
+      bottom: 50rpx;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      // background-color: pink;
+      width: 90%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .btn-experience {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-experience.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 295rpx;
+        height: 31rpx;
+      }
     }
   }
+  .no-music-cn {
+    .no-music-title-cn {
+      position: absolute;
+      top: 100rpx;
+      margin-left: 30rpx;
+      width: 623rpx;
+      height: 130rpx;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/无音乐标题.png") top center no-repeat;
+      background-size: 100% 100%;
+    }
+    .no-music-content-cn {
+      margin-top: 200rpx;
+      margin-left: 30rpx;
+      width: 205rpx;
+      height: 107rpx;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/无音乐提示.png") top center no-repeat;
+      background-size: 100% 100%;
+    }
+    .no-music-btn-container-cn {
+      position: absolute;
+      bottom: 50rpx;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      // background-color: pink;
+      width: 90%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .btn-experience-cn {
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/即刻体验按钮.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 152rpx;
+        height: 33rpx;
+      }
+    }
+  }
+  
 }
 
 .music {
@@ -358,6 +407,15 @@ page {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
     background-size: 100% 100%;
   }
+  .music-title-cn {
+    position: absolute;
+    top: 100rpx;
+    margin-left: 30rpx;
+    width: 624rpx;
+    height: 194rpx;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/有音乐标题.png") top center no-repeat;
+    background-size: 100% 100%;
+  }
 
   // 音乐控制，需要在页面上垂直和水平方向都居中
   .music-control {
@@ -393,14 +451,19 @@ page {
     // background-color: pink;
     width: 90%;
     display: flex;
-    // justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     .btn-home {
-      float: left;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-home.png") top center no-repeat;
       background-size: 100% 100%;
       width: 100rpx;
       height: 24rpx;
+    }
+    .btn-home-cn {
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/主页按钮.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 71rpx;
+      height: 33rpx;
     }
     .btn-download {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-download.png") top center no-repeat;
