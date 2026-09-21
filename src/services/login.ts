@@ -27,6 +27,15 @@ export const getUserInfoAPI = (data: { open_id: string, city: "beijing" | "shang
     })
 }
 
+// 用户注销账户
+export const userLogoutAPI = (data: { open_id: string }) => {
+    return http<{ user_info: UserInfoType }>({
+        method: 'POST',
+        url: '/logout',
+        data,
+    })
+}
+
 // 划船区域和4D影院打卡
 export const getAreaCheckAPI = (data: { open_id: string, area: "helly_hansen" | "cinema" }) => {
     return http<{ user_info: UserInfoType }>({

@@ -294,9 +294,9 @@ page {
       position: absolute;
       top: 100rpx;
       margin-left: 30rpx;
-      width: 621rpx;
+      width: 662rpx;
       height: 116rpx;
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music-title.png") top center no-repeat;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
       background-size: 100% 100%;
     }
     .no-music-content {
@@ -320,7 +320,7 @@ page {
       .btn-experience {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-experience.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 295rpx;
+        width: 230rpx;
         height: 31rpx;
       }
     }
@@ -402,8 +402,8 @@ page {
     position: absolute;
     top: 100rpx;
     margin-left: 30rpx;
-    width: 623rpx;
-    height: 194rpx;
+    width: 662rpx;
+    height: 116rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
     background-size: 100% 100%;
   }
@@ -430,14 +430,14 @@ page {
     align-items: center;
     z-index: 10;
     .btn-play {
-        width: 164rpx;
-        height: 164rpx;
+        width: 86rpx;
+        height: 86rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/play.png") top center no-repeat;
         background-size: 100% 100%;
     }
     .btn-pause {
-      width: 164rpx;
-      height: 164rpx;
+      width: 40rpx;
+      height: 61rpx;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/pause.png") top center no-repeat;
       background-size: 100% 100%;
     }
@@ -456,7 +456,7 @@ page {
     .btn-home {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-home.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 100rpx;
+      width: 85rpx;
       height: 24rpx;
     }
     .btn-home-cn {

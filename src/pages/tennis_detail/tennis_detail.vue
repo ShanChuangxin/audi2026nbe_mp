@@ -273,158 +273,199 @@ function switchLanguage() {
 </script>
 
 <template>
-  <view class="top-container">
-    <!-- 标题 -->
-      <view class="language" @tap="switchLanguage"></view>
-  </view>
-  <view class="score-container">
-    <view v-if="mySystem.system_config.language=='en'" class="score-label"></view>
-    <view v-else class="score-label-cn"></view>
-    <view v-if="myStore.profile?.latest_tennis_time==0">
-      <view v-if="mySystem.system_config.language=='en'" class="no-score"></view>
-      <view v-else class="no-score-cn"></view>
+  <view class="page">
+    <image
+      class="page-bg"
+      src="https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/bg.jpg"
+      mode="widthFix"
+    />
+
+    <view class="top-container">
+      <!-- 标题 -->
+        <view class="language" @tap="switchLanguage"></view>
     </view>
-    
-    <view v-else class="my-score">
-      <view class="user-info">
-        <!-- <view class="my-rank"> - </view> -->
-        <view class="avatar">
-          <image
-            :src="myStore.profile?.avatar"
-            mode="scaleToFill"
-          />
+    <view class="score-container">
+      <view v-if="mySystem.system_config.language=='en'" class="score-label"></view>
+      <view v-else class="score-label-cn"></view>
+      <view v-if="myStore.profile?.latest_tennis_time==0">
+        <view v-if="mySystem.system_config.language=='en'" class="no-score"></view>
+        <view v-else class="no-score-cn"></view>
+      </view>
+      
+      <view v-else class="my-score">
+        <view class="user-info">
+          <!-- <view class="my-rank"> - </view> -->
+          <view class="avatar">
+            <image
+              :src="myStore.profile?.avatar"
+              mode="scaleToFill"
+            />
+          </view>
+          <view class="nick-name">{{ myStore.profile?.nick_name }}</view>
         </view>
-        <view class="nick-name">{{ myStore.profile?.nick_name }}</view>
-      </view>
-      <view class="score-num">{{ myStore.profile?.latest_tennis_score }}</view>
-    </view>
-  </view>
-  <view class="highlight-container">
-    <view v-if="mySystem.system_config.language=='en'" class="highlight-label"></view>
-    <view v-else class="highlight-label-cn"></view>
-    <view v-if="myStore.profile?.latest_tennis_time==0">
-      <view v-if="mySystem.system_config.language=='en'" >
-        <view class="no-highlight"></view>
-      </view>
-      <view v-else>
-        <view class="no-highlight-cn"></view>
+        <view class="score-num">{{ myStore.profile?.latest_tennis_score }}</view>
       </view>
     </view>
-    <view v-else class="my-highlight">
-      <video
-        class="video"
-        :src="myStore.profile?.latest_highlight_url"
-        autoplay
-        loop
-        :controls="true"
-        object-fit="cover"
-      ></video>
+    <view class="highlight-container">
+      <view v-if="mySystem.system_config.language=='en'" class="highlight-label"></view>
+      <view v-else class="highlight-label-cn"></view>
+      <view v-if="myStore.profile?.latest_tennis_time==0">
+        <view v-if="mySystem.system_config.language=='en'" >
+          <view class="no-highlight"></view>
+        </view>
+        <view v-else>
+          <view class="no-highlight-cn"></view>
+        </view>
+      </view>
+      <view v-else class="my-highlight">
+        <video
+          class="video"
+          :src="myStore.profile?.latest_highlight_url"
+          autoplay
+          loop
+          :controls="true"
+          object-fit="cover"
+        ></video>
+      </view>
     </view>
-  </view>
 
-  <view class="leaderboard-container">
-    <view v-if="mySystem.system_config.language=='en'" class="leaderboard-label"></view>
-    <view v-else class="leaderboard-label-cn"></view>
+    <view class="leaderboard-container">
+      <view v-if="mySystem.system_config.language=='en'" class="leaderboard-label"></view>
+      <view v-else class="leaderboard-label-cn"></view>
 
-    <view class="leaderboard-body">
+      <view class="leaderboard-body">
 
-      <!-- 固定10个位置 -->
-      <view
-        v-for="index in 10"
-        :key="index"
-        class="rank-row"
-        :class="{
-          'top-rank-row': isTopRank(getRankItem(index - 1)),
-          'my-rank-row': isMyRank(getRankItem(index - 1))
-        }"
-      >
+        <!-- 固定10个位置 -->
+        <view
+          v-for="index in 10"
+          :key="index"
+          class="rank-row"
+          :class="{
+            'top-rank-row': isTopRank(getRankItem(index - 1)),
+            'my-rank-row': isMyRank(getRankItem(index - 1))
+          }"
+        >
 
-        <!-- 有数据 -->
-        <template v-if="getRankItem(index - 1)">
+          <!-- 有数据 -->
+          <template v-if="getRankItem(index - 1)">
 
-          <!-- 排名 -->
-          <view class="rank-num">
-            {{ getRankItem(index - 1)?.rank }}
-          </view>
-
-          <!-- 用户信息 -->
-          <view class="user-info">
-
-            <view class="avatar">
-              <image
-                :src="getRankItem(index - 1)?.avatar"
-                mode="aspectFill"
-              />
+            <!-- 排名 -->
+            <view class="rank-num">
+              {{ getRankItem(index - 1)?.rank }}
             </view>
 
-            <view class="nick-name">
-              {{ getRankItem(index - 1)?.nick_name }}
+            <!-- 用户信息 -->
+            <view class="user-info">
+
+              <view class="avatar">
+                <image
+                  :src="getRankItem(index - 1)?.avatar"
+                  mode="aspectFill"
+                />
+              </view>
+
+              <view class="nick-name">
+                {{ getRankItem(index - 1)?.nick_name }}
+              </view>
+
             </view>
 
-          </view>
+            <!-- 分数 -->
+            <view class="score-num">
+              {{ getRankItem(index - 1)?.tennis_score }}
+            </view>
 
-          <!-- 分数 -->
-          <view class="score-num">
-            {{ getRankItem(index - 1)?.tennis_score }}
-          </view>
+          </template>
 
-        </template>
+          <!-- 没有数据 -->
+          <template v-else>
 
-        <!-- 没有数据 -->
-        <template v-else>
+            <view class="rank-num"></view>
 
-          <view class="rank-num"></view>
+            <view class="user-info"></view>
 
-          <view class="user-info"></view>
+            <view class="score-num"></view>
 
-          <view class="score-num"></view>
+          </template>
 
-        </template>
+        </view>
 
       </view>
-
     </view>
+
+    <!-- 底部按钮栏 -->
+    <!-- <view class="btn-container">
+      <view class="btn-home" @tap="navitateToHome"></view>
+      <view class="btn-my-score" @tap="downloadVideo"></view>
+    </view> -->
+    <!-- 底部按钮栏 -->
+    <view class="btn-container">
+      <view v-if="myStore.profile?.latest_tennis_time==0">
+        <view v-if="mySystem.system_config.language=='en'" >
+          <view class="btn-explore" @tap="navitateToHome(true)"></view>
+        </view>
+        <view v-else>
+          <view class="btn-explore-cn" @tap="navitateToHome(true)"></view>
+        </view>
+      </view>
+      <view v-else class="photo-btn-container">
+        <view v-if="mySystem.system_config.language=='en'" class="en-container">
+          <view class="btn-home" @tap="navitateToHome(false)"></view>
+          <view class="btn-download" @tap="downloadVideo"></view>
+        </view>
+        <view v-else class="cn-container">
+          <view class="btn-home-cn" @tap="navitateToHome(false)"></view>
+          <view class="btn-download-cn" @tap="downloadVideo"></view>
+        </view>
+      </view>
+    </view>
+
   </view>
-
-  <!-- 底部按钮栏 -->
-  <!-- <view class="btn-container">
-    <view class="btn-home" @tap="navitateToHome"></view>
-    <view class="btn-my-score" @tap="downloadVideo"></view>
-  </view> -->
-   <!-- 底部按钮栏 -->
-  <view class="btn-container">
-    <view v-if="myStore.profile?.latest_tennis_time==0">
-      <view v-if="mySystem.system_config.language=='en'" >
-        <view class="btn-explore" @tap="navitateToHome(true)"></view>
-      </view>
-      <view v-else>
-        <view class="btn-explore-cn" @tap="navitateToHome(true)"></view>
-      </view>
-    </view>
-    <view v-else class="photo-btn-container">
-      <view v-if="mySystem.system_config.language=='en'" class="en-container">
-        <view class="btn-home" @tap="navitateToHome(false)"></view>
-        <view class="btn-download" @tap="downloadVideo"></view>
-      </view>
-      <view v-else class="cn-container">
-        <view class="btn-home-cn" @tap="navitateToHome(false)"></view>
-        <view class="btn-download-cn" @tap="downloadVideo"></view>
-      </view>
-    </view>
-  </view>
-
 </template>
 
 <style lang="scss">
+// page {
+//   background-color: black;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+
+//   padding-bottom: 150rpx;
+//   box-sizing: border-box;
+// }
+
 page {
-  background-color: black;
+  background: #000;
+}
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding-bottom: 150rpx;
   box-sizing: border-box;
+  overflow: hidden;
 }
+.page-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.top-container,
+.score-container,
+.leaderboard-container,
+.btn-container {
+  position: relative;
+  z-index: 1;
+}
+
 // 顶部Bar
 .top-container {
   // position: absolute;
@@ -453,7 +494,7 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/label-my-score.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 249rpx;
+    width: 235rpx;
     height: 44rpx;
   }
   .score-label-cn {
@@ -534,7 +575,7 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/label-highlight.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 436rpx;
+    width: 408rpx;
     height: 43rpx;
   }
   .highlight-label-cn {
@@ -583,7 +624,7 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/label-leaderboard.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 353rpx;
+    width: 333rpx;
     height: 34rpx;
   }
   .leaderboard-label-cn {
@@ -789,7 +830,7 @@ page {
   .btn-explore {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/btn-experience-now.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 295rpx;
+    width: 230rpx;
     height: 31rpx;
   }
   .btn-explore-cn {
@@ -810,7 +851,7 @@ page {
       .btn-home {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/btn-home.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 100rpx;
+        width: 85rpx;
         height: 24rpx;
         flex-shrink: 0;
       }
@@ -818,7 +859,7 @@ page {
       .btn-download {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/btn-download.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 180rpx;
+        width: 145rpx;
         height: 25rpx;
         flex-shrink: 0;
       }

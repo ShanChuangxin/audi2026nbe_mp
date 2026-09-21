@@ -303,7 +303,7 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/label-my-score.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 249rpx;
+    width: 235rpx;
     height: 44rpx;
   }
   .score-label-cn {
@@ -402,7 +402,7 @@ page {
     margin-bottom: 35rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/label-leaderboard.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 353rpx;
+    width: 333rpx;
     height: 34rpx;
   }
   .leaderboard-label-cn {
@@ -611,14 +611,14 @@ page {
       float: left;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/btn-home.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 100rpx;
+      width: 85rpx;
       height: 24rpx;
     }
     .btn-experience {
       float: left;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/btn-experience.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 295rpx;
+      width: 230rpx;
       height: 31rpx;
     }
   }

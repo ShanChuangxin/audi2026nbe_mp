@@ -107,13 +107,13 @@ page {
     .btn-home {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_index/btn-home.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 100rpx;
+      width: 85rpx;
       height: 24rpx;
     }
     .btn-leaderboard {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/car_index/btn-leaderboard.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 233rpx;
+      width: 183rpx;
       height: 25rpx;
     }
   }

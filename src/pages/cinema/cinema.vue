@@ -121,7 +121,7 @@ page {
     // float: left;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cinema/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 100rpx;
+    width: 85rpx;
     height: 24rpx;
   }
   .btn-home-cn {

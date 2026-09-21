@@ -49,6 +49,13 @@ const getOpenId = async () => {
        // 本地化存储
        myStore.setProfile(user_info);
     } else {
+      if ("已注销" == getUserInfo.errmsg) {
+        // 1. 关闭隐私条款弹窗
+        showPrivacy.value = false;
+        // 2. 打开注销提示弹窗
+        showLogout.value = true;
+      }
+
       uni.showToast({
         icon: 'none',
         title: "网络不佳，请稍后重试~",
@@ -64,7 +71,7 @@ const getOpenId = async () => {
 }
 onLoad(async () => {
   // 判断是否已经同意过许可，同意过的话，就直接跳地图页面
-  if (systemStore.system_config.isPrivacy) {
+  if (systemStore.system_config!.isPrivacy) {
     navigateToMapPage();
     return;
   }
@@ -89,6 +96,9 @@ onLoad(async () => {
 
 // 页面跳转
 // uni.navigateTo({ url: `/pages/office_list/office_list?num_type=${peopleNum.value}&table_type=${iconTypeListParam[selectedTableType.value].text}&city_type=${cityTypeListParam[selectedCityType.value].text}&purpose_type=${purposeTypeListParam[selectedPurposeType.value].text}&building_id=` })
+
+// 是否显示已注销
+const showLogout = ref(false);
 
 // 显示隐私条款
 const showPrivacy = ref(true);  // false为不显示弹窗；true为显示弹窗
@@ -184,6 +194,13 @@ function navigateToMapPage() {
       <!-- <view class="explore" @tap="navigateToMapPage"></view> -->
     </view>
 
+
+    <view class="logout-container" v-if="showLogout">
+      <view class="logout-bg">
+        <view class="logout-content"></view>
+      </view>
+    </view>
+
     <!-- 隐私条款弹窗 -->
     <!-- <view class="privacy-container" v-if="showPrivacy" @touchmove.stop.prevent=""> -->
     <view class="privacy-container" v-if="showPrivacy">
@@ -247,6 +264,44 @@ function navigateToMapPage() {
 
   }
 
+  // 注销弹窗
+  .logout-container {
+    position: absolute;
+    top: 0rpx;
+    left: 0rpx;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: black;
+    // opacity: .5;
+    background-color: rgba(0, 0, 0, .5);
+
+    // 模糊后面的地图
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    .logout-bg {
+      width: 610rpx;
+      height: 409rpx;
+      // background-color: pink;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/logout-bg.png") top center no-repeat;
+      background-size: 100% 100%;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .logout-content {
+        width: 492rpx;
+        height: 117rpx;
+        // background-color: pink;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/logout-content.png") top center no-repeat;
+        background-size: 100% 100%;
+      }
+    }
+  }
+
   // 隐私条款弹窗
   .privacy-container {
     position: absolute;
@@ -270,9 +325,9 @@ function navigateToMapPage() {
       transform: translateY(-3vh);
       position: relative;
       width: 610rpx;
-      height: 1053rpx;
+      height: 1202rpx;
       // background-color: pink;
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/pop-bg.png") top center no-repeat;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy-bg.png") top center no-repeat;
       background-size: 100% 100%;
       z-index: 1;
       display: flex;
@@ -281,13 +336,13 @@ function navigateToMapPage() {
       align-items: center;
       .text-content {
         width: 600rpx;
-        height: 800rpx;
+        height: 1000rpx;
         //
         margin: 10rpx auto 120rpx;
         overflow: hidden;
         .scroll {
           width: 600rpx;
-          height: 800rpx;
+          height: 960rpx;
           // 
           // padding-bottom: 150rpx;
           // height: 100%;
@@ -295,8 +350,8 @@ function navigateToMapPage() {
           // justify-content: center;
           .privacy-content {
             margin: 0 auto 150rpx;
-            width: 487rpx;
-            height: 18595rpx;
+            width: 504rpx;
+            height: 15317rpx;
             background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy.png") top center no-repeat;
             background-size: 100% 100%;
           }
@@ -307,8 +362,8 @@ function navigateToMapPage() {
         position: absolute;
         bottom: 50rpx;
         width: 485rpx;
-        height: 92rpx;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/btn-agree.png") top center no-repeat;
+        height: 110rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/btn-agree-privacy.png") top center no-repeat;
         background-size: 100% 100%;
       }
     }
@@ -336,6 +391,5 @@ function navigateToMapPage() {
     pointer-events: none;
   }
 }
-
 
 </style>

@@ -79,7 +79,7 @@ page {
   top: 100rpx;
   margin-left: 30rpx;
   width: 661rpx;
-  height: 287rpx;
+  height: 247rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/content.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -111,7 +111,7 @@ page {
   .btn-home {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 100rpx;
+    width: 85rpx;
     height: 24rpx;
   }
   .btn-home-cn {
@@ -123,7 +123,7 @@ page {
   .btn-my-photo {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/btn-my-photo.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 171rpx;
+    width: 136rpx;
     height: 32rpx;
   }
   .btn-my-photo-cn {

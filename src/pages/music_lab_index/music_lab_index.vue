@@ -86,7 +86,7 @@ page {
   position: absolute;
   top: 100rpx;
   margin-left: 30rpx;
-  width: 624rpx;
+  width: 662rpx;
   height: 274rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/content.png") top center no-repeat;
   background-size: 100% 100%;
@@ -106,7 +106,7 @@ page {
   top: 1100rpx;
   margin-left: 50%;
   transform: translateX(-50%);
-  width: 329rpx;
+  width: 275rpx;
   height: 80rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/navigate-to-mp.png") top center no-repeat;
   background-size: 100% 100%;
@@ -135,13 +135,13 @@ page {
   .btn-home {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 100rpx;
+    width: 85rpx;
     height: 24rpx;
   }
   .btn-my-music {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/btn-my-music.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 171rpx;
+    width: 136rpx;
     height: 31rpx;
   }
 }

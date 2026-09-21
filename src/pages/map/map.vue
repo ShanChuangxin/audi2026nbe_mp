@@ -337,20 +337,20 @@ function navigateToMyPage() {
     // 地图容器
     .map-container {
       position: absolute;
-      top: 150rpx;
+      top: 180rpx;
       margin-left: 50%;
       transform: translateX(-50%);
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/map.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 749rpx;
-      height: 933rpx;
+      width: 675rpx;
+      height: 924rpx;
       .static-information-desk{
         position: absolute;
-        top: -60rpx;
-        left: 35rpx;
+        top: -85rpx;
+        left: 0rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/static-information-desk.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 210rpx;
+        width: 173rpx;
         height: 140rpx;
       }
       .static-information-desk-cn{
@@ -364,11 +364,11 @@ function navigateToMyPage() {
       }
       .static-vibe-lounge{
         position: absolute;
-        top: 299rpx;
-        left: 110rpx;
+        top: 280rpx;
+        left: 80rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/static-vibe-lounge.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 284rpx;
+        width: 248rpx;
         height: 40rpx;
       }
       .static-vibe-lounge-cn{
@@ -382,11 +382,11 @@ function navigateToMyPage() {
       }
       .static-social-hub{
         position: absolute;
-        top: 560rpx;
-        left: 145rpx;
+        top: 540rpx;
+        left: 140rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/static-social-hub.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 255rpx;
+        width: 228rpx;
         height: 40rpx;
       }
       .static-social-hub-cn{
@@ -400,11 +400,11 @@ function navigateToMyPage() {
       }
       .static-icon-stage{
         position: absolute;
-        bottom: 40rpx;
-        left: 35rpx;
+        bottom: 45rpx;
+        left: 25rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/static-icon-stage.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 196rpx;
+        width: 162rpx;
         height: 145rpx;
       }
       .static-icon-stage-cn{
@@ -418,8 +418,8 @@ function navigateToMyPage() {
       }
       .walk-in{
         position: absolute;
-        top: 0rpx;
-        left: 220rpx;
+        top: -20rpx;
+        left: 190rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/tip-direction.png") top center no-repeat;
         background-size: 100% 100%;
         width: 42rpx;
@@ -427,8 +427,8 @@ function navigateToMyPage() {
       }
       .walk-out{
         position: absolute;
-        bottom: 30rpx;
-        right: 240rpx;
+        bottom: 43rpx;
+        right: 200rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/tip-direction.png") top center no-repeat;
         background-size: 100% 100%;
         width: 42rpx;
@@ -437,13 +437,13 @@ function navigateToMyPage() {
 
       .history-capsule-container {
         position: absolute;
-        top: -20rpx;
+        top: -45rpx;
         right: 100rpx;
         background-color: pink;
         .line-history-capsule{
           position: absolute;
           top: -20rpx;
-          right: 150rpx;
+          right: 105rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/line-history-capsule.png") top center no-repeat;
           background-size: 100% 100%;
           width: 6rpx;
@@ -452,10 +452,10 @@ function navigateToMyPage() {
         .btn-history-capsule{
           position: absolute;
           bottom: 0rpx;
-          right: 0rpx;
+          right: 5rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-history-capsule.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 243rpx;
+          width: 199rpx;
           height: 40rpx;
         }
         .btn-history-capsule-cn{
@@ -479,8 +479,8 @@ function navigateToMyPage() {
       }
       .vision-lab-container {
         position: absolute;
-        top: 290rpx;
-        right: 240rpx;
+        top: 270rpx;
+        right: 190rpx;
         background-color: pink;
         .line-vision-lab{
           position: absolute;
@@ -494,10 +494,10 @@ function navigateToMyPage() {
         .btn-vision-lab{
           position: absolute;
           bottom: 0rpx;
-          right: 0rpx;
+          right: -8rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-vision-lab.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 190rpx;
+          width: 158rpx;
           height: 40rpx;
         }
         .btn-vision-lab-cn{
@@ -521,13 +521,13 @@ function navigateToMyPage() {
       }
       .helly-hansen-container {
         position: absolute;
-        bottom: 250rpx;
+        bottom: 255rpx;
         right: 180rpx;
         background-color: pink;
         .line-helly-hansen{
           position: absolute;
-          top: -60rpx;
-          right: 340rpx;
+          top: -70rpx;
+          right: 295rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/line-helly-hansen.png") top center no-repeat;
           background-size: 100% 100%;
           width: 121rpx;
@@ -535,11 +535,11 @@ function navigateToMyPage() {
         }
         .btn-helly-hansen{
           position: absolute;
-          bottom: 0rpx;
-          right: 0rpx;
+          bottom: 10rpx;
+          right: 35rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-helly-hansen.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 424rpx;
+          width: 340rpx;
           height: 40rpx;
         }
         .btn-helly-hansen-cn{
@@ -563,8 +563,8 @@ function navigateToMyPage() {
       }
       .terrain-challenge-container {
         position: absolute;
-        bottom: 180rpx;
-        right: 240rpx;
+        bottom: 195rpx;
+        right: 195rpx;
         background-color: pink;
         .line-terrain-challenge{
           position: absolute;
@@ -581,7 +581,7 @@ function navigateToMyPage() {
           right: 0rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-terrain-challenge.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 372rpx;
+          width: 299rpx;
           height: 40rpx;
         }
         .btn-terrain-challenge-cn{
@@ -605,8 +605,8 @@ function navigateToMyPage() {
       }
       .tennis-challenge-container {
         position: absolute;
-        bottom: -20rpx;
-        right: 300rpx;
+        bottom: -10rpx;
+        right: 255rpx;
         background-color: pink;
         .line-tennis-challenge{
           position: absolute;
@@ -620,10 +620,10 @@ function navigateToMyPage() {
         .btn-tennis-challenge{
           position: absolute;
           bottom: 0rpx;
-          right: 0rpx;
+          right: 35rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-tennis-challenge.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 414rpx;
+          width: 208rpx;
           height: 40rpx;
         }
         .btn-tennis-challenge-cn{
@@ -647,8 +647,8 @@ function navigateToMyPage() {
       }
       .music-remix-container {
         position: absolute;
-        bottom: -80rpx;
-        right: 50rpx;
+        bottom: -60rpx;
+        right: 0rpx;
         background-color: pink;
         .line-music-remix{
           position: absolute;
@@ -662,10 +662,10 @@ function navigateToMyPage() {
         .btn-music-remix{
           position: absolute;
           bottom: 0rpx;
-          right: 0rpx;
+          right: 55rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/btn-music-remix.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 282rpx;
+          width: 229rpx;
           height: 40rpx;
         }
         .btn-music-remix-cn{

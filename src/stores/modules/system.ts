@@ -8,7 +8,7 @@ export const useSystemStore = defineStore(
     'system',
     () => {
         // 会员信息
-        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu", pop_ruler: boolean, isPrivacy: boolean }>({ language: "cn", city: "beijing", pop_ruler: true, isPrivacy: false })
+        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu", pop_ruler: boolean, isPrivacy: boolean }>({ language: "en", city: "beijing", pop_ruler: true, isPrivacy: false })
 
         // 保存会员信息，登录时使用
         const switchLanguage = () => {
@@ -27,13 +27,18 @@ export const useSystemStore = defineStore(
         // 设置是否弹窗体验规则
         const upatePopRuler = (isPop: boolean) => {
             console.log("更新体验弹窗设置");
-            system_config.value.pop_ruler = isPop;
+            system_config.value!.pop_ruler = isPop;
         }
 
         // 设置是否同意隐私条款，同意后，就不可能再回主页了
         const agreePrivacy = () => {
             console.log("同意隐私条款，存储并记录不再返回");
-            system_config.value.isPrivacy = true;
+            system_config.value!.isPrivacy = true;
+        }
+
+        // 清除系统设置
+        const clearSystemConfig = () => {
+            system_config.value = { language: "en", city: "beijing", pop_ruler: true, isPrivacy: false };
         }
 
         // 记得 return
@@ -42,7 +47,8 @@ export const useSystemStore = defineStore(
             updateCity,
             switchLanguage,
             upatePopRuler,
-            agreePrivacy
+            agreePrivacy,
+            clearSystemConfig
         }
     },
     {

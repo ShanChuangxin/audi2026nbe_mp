@@ -93,8 +93,8 @@ page {
   position: absolute;
   top: 100rpx;
   margin-left: 30rpx;
-  width: 642rpx;
-  height: 301rpx;
+  width: 668rpx;
+  height: 276rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/content.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -122,7 +122,7 @@ page {
   .btn-home {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 100rpx;
+    width: 85rpx;
     height: 24rpx;
   }
   .btn-home-cn {
