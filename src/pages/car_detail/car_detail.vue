@@ -100,6 +100,46 @@ function isTopRank(item: CarDailyRankType | CarCityRankType | undefined) {
   return item.rank <= 3;
 }
 
+// 把秒数格式化
+function formatTime(seconds?: number | null) {
+  if (seconds == null || seconds < 0) {
+    return "00'00\""
+  }
+
+  const minutes = Math.floor(seconds / 60)
+  const secs = Math.floor(seconds % 60)
+
+  return `${minutes.toString().padStart(2, '0')}'${secs.toString().padStart(2, '0')}"`
+}
+
+// 切换tab的页面
+function getRankTabImage(type: 'today' | 'city') {
+  const language = mySystem.system_config.language;
+  const isActive = currentRankType.value === type;
+
+  if (language === 'en') {
+    if (type === 'today') {
+      return isActive
+        ? 'https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/tab-today-selected.png'
+        : 'https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/tab-today-default.png';
+    }
+
+    return isActive
+      ? 'https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/tab-city-selected.png'
+      : 'https://www.mbcstyle.cn/projects/static/audi2026nbe/car_detail/tab-city-default.png';
+  }
+
+  if (type === 'today') {
+    return isActive
+      ? 'https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/分页-今日榜-已选中.png'
+      : 'https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/分页-今日榜-未选中.png';
+  }
+
+  return isActive
+    ? 'https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/分页-城市榜-已选中.png'
+    : 'https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/分页-城市榜-未选中.png';
+}
+
 // 页面显示
 onShow(async () => {
   await getUserInfo();
@@ -157,7 +197,8 @@ function switchLanguage() {
         </view>
 
         <view class="score-num">
-          {{ myStore.profile?.latest_car_score }}
+          {{ formatTime(myStore.profile?.latest_car_score) }}
+          <!-- {{ myStore.profile?.latest_car_score }} -->
         </view>
       </view>
     </view>
@@ -168,13 +209,16 @@ function switchLanguage() {
       <view v-else class="leaderboard-label-cn"></view>
 
       <!-- 今日榜 / 城市榜 -->
-      <view class="rank-tabs">
+      <!-- <view class="rank-tabs">
         <view
           class="rank-tab rank-tab-today"
           :class="{ active: currentRankType === 'today' }"
           @tap="switchRank('today')"
         >
-          {{ mySystem.system_config.language=="en" ? "Today" : "今日榜"}}
+            <image
+              :src="getRankTabImage('today')"
+              mode="widthFix"
+            />
         </view>
 
         <view
@@ -182,7 +226,33 @@ function switchLanguage() {
           :class="{ active: currentRankType === 'city' }"
           @tap="switchRank('city')"
         >
-          {{ mySystem.system_config.language=="en" ? "Beijing" : "北京"}}
+          <image
+            :src="getRankTabImage('city')"
+            mode="widthFix"
+          />
+        </view>
+      </view> -->
+      <view class="rank-tabs">
+        <view
+          class="rank-tab rank-tab-today"
+          :class="mySystem.system_config.language === 'en' ? 'en' : 'cn'"
+          @tap="switchRank('today')"
+        >
+          <image
+            :src="getRankTabImage('today')"
+            mode="scaleToFill"
+          />
+        </view>
+
+        <view
+          class="rank-tab rank-tab-city"
+          :class="mySystem.system_config.language === 'en' ? 'en' : 'cn'"
+          @tap="switchRank('city')"
+        >
+          <image
+            :src="getRankTabImage('city')"
+            mode="scaleToFill"
+          />
         </view>
       </view>
 
@@ -217,7 +287,7 @@ function switchLanguage() {
             </view>
 
             <view class="score-num">
-              {{ getRankItem(index - 1)?.car_score }}
+              {{ formatTime(getRankItem(index - 1)?.car_score) }}
             </view>
           </template>
 
@@ -310,8 +380,8 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/标签-我的分数.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 163rpx;
-    height: 38rpx;
+    width: 187rpx;
+    height: 37rpx;
   }
 
   .no-score {
@@ -409,41 +479,94 @@ page {
     margin-bottom: 35rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/标签-排行榜.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 121rpx;
+    width: 138rpx;
     height: 38rpx;
   }
 
   // 榜单切换
+  // .rank-tabs {
+  //   width: 100%;
+  //   height: 60rpx;
+  //   display: flex;
+  //   align-items: center;
+  //   // justify-content: center;
+  //   margin-bottom: 30rpx;
+
+  //   .rank-tab {
+  //     height: 60rpx;
+  //     display: flex;
+  //     align-items: center;
+  //     // justify-content: center;
+  //     box-sizing: border-box;
+  //     color: #FFFFFF;
+  //     font-weight: 600;
+  //     font-size: 32rpx;
+
+  //     &.active {
+  //       color: #9570FF;
+  //     }
+  //   }
+
+  //   .rank-tab-today {
+  //     width: 120rpx;
+  //     // border-right: solid 1rpx rgba(255, 255, 255, 0.5);
+  //   }
+
+  //   .rank-tab-city {
+  //     width: 120rpx;
+  //   }
+  // }
   .rank-tabs {
     width: 100%;
     height: 60rpx;
     display: flex;
     align-items: center;
-    // justify-content: center;
     margin-bottom: 30rpx;
 
     .rank-tab {
       height: 60rpx;
       display: flex;
       align-items: center;
-      // justify-content: center;
-      box-sizing: border-box;
-      color: #FFFFFF;
-      font-weight: 600;
-      font-size: 32rpx;
 
-      &.active {
-        color: #9570FF;
+      image {
+        display: block;
       }
     }
 
+    // 今日榜 / Today
     .rank-tab-today {
-      width: 120rpx;
-      // border-right: solid 1rpx rgba(255, 255, 255, 0.5);
+      margin-right: 30rpx;
+
+      &.en {
+        image {
+          width: 86rpx;
+          height: 32rpx;
+        }
+      }
+
+      &.cn {
+        image {
+          width: 94rpx;
+          height: 30rpx;
+        }
+      }
     }
 
+    // 北京 / Beijing
     .rank-tab-city {
-      width: 120rpx;
+      &.en {
+        image {
+          width: 97rpx;
+          height: 31rpx;
+        }
+      }
+
+      &.cn {
+        image {
+          width: 61rpx;
+          height: 30rpx;
+        }
+      }
     }
   }
 
@@ -627,15 +750,15 @@ page {
       float: left;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/主页按钮.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 71rpx;
-      height: 33rpx;
+      width: 61rpx;
+      height: 30rpx;
     }
     .btn-experience-cn {
       float: left;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/即刻体验按钮.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 152rpx;
-      height: 33rpx;
+      width: 125rpx;
+      height: 30rpx;
     }
   }
   

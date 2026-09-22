@@ -89,7 +89,7 @@ page {
   top: 100rpx;
   margin-left: 30rpx;
   width: 662rpx;
-  height: 256rpx;
+  height: 250rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_index/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -130,14 +130,14 @@ page {
   .btn-home-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_index/主页按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 71rpx;
-    height: 33rpx;
+    width: 61rpx;
+    height: 30rpx;
   }
   .btn-my-score-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_index/我的分数按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 153rpx;
-    height: 33rpx;
+    width: 126rpx;
+    height: 30rpx;
   }
 }
 

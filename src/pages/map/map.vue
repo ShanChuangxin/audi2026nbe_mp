@@ -355,11 +355,11 @@ function navigateToMyPage() {
       }
       .static-information-desk-cn{
         position: absolute;
-        top: -60rpx;
-        left: 88rpx;
+        top: -83rpx;
+        left: 55rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/静态按钮-信息台.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 92rpx;
+        width: 90rpx;
         height: 140rpx;
       }
       .static-vibe-lounge{
@@ -373,11 +373,11 @@ function navigateToMyPage() {
       }
       .static-vibe-lounge-cn{
         position: absolute;
-        top: 299rpx;
-        left: 110rpx;
+        top: 280rpx;
+        left: 80rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/静态按钮-悦享客厅.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 236rpx;
+        width: 220rpx;
         height: 40rpx;
       }
       .static-social-hub{
@@ -391,11 +391,11 @@ function navigateToMyPage() {
       }
       .static-social-hub-cn{
         position: absolute;
-        top: 560rpx;
-        left: 175rpx;
+        top: 540rpx;
+        left: 157rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/静态按钮-聚享空间.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 222rpx;
+        width: 213rpx;
         height: 40rpx;
       }
       .static-icon-stage{
@@ -409,11 +409,11 @@ function navigateToMyPage() {
       }
       .static-icon-stage-cn{
         position: absolute;
-        bottom: 40rpx;
-        left: 35rpx;
+        bottom: 45rpx;
+        left: 25rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/静态按钮-高光舞台.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 164rpx;
+        width: 148rpx;
         height: 145rpx;
       }
       .walk-in{
@@ -461,10 +461,10 @@ function navigateToMyPage() {
         .btn-history-capsule-cn{
           position: absolute;
           bottom: 0rpx;
-          right: 70rpx;
+          right: 45rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/按钮-历史胶囊.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 162rpx;
+          width: 146rpx;
           height: 40rpx;
         }
         .btn-history-capsule-exp{
@@ -503,10 +503,10 @@ function navigateToMyPage() {
         .btn-vision-lab-cn{
           position: absolute;
           bottom: 0rpx;
-          right: -40rpx;
+          right: -8rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/按钮-视界工坊.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 162rpx;
+          width: 146rpx;
           height: 40rpx;
         }
         .btn-vision-lab-exp{
@@ -544,11 +544,11 @@ function navigateToMyPage() {
         }
         .btn-helly-hansen-cn{
           position: absolute;
-          bottom: 0rpx;
-          right: 40rpx;
+          bottom: 10rpx;
+          right: 35rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/按钮-划船.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 391rpx;
+          width: 338rpx;
           height: 40rpx;
         }
         .btn-helly-hansen-exp{
@@ -590,7 +590,7 @@ function navigateToMyPage() {
           right: 0rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/按钮-全域探索.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 275rpx;
+          width: 238rpx;
           height: 40rpx;
         }
         .btn-terrain-challenge-exp{
@@ -629,10 +629,10 @@ function navigateToMyPage() {
         .btn-tennis-challenge-cn{
           position: absolute;
           bottom: 0rpx;
-          right: 15rpx;
+          right: 35rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/按钮-网球挑战.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 236rpx;
+          width: 146rpx;
           height: 40rpx;
         }
         .btn-tennis-challenge-exp{
@@ -671,10 +671,10 @@ function navigateToMyPage() {
         .btn-music-remix-cn{
           position: absolute;
           bottom: 0rpx;
-          right: 0rpx;
+          right: 25rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/按钮-音乐.png") top center no-repeat;
           background-size: 100% 100%;
-          width: 309rpx;
+          width: 279rpx;
           height: 40rpx;
         }
         .btn-music-remix-exp{

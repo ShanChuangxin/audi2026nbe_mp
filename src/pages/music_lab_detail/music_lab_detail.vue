@@ -296,7 +296,7 @@ page {
       margin-left: 30rpx;
       width: 662rpx;
       height: 116rpx;
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/no-music-title.png") top center no-repeat;
       background-size: 100% 100%;
     }
     .no-music-content {
@@ -330,7 +330,7 @@ page {
       position: absolute;
       top: 100rpx;
       margin-left: 30rpx;
-      width: 623rpx;
+      width: 624rpx;
       height: 130rpx;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/无音乐标题.png") top center no-repeat;
       background-size: 100% 100%;
@@ -338,8 +338,8 @@ page {
     .no-music-content-cn {
       margin-top: 200rpx;
       margin-left: 30rpx;
-      width: 205rpx;
-      height: 107rpx;
+      width: 234rpx;
+      height: 120rpx;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/无音乐提示.png") top center no-repeat;
       background-size: 100% 100%;
     }
@@ -356,8 +356,8 @@ page {
       .btn-experience-cn {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/即刻体验按钮.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 152rpx;
-        height: 33rpx;
+        width: 125rpx;
+        height: 30rpx;
       }
     }
   }
@@ -403,7 +403,7 @@ page {
     top: 100rpx;
     margin-left: 30rpx;
     width: 662rpx;
-    height: 116rpx;
+    height: 194rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
     background-size: 100% 100%;
   }
@@ -412,7 +412,7 @@ page {
     top: 100rpx;
     margin-left: 30rpx;
     width: 624rpx;
-    height: 194rpx;
+    height: 199rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/有音乐标题.png") top center no-repeat;
     background-size: 100% 100%;
   }
@@ -462,8 +462,8 @@ page {
     .btn-home-cn {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/主页按钮.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 71rpx;
-      height: 33rpx;
+      width: 61rpx;
+      height: 30rpx;
     }
     .btn-download {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/btn-download.png") top center no-repeat;

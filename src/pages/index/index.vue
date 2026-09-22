@@ -350,8 +350,8 @@ function navigateToMapPage() {
           // justify-content: center;
           .privacy-content {
             margin: 0 auto 150rpx;
-            width: 504rpx;
-            height: 15317rpx;
+            width: 507rpx;
+            height: 13720rpx;
             background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy.png") top center no-repeat;
             background-size: 100% 100%;
           }

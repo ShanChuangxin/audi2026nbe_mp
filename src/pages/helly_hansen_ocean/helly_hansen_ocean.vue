@@ -94,7 +94,7 @@ page {
   top: 100rpx;
   margin-left: 30rpx;
   width: 668rpx;
-  height: 276rpx;
+  height: 265rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/content.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -103,7 +103,7 @@ page {
   top: 100rpx;
   margin-left: 30rpx;
   width: 676rpx;
-  height: 292rpx;
+  height: 287rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/helly_hansen_ocean/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -128,8 +128,8 @@ page {
   .btn-home-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/helly_hansen_ocean/主页按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 71rpx;
-    height: 33rpx;
+    width: 61rpx;
+    height: 30rpx;
   }
 }
 

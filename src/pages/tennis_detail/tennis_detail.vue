@@ -501,8 +501,8 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/标签-我的分数.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 163rpx;
-    height: 38rpx;
+    width: 187rpx;
+    height: 37rpx;
   }
   .no-score {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/no-score.png") top center no-repeat;
@@ -582,7 +582,7 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/标签-高光视频.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 163rpx;
+    width: 186rpx;
     height: 38rpx;
   }
   .no-highlight {
@@ -631,7 +631,7 @@ page {
     margin-bottom: 50rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/标签-排行榜.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 121rpx;
+    width: 138rpx;
     height: 38rpx;
   }
 
@@ -836,8 +836,8 @@ page {
   .btn-explore-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/即刻体验按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 152rpx;
-    height: 33rpx;
+    width: 125rpx;
+    height: 30rpx;
   }
 
   // 有视频：Home 左边，Download 右边
@@ -872,15 +872,15 @@ page {
       .btn-home-cn {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/主页按钮.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 71rpx;
-        height: 33rpx;
+        width: 61rpx;
+        height: 30rpx;
         flex-shrink: 0;
       }
       .btn-download-cn {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/下载按钮.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 72rpx;
-        height: 33rpx;
+        width: 61rpx;
+        height: 30rpx;
         flex-shrink: 0;
       }
     }

@@ -87,7 +87,7 @@ page {
   top: 100rpx;
   margin-left: 30rpx;
   width: 572rpx;
-  height: 241rpx;
+  height: 256rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_index/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -125,14 +125,14 @@ page {
     .btn-home-cn {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_index/主页按钮.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 71rpx;
-      height: 33rpx;
+      width: 61rpx;
+      height: 30rpx;
     }
     .btn-leaderboard-cn {
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_index/排行榜按钮.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 112rpx;
-      height: 33rpx;
+      width: 93rpx;
+      height: 30rpx;
     }
   }
 

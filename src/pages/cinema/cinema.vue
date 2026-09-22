@@ -101,7 +101,7 @@ page {
   top: 100rpx;
   margin-left: 30rpx;
   width: 572rpx;
-  height: 186rpx;
+  height: 251rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/cinema/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -128,8 +128,8 @@ page {
     // float: left;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/cinema/主页按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 71rpx;
-    height: 33rpx;
+    width: 61rpx;
+    height: 30rpx;
   }
 }
 

@@ -194,8 +194,8 @@ page {
   position: absolute;
   top: 100rpx;
   margin-left: 30rpx;
-  width: 662rpx;
-  height: 48rpx;
+  width: 188rpx;
+  height: 85rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -216,7 +216,7 @@ page {
   .no-photo-cn {
     // margin-top: 100rpx;
     width: 298rpx;
-    height: 90rpx;
+    height: 75rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/无照片提示.png") top center no-repeat;
     background-size: 100% 100%;
   }
@@ -252,8 +252,8 @@ page {
   .btn-explore-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/现在体验按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 153rpx;
-    height: 33rpx;
+    width: 125rpx;
+    height: 30rpx;
   }
   .photo-btn-container {
     width: 100%;
@@ -281,14 +281,14 @@ page {
       .btn-home-cn {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/主页按钮.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 71rpx;
-        height: 33rpx;
+        width: 61rpx;
+        height: 30rpx;
       }
       .btn-download-cn {
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/下载照片按钮.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 150rpx;
-        height: 33rpx;
+        width: 123rpx;
+        height: 30rpx;
       }
     }
   }

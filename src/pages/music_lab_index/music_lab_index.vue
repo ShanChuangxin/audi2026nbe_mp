@@ -9,6 +9,21 @@ const mySystem = useSystemStore(); // 主要用于切换语言
 
 function navitateToMP() {
   console.log("跳转到其它小程序页面")
+  // #ifdef MP-WEIXIN
+  wx.openOfficialAccountArticle({
+    url: 'https://mp.weixin.qq.com/s/E7VYbkpO0o9vjsz0vNGWlA',
+    success(res) {
+      console.log('文章打开成功', res)
+    },
+    fail(err) {
+      console.log('文章打开失败', err)
+      uni.showToast({
+        title: '文章打开失败',
+        icon: 'none'
+      })
+    }
+  })
+  // #endif
 }
 
 function navitateToHome() {
@@ -95,8 +110,8 @@ page {
   position: absolute;
   top: 100rpx;
   margin-left: 30rpx;
-  width: 662rpx;
-  height: 274rpx;
+  width: 624rpx;
+  height: 289rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_index/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -116,7 +131,7 @@ page {
   top: 1100rpx;
   margin-left: 50%;
   transform: translateX(-50%);
-  width: 206rpx;
+  width: 203rpx;
   height: 80rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_index/探索其它按钮.png") top center no-repeat;
   background-size: 100% 100%;
@@ -158,14 +173,14 @@ page {
   .btn-home-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_index/主页按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 71rpx;
-    height: 33rpx;
+    width: 61rpx;
+    height: 30rpx;
   }
   .btn-my-music-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_index/我的音乐按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 151rpx;
-    height: 33rpx;
+    width: 124rpx;
+    height: 30rpx;
   }
 }
 

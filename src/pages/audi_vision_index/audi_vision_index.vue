@@ -51,7 +51,7 @@ page {
   background-color: black;
   width: 100vw;
   height: 100vh;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/bg.png") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/bg.jpg") top center no-repeat;
   background-size: cover;
   overflow: hidden;
   padding-top: 100rpx;
@@ -87,8 +87,8 @@ page {
   position: absolute;
   top: 100rpx;
   margin-left: 30rpx;
-  width: 592rpx;
-  height: 192rpx;
+  width: 572rpx;
+  height: 250rpx;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_index/文案介绍.png") top center no-repeat;
   background-size: 100% 100%;
 }
@@ -117,8 +117,8 @@ page {
   .btn-home-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_index/主页按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 71rpx;
-    height: 33rpx;
+    width: 61rpx;
+    height: 30rpx;
   }
   .btn-my-photo {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/audi_vision_index/btn-my-photo.png") top center no-repeat;
@@ -129,8 +129,8 @@ page {
   .btn-my-photo-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_index/我的照片按钮.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 150rpx;
-    height: 33rpx;
+    width: 124rpx;
+    height: 30rpx;
   }
 }
 

@@ -536,11 +536,14 @@ function switchLanguage() {
           <view class="btn-close" @tap="isPopCancelWindow=false"> </view>
           <view class="btn-confirm" @tap="userLogout"> </view>
         </view>
-        
       </view>
+
       <view v-else class="pop-window-cn" @tap.stop >
-        <view class="pop-content"></view>
-        <view class="btn-close" @tap="isPopCancelWindow=false"> </view>
+        <view class="pop-content-cn"></view>
+        <view class="btn-container-cn">
+          <view class="btn-close-cn" @tap="isPopCancelWindow=false"> </view>
+          <view class="btn-confirm-cn" @tap="userLogout"> </view>
+        </view>
       </view>
   </view>
 
@@ -690,14 +693,14 @@ page {
   .experience-label {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-experience.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 209rpx;
-    height: 24rpx;
+    width: 167rpx;
+    height: 31rpx;
   }
   .experience-label-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/标签-已参与互动.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 178rpx;
-    height: 31rpx;
+    width: 167rpx;
+    height: 30rpx;
   }
   .experience-count {
     display: flex;
@@ -707,7 +710,7 @@ page {
   }
 }
 
-// 礼物弹窗
+// 礼物按钮
 .gift-container {
   margin-left: 50%;
   transform: translateX(-50%);
@@ -720,14 +723,14 @@ page {
   .gift-label {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-gift.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 281rpx;
-    height: 24rpx;
+    width: 328rpx;
+    height: 32rpx;
   }
   .gift-label-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/标签-礼品兑换.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 146rpx;
-    height: 31rpx;
+    width: 137rpx;
+    height: 30rpx;
   }
   .gift-icon {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/gift-icon.png") top center no-repeat;
@@ -749,13 +752,13 @@ page {
   .qrcode-label {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/label-qrcode.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 139rpx;
-    height: 28rpx;
+    width: 128rpx;
+    height: 29rpx;
   }
   .qrcode-label-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/标签-二维码.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 111rpx;
+    width: 105rpx;
     height: 30rpx;
   }
   .qrcode-bg {
@@ -804,8 +807,8 @@ page {
   margin: 50rpx auto 0;
   background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/按钮注销.png") top center no-repeat;
   background-size: 100% 100%;
-  width: 53rpx;
-  height: 26rpx;
+  width: 61rpx;
+  height: 30rpx;
 }
 
 // 礼品规则弹窗
@@ -849,16 +852,16 @@ page {
           height: 960rpx;
           .prize-content {
             margin: 0 auto 150rpx;
-            width: 538rpx;
-            height: 1926rpx;
+            width: 539rpx;
+            height: 1613rpx;
             background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/ruler-prize.png") top center no-repeat;
             background-size: 100% 100%;
           }
           .prize-content-cn {
             margin: 0 auto 150rpx;
-            width: 538rpx;
-            height: 1926rpx;
-            background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/ruler-prize.png") top center no-repeat;
+            width: 539rpx;
+            height: 1232rpx;
+            background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/礼品兑换机制.png") top center no-repeat;
             background-size: 100% 100%;
           }
         }
@@ -872,10 +875,10 @@ page {
       }
       .btn-close-cn {
         // background-color: pink;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-close-prize.png") top center no-repeat;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/关闭礼品兑换弹窗.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 522rpx;
-        height: 57rpx;
+        width: 536rpx;
+        height: 78rpx;
       }
     }
     // .pop-window-cn {
@@ -922,76 +925,93 @@ page {
     // 模糊后面的地图
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-  .pop-window {
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-bg.png") top center no-repeat;
-    background-size: 100% 100%;
-    width: 643rpx;
-    height: 561rpx;
-    // background-color: pink;
-    z-index: 100000;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
-    .pop-content {
-      margin: 80rpx auto 0;
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-content.png") top center no-repeat;
+    .pop-window {
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-bg.png") top center no-repeat;
       background-size: 100% 100%;
-      width: 539rpx;
-      height: 222rpx;
-    }
-    .btn-container {
-      margin: 40rpx auto 0;
-      width: 540rpx;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .btn-close {
-        margin-top: 50rpx;
-        // background-color: pink;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-close-cancel.png") top center no-repeat;
-        background-size: 100% 100%;
-        width: 258rpx;
-        height: 63rpx;
-      }
-      .btn-confirm {
-        margin-top: 50rpx;
-        // background-color: pink;
-        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-confirm-cancel.png") top center no-repeat;
-        background-size: 100% 100%;
-        width: 258rpx;
-        height: 63rpx;
-      }
-    }
-    
-  }
-  .pop-window-cn {
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/注销账户背景.png") top center no-repeat;
-    background-size: 100% 100%;
-    width: 643rpx;
-    height: 716rpx;
-    // background-color: pink;
-    z-index: 100000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .pop-content {
-      position: relative;
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/注销账户说明.png") top center no-repeat;
-      background-size: 100% 100%;
-      width: 539rpx;
-      height: 405rpx;
-    }
-    .btn-close {
-      margin-top: 50rpx;
+      width: 643rpx;
+      height: 561rpx;
       // background-color: pink;
-      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/关闭注销窗口.png") top center no-repeat;
-      background-size: 100% 100%;
-      width: 539rpx;
-      height: 60rpx;
+      z-index: 100000;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
+      .pop-content {
+        margin: 80rpx auto 0;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-content.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 539rpx;
+        height: 222rpx;
+      }
+      .btn-container {
+        margin: 40rpx auto 0;
+        width: 540rpx;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .btn-close {
+          margin-top: 50rpx;
+          // background-color: pink;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-close-cancel.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 258rpx;
+          height: 63rpx;
+        }
+        .btn-confirm {
+          margin-top: 50rpx;
+          // background-color: pink;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/btn-confirm-cancel.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 258rpx;
+          height: 63rpx;
+        }
+      }
+      
     }
-  }
+    .pop-window-cn {
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-bg.png") top center no-repeat;
+      background-size: 100% 100%;
+      width: 643rpx;
+      height: 561rpx;
+      // background-color: pink;
+      z-index: 100000;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
+      .pop-content-cn {
+        margin: 80rpx auto 0;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/注销账户说明.png") top center no-repeat;
+        background-size: 100% 100%;
+        width: 539rpx;
+        height: 186rpx;
+      }
+      .btn-container-cn {
+        margin: 40rpx auto 0;
+        width: 540rpx;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .btn-close-cn {
+          margin-top: 50rpx;
+          // background-color: pink;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/关闭注销窗口.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 258rpx;
+          height: 78rpx;
+        }
+        .btn-confirm-cn {
+          margin-top: 50rpx;
+          // background-color: pink;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/确认注销.png") top center no-repeat;
+          background-size: 100% 100%;
+          width: 258rpx;
+          height: 78rpx;
+        }
+      }
+      
+    }
+  
   }
 
 </style>
