@@ -242,8 +242,10 @@ function switchLanguage() {
     <view class="music-container">
       <view class="music-area">
         <!-- 需要旋转的唱片 -->
-        <view class="record-card" :class="{ 'record-playing': isPlaying }"></view>
+        <view v-if="mySystem.system_config.language=='en'" class="record-card" :class="{ 'record-playing': isPlaying }"></view>
+        <view v-else class="record-card-cn" :class="{ 'record-playing': isPlaying }"></view>
       </view>
+      <view class="music-pin"></view>
     </view>
     <view v-if="mySystem.system_config.language=='en'" class="music-title"></view>
     <view v-else class="music-title-cn"></view>
@@ -372,15 +374,25 @@ page {
     transform: translateX(-50%);
     width: 90%;
     .music-area {
-      margin-top: -120rpx;
-      margin-left: 50%;
+      position:absolute;
+      top: 50rpx;
+      left: 50%;
       transform: translateX(-50%);
-      width: 649rpx;
-      height: 866rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       .record-card {
-        width: 948rpx;
-        height: 948rpx;
+        width: 729rpx;
+        height: 715rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/record-card.png") top center no-repeat;
+        background-size: 100% 100%;
+        animation: recordRotate 8s linear infinite;
+        animation-play-state: paused;
+      }
+      .record-card-cn {
+        width: 729rpx;
+        height: 715rpx;
+        background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/唱片.png") top center no-repeat;
         background-size: 100% 100%;
         animation: recordRotate 8s linear infinite;
         animation-play-state: paused;
@@ -396,6 +408,16 @@ page {
           transform: rotate(360deg);
         }
       }
+    }
+    .music-pin {
+      position: absolute;
+      top: 0rpx;
+      right: -100rpx;
+      width: 302rpx;
+      height: 605rpx;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/record-pin.png") top center no-repeat;
+      background-size: 100% 100%;
+
     }
   }
   .music-title {
@@ -421,23 +443,23 @@ page {
   .music-control {
     position: absolute;
     left: 50%;
-    top: 50%;
+    bottom: 10%;
     transform: translate(-50%, -50%);
-    width: 164rpx;
-    height: 164rpx;
+    width: 100rpx;
+    height: 100rpx;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
     .btn-play {
-        width: 86rpx;
-        height: 86rpx;
+        width: 100rpx;
+        height: 100rpx;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/play.png") top center no-repeat;
         background-size: 100% 100%;
     }
     .btn-pause {
-      width: 40rpx;
-      height: 61rpx;
+      width: 100rpx;
+      height: 100rpx;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/pause.png") top center no-repeat;
       background-size: 100% 100%;
     }

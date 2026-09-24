@@ -95,8 +95,8 @@ const experienceCount = computed(() => {
     profile.value.music_time,
     profile.value.latest_car_time,
     profile.value.latest_tennis_time,
-    profile.value.cinema_time,
-    profile.value.helly_hansen_time
+    profile.value.cinema_time
+    // profile.value.helly_hansen_time
   ]
   return experienceTimes.filter((time) => time && Number(time) !== 0).length;
 })
@@ -469,7 +469,7 @@ function switchLanguage() {
     <view v-if="systemStore.system_config!.language=='en'" class="experience-label"></view>
     <view v-else class="experience-label-cn"></view>
     <view class="experience-count">
-      {{ experienceCount }} / 6
+      {{ experienceCount }} / 5
     </view>
   </view>
 
