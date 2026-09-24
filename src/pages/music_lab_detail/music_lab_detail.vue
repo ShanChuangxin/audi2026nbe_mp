@@ -340,7 +340,7 @@ page {
     .no-music-content-cn {
       margin-top: 200rpx;
       margin-left: 30rpx;
-      width: 234rpx;
+      width: 298rpx;
       height: 120rpx;
       background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/无音乐提示.png") top center no-repeat;
       background-size: 100% 100%;

@@ -729,7 +729,7 @@ page {
   .gift-label-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/标签-礼品兑换.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 137rpx;
+    width: 201rpx;
     height: 30rpx;
   }
   .gift-icon {

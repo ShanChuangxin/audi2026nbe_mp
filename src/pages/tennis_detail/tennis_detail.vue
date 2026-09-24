@@ -298,7 +298,7 @@ function switchLanguage() {
           <view class="avatar">
             <image
               :src="myStore.profile?.avatar"
-              mode="scaleToFill"
+              mode="aspectFill"
             />
           </view>
           <view class="nick-name">{{ myStore.profile?.nick_name }}</view>

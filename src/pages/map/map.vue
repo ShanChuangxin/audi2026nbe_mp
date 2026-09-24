@@ -629,7 +629,7 @@ function navigateToMyPage() {
         .btn-tennis-challenge-cn{
           position: absolute;
           bottom: 0rpx;
-          right: 0rpx;
+          right: 35rpx;
           background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/map/按钮-网球挑战.png") top center no-repeat;
           background-size: 100% 100%;
           width: 164rpx;
