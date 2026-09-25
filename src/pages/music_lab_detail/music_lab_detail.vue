@@ -425,7 +425,7 @@ page {
     top: 100rpx;
     margin-left: 30rpx;
     width: 662rpx;
-    height: 194rpx;
+    height: 116rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_detail/music-title.png") top center no-repeat;
     background-size: 100% 100%;
   }
@@ -434,7 +434,7 @@ page {
     top: 100rpx;
     margin-left: 30rpx;
     width: 624rpx;
-    height: 199rpx;
+    height: 130rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_detail/有音乐标题.png") top center no-repeat;
     background-size: 100% 100%;
   }

@@ -216,7 +216,7 @@ page {
   .no-photo-cn {
     // margin-top: 100rpx;
     width: 298rpx;
-    height: 75rpx;
+    height: 120rpx;
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/audi_vision_detail/无照片提示.png") top center no-repeat;
     background-size: 100% 100%;
   }
