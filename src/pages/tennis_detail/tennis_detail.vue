@@ -514,7 +514,7 @@ page {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/无分数记录.png") top center no-repeat;
     background-size: 100% 100%;
     width: 298rpx;
-    height: 70rpx;
+    height: 120rpx;
   }
   .my-score {
     border-top: solid 1rpx white;

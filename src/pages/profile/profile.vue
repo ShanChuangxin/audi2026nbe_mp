@@ -853,7 +853,7 @@ page {
           .prize-content {
             margin: 0 auto 150rpx;
             width: 539rpx;
-            height: 1613rpx;
+            height: 1647rpx;
             background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/ruler-prize.png") top center no-repeat;
             background-size: 100% 100%;
           }
@@ -940,7 +940,7 @@ page {
         margin: 80rpx auto 0;
         background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/cancel-content.png") top center no-repeat;
         background-size: 100% 100%;
-        width: 539rpx;
+        width: 525rpx;
         height: 222rpx;
       }
       .btn-container {

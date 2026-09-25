@@ -394,7 +394,7 @@ page {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/car_detail/无分数.png") top center no-repeat;
     background-size: 100% 100%;
     width: 298rpx;
-    height: 30rpx;
+    height: 120rpx;
   }
 
   .my-score {
