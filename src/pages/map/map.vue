@@ -782,7 +782,7 @@ function navigateToMyPage() {
 
         .text-container {
           margin-top: 20rpx;
-          width: 360rpx;
+          width: 100%;
           display: flex;
           flex-direction: column;
           justify-content: center;

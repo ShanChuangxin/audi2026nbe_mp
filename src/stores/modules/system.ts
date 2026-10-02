@@ -8,7 +8,7 @@ export const useSystemStore = defineStore(
     'system',
     () => {
         // 会员信息
-        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu", pop_ruler: boolean, isPrivacy: boolean }>({ language: "en", city: "beijing", pop_ruler: true, isPrivacy: false })
+        const system_config = ref<{ language: "cn" | "en", city: "beijing" | "shanghai" | "chengdu", pop_ruler: boolean, isPrivacy: boolean }>({ language: "cn", city: "beijing", pop_ruler: true, isPrivacy: false })
 
         // 保存会员信息，登录时使用
         const switchLanguage = () => {
