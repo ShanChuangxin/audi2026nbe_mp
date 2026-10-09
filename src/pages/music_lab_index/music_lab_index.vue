@@ -11,7 +11,10 @@ function navitateToMP() {
   console.log("跳转到其它小程序页面")
   // #ifdef MP-WEIXIN
   wx.openOfficialAccountArticle({
+  // wx.openChannelsActivity({
     url: 'https://mp.weixin.qq.com/s/E7VYbkpO0o9vjsz0vNGWlA',
+    // finderUserName: 'sphm7yTMygxxmmL',
+    // feedId: 'export/UzFfBgAAxMenZBINcV-KjMzT4DCa0eH4Juzx2YfrJ3VfIpEnOA',
     success(res) {
       console.log('文章打开成功', res)
     },
