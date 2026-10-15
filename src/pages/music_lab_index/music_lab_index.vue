@@ -20,10 +20,10 @@ function navitateToMP() {
     },
     fail(err) {
       console.log('文章打开失败', err)
-      uni.showToast({
-        title: '文章打开失败',
-        icon: 'none'
-      })
+      // uni.showToast({
+      //   title: '文章打开失败',
+      //   icon: 'none'
+      // })
     }
   })
   // #endif

@@ -19,7 +19,7 @@ export const getOpenIdAPI = (data: { jscode: string }) => {
 }
 
 // 注册&获取用户信息
-export const getUserInfoAPI = (data: { open_id: string, city: "beijing" | "shanghai" | "chengdu", is_register: boolean }) => {
+export const getUserInfoAPI = (data: { open_id: string, city: "beijing" | "shanghai" | "wuhan" | "chengdu", is_register: boolean }) => {
     return http<{ user_info: UserInfoType }>({
         method: 'POST',
         url: '/get_user_info',

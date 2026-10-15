@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { getAreaCheckAPI } from '@/services/login'
-import { onLoad } from '@dcloudio/uni-app'
 import { useMyStore, useSystemStore } from '@/stores'
+
+// 显示隐私条款
+const showPrivacy = ref(true);  // false为不显示弹窗；true为显示弹窗
 
 // 持久化存储
 const myStore = useMyStore();
@@ -22,7 +24,11 @@ const areaCheck = async (open_id: string) => {
     });
   }
 }
-onLoad(() => {
+
+// 关闭隐私条款弹窗
+function closePopWindow(){
+  console.log("关闭隐私条款弹窗");
+  showPrivacy.value = false;
   const open_id = myStore.profile?.open_id || ""
   if (!open_id) {
     console.log("没有获取到 open_id")
@@ -30,7 +36,7 @@ onLoad(() => {
     return;
   }
   areaCheck(open_id);
-})
+}
 
 function navitateToHome() {
   console.log("跳转到地图页面")
@@ -55,6 +61,21 @@ function switchLanguage() {
   <view class="btn-container">
     <view v-if="mySystem.system_config.language=='en'" class="btn-home" @tap="navitateToHome"></view>
     <view v-else class="btn-home-cn" @tap="navitateToHome"></view>
+  </view>
+
+  <!-- 隐私条款弹窗 -->
+  <!-- <view class="privacy-container" v-if="showPrivacy" @touchmove.stop.prevent=""> -->
+  <view class="privacy-container" v-if="showPrivacy">
+      <view class="pop-window">
+        <view class="text-content">
+          <scroll-view class="scroll" enhanced scroll-y>
+            <view class="privacy-content"></view>
+          </scroll-view>
+        </view>
+        
+        <view class="btn-agree" @tap="closePopWindow">
+        </view> 
+      </view>
   </view>
 
 </template>
@@ -130,6 +151,73 @@ page {
     background-size: 100% 100%;
     width: 61rpx;
     height: 30rpx;
+  }
+}
+
+// 隐私条款弹窗
+.privacy-container {
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-color: black;
+  // opacity: .5;
+  background-color: rgba(0, 0, 0, .5);
+
+  // 模糊后面的地图
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  
+  .pop-window {
+    transform: translateY(-3vh);
+    position: relative;
+    width: 610rpx;
+    height: 1202rpx;
+    // background-color: pink;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/cinema/privacy-bg.png") top center no-repeat;
+    background-size: 100% 100%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .text-content {
+      width: 600rpx;
+      height: 1000rpx;
+      //
+      margin: 10rpx auto 120rpx;
+      overflow: hidden;
+      .scroll {
+        width: 600rpx;
+        height: 960rpx;
+        // 
+        // padding-bottom: 150rpx;
+        // height: 100%;
+        // display: flex;
+        // justify-content: center;
+        .privacy-content {
+          margin: 0 auto 150rpx;
+          width: 506rpx;
+          height: 5252rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/cinema/privacy.png") top center no-repeat;
+          background-size: 100% 100%;
+        }
+      }
+    }
+
+    .btn-agree {
+      position: absolute;
+      bottom: 50rpx;
+      width: 485rpx;
+      height: 110rpx;
+      background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/cinema/btn-agree-privacy.png") top center no-repeat;
+      background-size: 100% 100%;
+    }
   }
 }
 

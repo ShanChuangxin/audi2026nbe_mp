@@ -221,22 +221,22 @@ function navigateToMyPage() {
       <!-- 地图容器 -->
       <view class="map-container">
         <!-- 信息台 -->
-        <view class="information-desk-container" @tap="navigateToInformationDesk">
+        <view class="information-desk-container" >
           <view class="line-information-desk"></view>
-          <view v-if="mySystem.system_config.language=='en'" class="btn-information-desk"></view>
-          <view v-else class="btn-information-desk-cn"></view>
+          <view v-if="mySystem.system_config.language=='en'" class="btn-information-desk" @tap="navigateToInformationDesk"></view>
+          <view v-else class="btn-information-desk-cn" @tap="navigateToInformationDesk"></view>
         </view>
         <!-- 悦享客厅 -->
-        <view class="vibe-lounge-container" @tap="navigateToVibeLounge">
+        <view class="vibe-lounge-container" >
           <view class="line-vibe-lounge"></view>
-          <view v-if="mySystem.system_config.language=='en'" class="btn-vibe-lounge"></view>
-          <view v-else class="btn-vibe-lounge-cn"></view>
+          <view v-if="mySystem.system_config.language=='en'" class="btn-vibe-lounge" @tap="navigateToVibeLounge"></view>
+          <view v-else class="btn-vibe-lounge-cn" @tap="navigateToVibeLounge"></view>
         </view>
         <!-- 聚想空间 -->
-        <view class="social-hub-container" @tap="navigateToSocialHub">
+        <view class="social-hub-container" >
           <view class="line-social-hub"></view>
-          <view v-if="mySystem.system_config.language=='en'" class="btn-social-hub"></view>
-          <view v-else class="btn-social-hub-cn"></view>
+          <view v-if="mySystem.system_config.language=='en'" class="btn-social-hub" @tap="navigateToSocialHub"></view>
+          <view v-else class="btn-social-hub-cn" @tap="navigateToSocialHub"></view>
         </view>
         <!-- 静态不可点击的按钮 -->        
         <!-- <view v-if="mySystem.system_config.language=='en'" class="static-icon-stage"></view>
@@ -244,20 +244,20 @@ function navigateToMyPage() {
         <view class="walk-in"></view>
         <view class="walk-out"></view>
         <!-- 拍照互动 -->
-         <view class="history-capsule-container" @tap="navigateToHistoryCapsule">
+         <view class="history-capsule-container" >
           <view class="line-history-capsule"></view>
           <!-- <view  v-if="myStore.profile?.photo_time == 0" class="btn-history-capsule"></view>
           <view v-else class="btn-history-capsule-exp"></view> -->
-          <view v-if="mySystem.system_config.language=='en'" class="btn-history-capsule"></view>
-          <view v-else class="btn-history-capsule-cn"></view>
+          <view v-if="mySystem.system_config.language=='en'" class="btn-history-capsule" @tap="navigateToHistoryCapsule"></view>
+          <view v-else class="btn-history-capsule-cn" @tap="navigateToHistoryCapsule"></view>
          </view>
          <!-- 4D影院 -->
-         <view class="vision-lab-container" @tap="navigateToVisionLab">
+         <view class="vision-lab-container" >
           <view class="line-vision-lab"></view>
           <!-- <view v-if="myStore.profile?.cinema_time == 0" class="btn-vision-lab"></view>
           <view v-else class="btn-vision-lab-exp"></view> -->
-          <view v-if="mySystem.system_config.language=='en'" class="btn-vision-lab"></view>
-          <view v-else class="btn-vision-lab-cn"></view>
+          <view v-if="mySystem.system_config.language=='en'" class="btn-vision-lab" @tap="navigateToVisionLab"></view>
+          <view v-else class="btn-vision-lab-cn" @tap="navigateToVisionLab"></view>
          </view>
          <!-- Helly Hansen划船区域 -->
          <!-- <view class="helly-hansen-container" @tap="navigateToHellyHansen">
@@ -266,12 +266,12 @@ function navigateToMyPage() {
           <view v-else class="btn-helly-hansen-cn"></view>
          </view> -->
          <!-- 赛车区域 -->
-         <view class="terrain-challenge-container" @tap="navigateToTerrainChallenge">
+         <view class="terrain-challenge-container" >
           <view class="line-terrain-challenge"></view>
           <!-- <view v-if="myStore.profile?.latest_car_time == 0" class="btn-terrain-challenge"></view>
           <view v-else class="btn-terrain-challenge-exp"></view> -->
-          <view v-if="mySystem.system_config.language=='en'" class="btn-terrain-challenge"></view>
-          <view v-else class="btn-terrain-challenge-cn"></view>
+          <view v-if="mySystem.system_config.language=='en'" class="btn-terrain-challenge" @tap="navigateToTerrainChallenge"></view>
+          <view v-else class="btn-terrain-challenge-cn" @tap="navigateToTerrainChallenge"></view>
          </view>
          <!-- 网球区域 -->
          <!-- <view class="tennis-challenge-container" @tap="navigateToTennisChallenge">
@@ -280,12 +280,12 @@ function navigateToMyPage() {
           <view v-else class="btn-tennis-challenge-cn"></view>
          </view> -->
          <!-- 音乐区域 -->
-         <view class="music-remix-container" @tap="navigateToMusicRemix">
+         <view class="music-remix-container" >
           <view class="line-music-remix"></view>
           <!-- <view v-if="myStore.profile?.music_time == 0" class="btn-music-remix"></view>
           <view v-else class="btn-music-remix-exp"></view> -->
-          <view v-if="mySystem.system_config.language=='en'" class="btn-music-remix"></view>
-          <view v-else class="btn-music-remix-cn"></view>
+          <view v-if="mySystem.system_config.language=='en'" class="btn-music-remix" @tap="navigateToMusicRemix"></view>
+          <view v-else class="btn-music-remix-cn" @tap="navigateToMusicRemix"></view>
          </view>
        </view>
 
