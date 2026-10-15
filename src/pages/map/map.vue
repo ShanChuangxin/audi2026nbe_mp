@@ -153,6 +153,21 @@ function switchLanguage() {
   mySystem.switchLanguage();
 }
 
+function navigateToInformationDesk() {
+  console.log("跳转到信息台页面")
+  uni.navigateTo({url: "/pages/information_desk/information_desk"});
+}
+
+function navigateToVibeLounge() {
+  console.log("跳转到悦享客厅页面")
+  uni.navigateTo({url: "/pages/vibe_lounge/vibe_lounge"});
+}
+
+function navigateToSocialHub() {
+  console.log("跳转到聚想空间页面")
+  uni.navigateTo({url: "/pages/social_hub/social_hub"});
+}
+
 function navigateToHistoryCapsule() {
   console.log("跳转到拍照互动页面")
   uni.navigateTo({url: "/pages/audi_vision_index/audi_vision_index"});
@@ -206,19 +221,19 @@ function navigateToMyPage() {
       <!-- 地图容器 -->
       <view class="map-container">
         <!-- 信息台 -->
-        <view class="information-desk-container" @tap="navigateToHistoryCapsule">
+        <view class="information-desk-container" @tap="navigateToInformationDesk">
           <view class="line-information-desk"></view>
           <view v-if="mySystem.system_config.language=='en'" class="btn-information-desk"></view>
           <view v-else class="btn-information-desk-cn"></view>
         </view>
         <!-- 悦享客厅 -->
-        <view class="vibe-lounge-container" @tap="navigateToHistoryCapsule">
+        <view class="vibe-lounge-container" @tap="navigateToVibeLounge">
           <view class="line-vibe-lounge"></view>
           <view v-if="mySystem.system_config.language=='en'" class="btn-vibe-lounge"></view>
           <view v-else class="btn-vibe-lounge-cn"></view>
         </view>
         <!-- 聚想空间 -->
-        <view class="social-hub-container" @tap="navigateToHistoryCapsule">
+        <view class="social-hub-container" @tap="navigateToSocialHub">
           <view class="line-social-hub"></view>
           <view v-if="mySystem.system_config.language=='en'" class="btn-social-hub"></view>
           <view v-else class="btn-social-hub-cn"></view>
@@ -313,7 +328,7 @@ function navigateToMyPage() {
   .body-view {
     // background-color: #f6f6f6; 
     // background-color: skyblue;
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/map/bg.jpg") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/map/bg.jpg") top center no-repeat;
     background-size: 100% 100%;
     width: 100vw;
     height: 100vh;

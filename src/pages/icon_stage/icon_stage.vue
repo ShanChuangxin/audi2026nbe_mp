@@ -66,7 +66,7 @@ page {
   background-color: black;
   width: 100vw;
   height: 100vh;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/bg.jpg") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/icon_stage/bg.jpg") top center no-repeat;
   background-size: cover;
   overflow: hidden;
   padding-top: 100rpx;
@@ -93,18 +93,18 @@ page {
   position: absolute;
   top: 100rpx;
   margin-left: 30rpx;
-  width: 668rpx;
-  height: 265rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/helly_hansen_ocean/content.png") top center no-repeat;
+  width: 662rpx;
+  height: 287rpx;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/icon_stage/content.png") top center no-repeat;
   background-size: 100% 100%;
 }
 .index-content-cn {
   position: absolute;
   top: 100rpx;
   margin-left: 30rpx;
-  width: 676rpx;
-  height: 287rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/helly_hansen_ocean/标题.png") top center no-repeat;
+  width: 572rpx;
+  height: 296rpx;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/icon_stage/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
 

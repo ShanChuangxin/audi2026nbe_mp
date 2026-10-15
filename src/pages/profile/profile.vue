@@ -554,7 +554,7 @@ page {
   background-color: black;
   width: 100vw;
   height: 100vh;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/bg.jpg") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/profile/bg.jpg") top center no-repeat;
   background-size: cover;
   overflow: hidden;
   // padding-top: 100rpx;
