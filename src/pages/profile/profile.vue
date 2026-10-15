@@ -94,7 +94,7 @@ const experienceCount = computed(() => {
     profile.value.photo_time,
     profile.value.music_time,
     profile.value.latest_car_time,
-    profile.value.latest_tennis_time,
+    // profile.value.latest_tennis_time,
     profile.value.cinema_time
     // profile.value.helly_hansen_time
   ]
@@ -469,7 +469,7 @@ function switchLanguage() {
     <view v-if="systemStore.system_config!.language=='en'" class="experience-label"></view>
     <view v-else class="experience-label-cn"></view>
     <view class="experience-count">
-      {{ experienceCount }} / 5
+      {{ experienceCount }} / 4
     </view>
   </view>
 
@@ -852,16 +852,16 @@ page {
           height: 960rpx;
           .prize-content {
             margin: 0 auto 150rpx;
-            width: 539rpx;
-            height: 1644rpx;
-            background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/profile/ruler-prize.png") top center no-repeat;
+            width: 556rpx;
+            height: 1651rpx;
+            background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/profile/ruler-prize.png") top center no-repeat;
             background-size: 100% 100%;
           }
           .prize-content-cn {
             margin: 0 auto 150rpx;
             width: 539rpx;
-            height: 1232rpx;
-            background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/profile/礼品兑换机制.png") top center no-repeat;
+            height: 1198rpx;
+            background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/profile/礼品兑换机制.png") top center no-repeat;
             background-size: 100% 100%;
           }
         }

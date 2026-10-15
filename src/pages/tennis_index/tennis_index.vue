@@ -52,7 +52,7 @@ page {
   background-color: black;
   width: 100vw;
   height: 100vh;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_index/bg.jpg") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/tennis_index/bg.jpg") top center no-repeat;
   background-size: cover;
   overflow: hidden;
   padding-top: 100rpx;
@@ -81,7 +81,7 @@ page {
   margin-left: 30rpx;
   width: 607rpx;
   height: 247rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_index/content.png") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/tennis_index/content.png") top center no-repeat;
   background-size: 100% 100%;
 }
 .index-content-cn {
@@ -90,7 +90,7 @@ page {
   margin-left: 30rpx;
   width: 662rpx;
   height: 250rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_index/标题.png") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/tennis_index/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
 
