@@ -31,6 +31,30 @@
 			}
 		},
 		{
+			"path": "pages/information_desk/information_desk",
+			"style": {
+				"navigationBarTitleText": "AUDI 热爱嘉年华"
+			}
+		},
+		{
+			"path": "pages/social_hub/social_hub",
+			"style": {
+				"navigationBarTitleText": "AUDI 热爱嘉年华"
+			}
+		},
+		{
+			"path": "pages/vibe_lounge/vibe_lounge",
+			"style": {
+				"navigationBarTitleText": "AUDI 热爱嘉年华"
+			}
+		},
+		{
+			"path": "pages/icon_stage/icon_stage",
+			"style": {
+				"navigationBarTitleText": "AUDI 热爱嘉年华"
+			}
+		},
+		{
 			"path": "pages/audi_vision_index/audi_vision_index",
 			"style": {
 				"navigationBarTitleText": "AUDI 热爱嘉年华"
