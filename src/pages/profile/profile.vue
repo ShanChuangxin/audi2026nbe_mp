@@ -852,8 +852,8 @@ page {
           height: 960rpx;
           .prize-content {
             margin: 0 auto 150rpx;
-            width: 556rpx;
-            height: 1651rpx;
+            width: 539rpx;
+            height: 1644rpx;
             background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/profile/ruler-prize.png") top center no-repeat;
             background-size: 100% 100%;
           }

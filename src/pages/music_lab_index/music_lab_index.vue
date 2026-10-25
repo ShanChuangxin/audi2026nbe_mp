@@ -9,24 +9,43 @@ const mySystem = useSystemStore(); // 主要用于切换语言
 
 function navitateToMP() {
   console.log("跳转到其它小程序页面")
-  // #ifdef MP-WEIXIN
-  wx.openOfficialAccountArticle({
-  // wx.openChannelsActivity({
-    url: 'https://mp.weixin.qq.com/s/E7VYbkpO0o9vjsz0vNGWlA',
-    // finderUserName: 'sphm7yTMygxxmmL',
-    // feedId: 'export/UzFfBgAAxMenZBINcV-KjMzT4DCa0eH4Juzx2YfrJ3VfIpEnOA',
-    success(res) {
-      console.log('文章打开成功', res)
+  
+  uni.navigateToMiniProgram({
+    appId: 'wx9f6d1b176ada6a84',
+    path: 'pages/home/index?reference=NBE',
+    extraData: {
+      id: 0,
+      source: 'nbeMiniProgram'
     },
-    fail(err) {
-      console.log('文章打开失败', err)
-      // uni.showToast({
-      //   title: '文章打开失败',
-      //   icon: 'none'
-      // })
+    envVersion: 'release',
+
+    success: (res) => {
+      console.log('跳转成功', res)
+    },
+
+    fail: (err) => {
+      console.error('跳转失败', err)
     }
   })
-  // #endif
+
+  // // #ifdef MP-WEIXIN
+  // wx.openOfficialAccountArticle({
+  // // wx.openChannelsActivity({
+  //   url: 'https://mp.weixin.qq.com/s/E7VYbkpO0o9vjsz0vNGWlA',
+  //   // finderUserName: 'sphm7yTMygxxmmL',
+  //   // feedId: 'export/UzFfBgAAxMenZBINcV-KjMzT4DCa0eH4Juzx2YfrJ3VfIpEnOA',
+  //   success(res) {
+  //     console.log('文章打开成功', res)
+  //   },
+  //   fail(err) {
+  //     console.log('文章打开失败', err)
+  //     // uni.showToast({
+  //     //   title: '文章打开失败',
+  //     //   icon: 'none'
+  //     // })
+  //   }
+  // })
+  // // #endif
 }
 
 function navitateToHome() {
