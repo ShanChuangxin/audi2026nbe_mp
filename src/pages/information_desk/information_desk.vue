@@ -46,12 +46,12 @@ function switchLanguage() {
 <template>
   <image v-if="mySystem.system_config.language=='en'" 
     class="page-bg"
-    src="https://www.mbcstyle.cn/projects/static/audi2026wuhan/information_desk/bg.jpg"
+    src="https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/bg.jpg"
     mode="widthFix"
   />
   <image v-else
     class="page-bg"
-    src="https://www.mbcstyle.cn/projects/static/audi2026wuhan/information_desk/bg-cn.jpg"
+    src="https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/bg-cn.jpg"
     mode="widthFix"
   />
   <view class="top-container">
@@ -125,7 +125,7 @@ page {
   margin-left: 30rpx;
   width: 592rpx;
   height: 232rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/information_desk/title.png") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/title.png") top center no-repeat;
   background-size: 100% 100%;
 }
 .index-content-cn {
@@ -134,7 +134,7 @@ page {
   margin-left: 30rpx;
   width: 592rpx;
   height: 213rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/information_desk/标题.png") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/标题.png") top center no-repeat;
   background-size: 100% 100%;
 }
 
@@ -145,7 +145,7 @@ page {
   transform: translateX(-50%);
   width: 337rpx;
   height: 80rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/information_desk/btn-sph.png") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/btn-sph.png") top center no-repeat;
   background-size: 100% 100%;
 }
 .navigate-to-mp-cn {
@@ -155,7 +155,7 @@ page {
   transform: translateX(-50%);
   width: 203rpx;
   height: 80rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/information_desk/按钮-跳转视频号.png") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/按钮-跳转视频号.png") top center no-repeat;
   background-size: 100% 100%;
 }
 
@@ -165,8 +165,8 @@ page {
   margin-left: 50%;
   transform: translateX(-50%);
   width: 638rpx;
-  height: 1698rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/information_desk/rules.png") top center no-repeat;
+  height: 2003rpx;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/rules.png") top center no-repeat;
   background-size: 100% 100%;
 }
 .gift-ruler-cn {
@@ -174,9 +174,9 @@ page {
   top: 1558rpx;
   margin-left: 50%;
   transform: translateX(-50%);
-  width: 546rpx;
-  height: 1392rpx;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/information_desk/规则.png") top center no-repeat;
+  width: 603rpx;
+  height: 1261rpx;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/规则.png") top center no-repeat;
   background-size: 100% 100%;
 }
 
@@ -210,7 +210,7 @@ page {
   justify-content: flex-start;
   align-items: center;
   .btn-home {
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/btn-home.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/btn-home.png") top center no-repeat;
     background-size: 100% 100%;
     width: 85rpx;
     height: 24rpx;
@@ -280,7 +280,7 @@ page {
   justify-content: flex-start;
   align-items: center;
   .btn-home-cn {
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/music_lab_index/主页按钮.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/information_desk/按钮-主页.png") top center no-repeat;
     background-size: 100% 100%;
     width: 61rpx;
     height: 30rpx;

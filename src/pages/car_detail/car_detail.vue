@@ -125,8 +125,8 @@ function getRankTabImage(type: 'today' | 'city') {
     }
 
     return isActive
-      ? 'https://www.mbcstyle.cn/projects/static/audi2026wuhan/car_detail/tab-city-selected.png'
-      : 'https://www.mbcstyle.cn/projects/static/audi2026wuhan/car_detail/tab-city-default.png';
+      ? 'https://www.mbcstyle.cn/projects/static/audi2026shanghai/car_detail/tab-city-selected.png'
+      : 'https://www.mbcstyle.cn/projects/static/audi2026shanghai/car_detail/tab-city-default.png';
   }
 
   if (type === 'today') {
@@ -136,8 +136,8 @@ function getRankTabImage(type: 'today' | 'city') {
   }
 
   return isActive
-    ? 'https://www.mbcstyle.cn/projects/static/audi2026wuhan/car_detail/分页-城市榜-已选中.png'
-    : 'https://www.mbcstyle.cn/projects/static/audi2026wuhan/car_detail/分页-城市榜-未选中.png';
+    ? 'https://www.mbcstyle.cn/projects/static/audi2026shanghai/car_detail/分页-城市榜-已选中.png'
+    : 'https://www.mbcstyle.cn/projects/static/audi2026shanghai/car_detail/分页-城市榜-未选中.png';
 }
 
 // 页面显示
@@ -552,12 +552,12 @@ page {
       }
     }
 
-    // 武汉 / Wuhan
+    // 上海 / Shanghai
     .rank-tab-city {
       &.en {
         image {
-          width: 104rpx;
-          height: 25rpx;
+          width: 135rpx;
+          height: 32rpx;
         }
       }
 

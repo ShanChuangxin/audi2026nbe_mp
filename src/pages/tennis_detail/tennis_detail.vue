@@ -460,6 +460,7 @@ page {
 
 .top-container,
 .score-container,
+.highlight-container,
 .leaderboard-container,
 .btn-container {
   position: relative;
@@ -568,7 +569,7 @@ page {
   }
 }
 .highlight-container {
-  margin: 50rpx auto 0;
+  margin: 80rpx auto 0;
   width: 90%;
   // height: 332rpx;
   .highlight-label {
@@ -586,10 +587,10 @@ page {
     height: 38rpx;
   }
   .no-highlight {
-    background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/tennis_detail/no-highlight.png") top center no-repeat;
+    background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/tennis_detail/no-highlight.png") top center no-repeat;
     background-size: 100% 100%;
-    width: 114rpx;
-    height: 31rpx;
+    width: 189rpx;
+    height: 32rpx;
   }
   .no-highlight-cn {
     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/cn/tennis_detail/无体验记录.png") top center no-repeat;
@@ -618,7 +619,7 @@ page {
 }
 
 .leaderboard-container {
-  margin: 50rpx auto 0;
+  margin: 80rpx auto 0;
   width: 90%;
 
   .leaderboard-label {

@@ -52,7 +52,7 @@ page {
   background-color: black;
   width: 100vw;
   height: 100vh;
-  background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/tennis_index/bg.jpg") top center no-repeat;
+  background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/tennis_index/bg.jpg") top center no-repeat;
   background-size: cover;
   overflow: hidden;
   padding-top: 100rpx;
