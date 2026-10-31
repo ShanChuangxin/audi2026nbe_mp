@@ -8,14 +8,14 @@ import { useMyStore, useSystemStore } from '@/stores'
 import type { UserInfoType } from '@/types/user_info'
 import { getOpenIdAPI, getUserInfoAPI } from '@/services/login'
 
-const currentCity = "wuhan";
+const currentCity = "shanghai";
 
 // 持久化存储
 const myStore = useMyStore();
 const systemStore = useSystemStore();
 // 更新城市
 onLoad(() => {
-    systemStore.updateCity("wuhan")
+    systemStore.updateCity("shanghai")
     console.log(
         "当前系统配置:",
         systemStore.system_config
@@ -352,7 +352,7 @@ function navigateToMapPage() {
             margin: 0 auto 150rpx;
             width: 505rpx;
             height: 14185rpx;
-            background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/index/privacy.png") top center no-repeat;
+            background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/index/privacy.png") top center no-repeat;
             background-size: 100% 100%;
           }
         }

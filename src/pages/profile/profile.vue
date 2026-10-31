@@ -469,7 +469,7 @@ function switchLanguage() {
     <view v-if="systemStore.system_config!.language=='en'" class="experience-label"></view>
     <view v-else class="experience-label-cn"></view>
     <view class="experience-count">
-      {{ experienceCount }} / 4
+      {{ experienceCount }} / 5
     </view>
   </view>
 
@@ -852,16 +852,16 @@ page {
           height: 960rpx;
           .prize-content {
             margin: 0 auto 150rpx;
-            width: 539rpx;
-            height: 1644rpx;
-            background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/profile/ruler-prize.png") top center no-repeat;
+            width: 556rpx;
+            height: 1923rpx;
+            background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/profile/ruler-prize.png") top center no-repeat;
             background-size: 100% 100%;
           }
           .prize-content-cn {
             margin: 0 auto 150rpx;
-            width: 539rpx;
-            height: 1198rpx;
-            background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/profile/礼品兑换机制.png") top center no-repeat;
+            width: 553rpx;
+            height: 1199rpx;
+            background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/profile/礼品兑换机制.png") top center no-repeat;
             background-size: 100% 100%;
           }
         }
