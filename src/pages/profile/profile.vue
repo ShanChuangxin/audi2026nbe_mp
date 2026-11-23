@@ -94,7 +94,7 @@ const experienceCount = computed(() => {
     profile.value.photo_time,
     profile.value.music_time,
     profile.value.latest_car_time,
-    // profile.value.latest_tennis_time,
+    profile.value.latest_tennis_time,
     profile.value.cinema_time
     // profile.value.helly_hansen_time
   ]

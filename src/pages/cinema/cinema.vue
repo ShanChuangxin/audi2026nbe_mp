@@ -203,8 +203,8 @@ page {
         .privacy-content {
           margin: 0 auto 150rpx;
           width: 506rpx;
-          height: 5252rpx;
-          background: url("https://www.mbcstyle.cn/projects/static/audi2026wuhan/cinema/privacy.png") top center no-repeat;
+          height: 5521rpx;
+          background: url("https://www.mbcstyle.cn/projects/static/audi2026shanghai/cinema/privacy.png") top center no-repeat;
           background-size: 100% 100%;
         }
       }

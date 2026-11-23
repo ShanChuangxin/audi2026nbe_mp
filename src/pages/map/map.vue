@@ -784,7 +784,7 @@ function navigateToMyPage() {
 
     .btn-container {
       position: absolute;
-      bottom: 100rpx;
+      bottom: 80rpx;
       margin-left: 50%;
       transform: translateX(-50%);
       // background-color: pink;

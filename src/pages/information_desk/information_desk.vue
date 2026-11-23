@@ -201,7 +201,7 @@ page {
 
 .btn-container {
   position: absolute;
-  top: 3529rpx;
+  top: 3967rpx;
   margin-left: 50%;
   transform: translateX(-50%);
   // background-color: pink;
@@ -216,59 +216,7 @@ page {
     height: 24rpx;
   }
 }
-// .btn-container {
-//   position: fixed;
-//   bottom: 0;
-//   left: 50%;
-//   transform: translateX(-50%);
 
-//   width: 90%;
-//   padding-top: 70rpx;
-//   padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
-//   box-sizing: border-box;
-
-//   display: flex;
-//   justify-content: flex-start;
-//   align-items: center;
-
-//   z-index: 100;
-
-//   // 底部黑色渐变遮罩
-//   &::before {
-//     content: "";
-//     position: absolute;
-
-//     // 遮罩左右铺满整个屏幕
-//     left: -50vw;
-//     right: -50vw;
-
-//     // 增加渐变高度，让上方过渡更自然
-//     top: -60rpx;
-//     bottom: 0;
-
-//     // 从透明、柔和变暗，到底部适度变暗
-//     background: linear-gradient(
-//       to bottom,
-//       rgba(0, 0, 0, 0) 0%,
-//       rgba(0, 0, 0, 0.02) 15%,
-//       rgba(0, 0, 0, 0.3) 35%,
-//       rgba(0, 0, 0, 0.5) 60%,
-//       rgba(0, 0, 0, 0.9) 80%,
-//       rgba(0, 0, 0, 1) 100%
-//     );
-
-//     pointer-events: none;
-//     z-index: -1;
-//   }
-
-//   .btn-home {
-//     position: relative;
-//     background: url("https://www.mbcstyle.cn/projects/static/audi2026nbe/music_lab_index/btn-home.png") top center no-repeat;
-//     background-size: 100% 100%;
-//     width: 85rpx;
-//     height: 24rpx;
-//   }
-// }
 .btn-container-cn {
   position: absolute;
   top: 3239rpx;
