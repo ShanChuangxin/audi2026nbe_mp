@@ -8,14 +8,14 @@ import { useMyStore, useSystemStore } from '@/stores'
 import type { UserInfoType } from '@/types/user_info'
 import { getOpenIdAPI, getUserInfoAPI } from '@/services/login'
 
-const currentCity = "shanghai";
+const currentCity = "chengdu";
 
 // 持久化存储
 const myStore = useMyStore();
 const systemStore = useSystemStore();
 // 更新城市
 onLoad(() => {
-    systemStore.updateCity("shanghai")
+    systemStore.updateCity("chengdu")
     console.log(
         "当前系统配置:",
         systemStore.system_config
